@@ -742,7 +742,7 @@ function CQgetDate(hdr,headerDate) {
 }
 
 function decodeCustomizedDateSender(date) {
-	var d = date.match(/\d\d?/);
+	var d = parseInt(date.match(/\d\d?/));
 	var e = d<10 ? " "+d : d;
 	d = d<10 ? "0"+d : d;
 	var M = date.split(" ")[2];
