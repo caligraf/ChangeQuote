@@ -741,11 +741,18 @@ function CQgetDate(hdr,headerDate) {
 	}
 }
 
+// Assume date is of format "mon, 6 aug 2018 20:19:19 +0100"
 function decodeCustomizedDateSender(date) {
 	var d = parseInt(date.match(/\d\d?/));
 	var e = d<10 ? " "+d : d;
 	d = d<10 ? "0"+d : d;
-	var M = date.split(" ")[2];
+	var D = date.substring(0,3);
+	// Sometimes date is of format "6 aug 2018 20:19:19 +0100":
+	// Set missing day offset
+	var mdo = 0;
+	if (D.match(/\w{3}/) == null)
+		mdo = -1;
+	var M = date.split(" ")[2 + mdo];
 	switch(M) {
 		case "jan":
 			var m = "01";
@@ -787,8 +794,12 @@ function decodeCustomizedDateSender(date) {
 			var m = " ";
 	}
 	M = M.substring(0,1).toUpperCase()+M.substring(1);
-	var D = date.substring(0,3);
-	var Y = date.split(" ")[3];
+	var Y = date.split(" ")[3 + mdo];
+	if (mdo != 0) {
+		var tmpDate = new Date(Y+"-"+m+"-"+d);
+		var days = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
+		date = days[tmpDate.getDay()] + ", " + date;
+	}
 	var i = date.split(" ")[4].split(":")[1];
 	var s = date.split(" ")[4].split(":")[2];
 	var H = date.split(" ")[4].split(":")[0];
