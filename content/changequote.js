@@ -743,6 +743,8 @@ function CQgetDate(hdr,headerDate) {
 
 // Assume date is of format "mon, 6 aug 2018 20:19:19 +0100"
 function decodeCustomizedDateSender(date) {
+	// Sometimes date has several spaces between day string and day number
+	date = date.replace(/ +/, " ");
 	var d = parseInt(date.match(/\d\d?/));
 	var e = d<10 ? " "+d : d;
 	d = d<10 ? "0"+d : d;
