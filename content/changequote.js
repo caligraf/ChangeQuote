@@ -34,31 +34,11 @@ function CQGetFirstSelectedMessage() {
 	return msgs;	
 }
 
-// If the compose window is not recycled, we need a longer delay to reset the pref about
-// the inline attachments, on my slow system I need 4 sec, I hope you've not a slower system...
-/*function preRestoreInline() {
-	window.setTimeout(restoreInline, 1500);
-	function restoreInline() {
-		var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
-                   .getService(Components.interfaces.nsIWindowMediator);
-		var win = wm.getMostRecentWindow("msgcompose");
-		if (win.recycledWindow)
-			CQprefs.setBoolPref("mail.inline_attachments", true);
-		else
-			window.setTimeout(function() {CQprefs.setBoolPref("mail.inline_attachments", true);}, 2500);
-	}
-}*/
-
 function CQnoReplyTo(event) {
 	event.stopPropagation();
 	CQprefs.setBoolPref("changequote.headers.ignore_reply_to", true);
 	MsgReplyMessage(event);
 }
-
-/*function disableInline() {
-	CQprefs.setBoolPref("mail.inline_attachments", false);
-	CQinlineImages = 1;
-}*/
 
 function isNews() {
 	try {
@@ -308,10 +288,6 @@ function reverseAutoQuote() {
 
 function replyHTML(event,reversequote) {
 	event.stopPropagation();
-	/*var CQmail_inline_attach = CQprefs.getBoolPref("mail.inline_attachments");
-	var CQreply_without_attach = CQprefs.getBoolPref("changequote.reply.without_inline_images");
-	if (CQmail_inline_attach && CQreply_without_attach)
-		disableInline();*/
 	var isNNTP = isNews();
 	if (isNNTP)
 		var compType = CQmsgComposeType.ReplyToGroup;
@@ -320,8 +296,6 @@ function replyHTML(event,reversequote) {
 	if (reversequote)
 		reverseAutoQuote();
 	CQcomposeMessage(compType,1,isNNTP);
-	// if (CQinlineImages == 1)
-	//	 preRestoreInline();
 }
 
 function replyText(event,reversequote) {
@@ -338,16 +312,10 @@ function replyText(event,reversequote) {
 
 function replyAllHTML(event,reversequote) {
 	event.stopPropagation();
-	/* var CQmail_inline_attach = CQprefs.getBoolPref("mail.inline_attachments");
-	var CQreply_without_attach = CQprefs.getBoolPref("changequote.reply.without_inline_images");
-	if (CQmail_inline_attach && CQreply_without_attach)
-		disableInline();*/
 	var isNNTP = isNews();
 	if (reversequote)
 		reverseAutoQuote();
 	CQcomposeMessage(CQmsgComposeType.ReplyAll,1,isNNTP);
-	// if (CQinlineImages == 1)
-	//	 preRestoreInline();
 }
 
 function replyAllText(event,reversequote) {
@@ -376,10 +344,6 @@ if (String.trim && typeof MsgReplyToListMessageORIG == "undefined" && typeof Msg
 
 
 function MsgReplySender(event) {
-	/*var CQmail_inline_attach = CQprefs.getBoolPref("mail.inline_attachments");
-	var CQreply_without_attach = CQprefs.getBoolPref("changequote.reply.without_inline_images");
-	if (CQmail_inline_attach && CQreply_without_attach)
-		disableInline();*/
 	
 	var CQreplyformat = CQprefs.getBoolPref("changequote.replyformat.enable");
 	// Choose the format of reply: clone the format of the mail?
@@ -392,15 +356,9 @@ function MsgReplySender(event) {
 		else
 			CQcomposeMessage(CQmsgComposeType.ReplyToSender,CQmsgComposeFormat.Default,false);
 	}
-	// if (CQinlineImages == 1)
-	//	 preRestoreInline();
 }
 
 function MsgReplyToAllMessage(event){
-	/*var CQmail_inline_attach = CQprefs.getBoolPref("mail.inline_attachments");
-	var CQreply_without_attach = CQprefs.getBoolPref("changequote.reply.without_inline_images");
-	if (CQmail_inline_attach && CQreply_without_attach)
-		disableInline();*/
 	
 	var CQreplyformat = CQprefs.getBoolPref("changequote.replyformat.enable");	
 	if (CQreplyformat) 
@@ -412,8 +370,6 @@ function MsgReplyToAllMessage(event){
 		else
 			CQcomposeMessage(CQmsgComposeType.ReplyAll,CQmsgComposeFormat.Default,false);
 	}
-	// if (CQinlineImages == 1)
-	//	 preRestoreInline();
 }
 
 function QuoteSelectedMessage() {
@@ -438,10 +394,6 @@ function QuoteSelectedMessage() {
 }
 
 function MsgReplyGroup(event) {
-	/*var CQmail_inline_attach = CQprefs.getBoolPref("mail.inline_attachments");
-	var CQreply_without_attach = CQprefs.getBoolPref("changequote.reply.without_inline_images");
-	if (CQmail_inline_attach && CQreply_without_attach)
-		disableInline();*/
 	if (event && event.shiftKey)
 		CQcomposeMessage(CQmsgComposeType.ReplyToGroup,CQmsgComposeFormat.OppositeOfDefault,true);
 	else
@@ -626,7 +578,7 @@ function loadHeader(email, custom, isNNTP,cite) {
 			str.data = realnewhdr;
 		else
 			str.data = realnewhdr+"\n";
-		CQprefs.setComplexValue("mailnews.reply_header_authorwrotesingle", Components.interfaces.nsISupportsString, str);	
+        CQprefs.setStringPref("mailnews.reply_header_authorwrotesingle", str);
 	}
 	else {
 		if (custom && ! CQprefs.getBoolPref("changequote.headers.add_newline", ""))
@@ -634,7 +586,7 @@ function loadHeader(email, custom, isNNTP,cite) {
 		else
 			CQprefs.setCharPref("mailnews.reply_header_colon", "\n");
 		str.data = realnewhdr;
-		CQprefs.setComplexValue("mailnews.reply_header_authorwrote", Components.interfaces.nsISupportsString, str);
+        CQprefs.setStringPref("mailnews.reply_header_authorwrotesingle", str);
 	}
 
 	closeWindowOrMarkReadAfterReply(email);
@@ -782,11 +734,9 @@ function CQgetDate(hdr,headerDate) {
 		return datestring;
 	}
 	else {
-		var dateFormater = Components.classes["@mozilla.org/intl/scriptabledateformat;1"]
-			.getService(Components.interfaces.nsIScriptableDateFormat);
-		var formDate = dateFormater.FormatDateTime ("", 2 , 2 , date.getFullYear(),date.getMonth()+1,date.getDate() , date.getHours() , date.getMinutes() ,0 );
-		formDate = formDate.replace(/ +$/, "");
-		return formDate;
+       var formDate = new Services.intl.DateTimeFormat().format(date)
+	   formDate = formDate.replace(/ +$/, "");
+	   return formDate;
 	}
 }
 
@@ -887,10 +837,6 @@ function decodeCustomizedDate(date) {
 	var z = date.toString().split(" ")[5];
 	z = z.replace(/[a-zA-Z]+/, "");
 	z = z.substring(0,5);
-	/*var zo = date.getTimezoneOffset();
-	var zs = zo<=0 ? '+' : '-', za = Math.abs(zo);
-	var zh = za / 60, zm = za % 60;
-	var z = zs + (zh<=9 ? '0'+zh : zh) + (zm<=9 ? '0'+zm : zm);*/
 	var str = CQprefs.getCharPref("changequote.headers.date_custom_format");
 	H = H<10 ? "0"+H : H;
 	h = h<10 ? "0"+h : h;
@@ -913,10 +859,9 @@ function decodeCustomizedDate(date) {
 
 function getCustomizedHeader(sender,recipient,cclist,subject,hdr,headerDate,isNNTP) {
 	if (isNNTP)
-		var ch = CQprefs.getComplexValue("changequote.headers.news.customized", Components.interfaces.nsISupportsString).data;
+		var ch = CQprefs.getStringPref("changequote.headers.news.customized").data;
 	else
-		var ch = CQprefs.getComplexValue("changequote.headers.customized",
-Components.interfaces.nsISupportsString).data;
+		var ch = CQprefs.getStringPref("changequote.headers.customized").data;
 	if (cclist == "")
 		cclist ="§§§§";
 	else
@@ -964,8 +909,7 @@ function CQcapitalize(val) {
         var newVal = "";
         val = val.split(' ');
         for(var c=0; c < val.length; c++) {
-                newVal += val[c].substring(0,1).toUpperCase() +
-val[c].substring(1,val[c].length) + ' ';
+                newVal += val[c].substring(0,1).toUpperCase() + val[c].substring(1,val[c].length) + ' ';
         }
         return newVal;
 }

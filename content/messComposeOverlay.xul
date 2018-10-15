@@ -26,11 +26,11 @@ ComposeStartup = function (recycled, aParams) {
 			var pref = "mailnews.reply_header_authorwrotesingle";
 		else
 			var pref = "mailnews.reply_header_authorwrote";
-		CQcomposeHeader = CQprefs.getComplexValue(pref,Components.interfaces.nsISupportsString).data;
+		CQcomposeHeader = CQprefs.getStringPref(pref).data;
 		if (par.format == 2 || (par.format == 0 && ! html) ||  (par.format == 3 && html) ) {
 			var str = Components.classes["@mozilla.org/supports-string;1"].createInstance(Components.interfaces.nsISupportsString);
 			str.data = CQcomposeHeader.replace(/\(\[\[\).+?\(\]\]\)/g,"");
-			CQprefs.setComplexValue(pref, Components.interfaces.nsISupportsString, str);
+			CQprefs.setStringPref(pref, str);
 		}
 	}
 	catch(e) {};

@@ -29,12 +29,12 @@
 
 	document.getElementById("CQnewsCheckbox").checked = prefs.getBoolPref("changequote.set.headers.news");
 
-	var head = prefs.getComplexValue("changequote.headers.customized", Components.interfaces.nsISupportsString).data;
+	var head = prefs.getStringPref("changequote.headers.customized").data;
 	head = head.replace(/\[\[/g, "<");
 	head = head.replace(/\]\]/g, ">");
 	document.getElementById("CHbox").value = head;
 
-	head = prefs.getComplexValue("changequote.headers.news.customized", Components.interfaces.nsISupportsString).data;
+	head = prefs.getStringPref("changequote.headers.news.customized").data;
 	head = head.replace(/\[\[/g, "<");
 	head = head.replace(/\]\]/g, ">");	
 	document.getElementById("CHbox-news").value = head;
@@ -84,13 +84,13 @@ function CQprefsOut()  {
 	if (document.getElementById("CQhtml_support").checked) 
 		head = head.replace(/<([^>]+)>/g, "[[$1]]");
 	str.data  = head;
-	prefs.setComplexValue("changequote.headers.customized", Components.interfaces.nsISupportsString, str);
+	prefs.setStringPref("changequote.headers.customized", str);
 	
 	head = document.getElementById("CHbox-news").value;
 	if (document.getElementById("CQhtml_news_support").checked) 
 		head = head.replace(/<([^>]+)>/g, "[[$1]]");
 	str.data  = head;
-	prefs.setComplexValue("changequote.headers.news.customized", Components.interfaces.nsISupportsString, str);
+	prefs.setStringPref("changequote.headers.news.customized", str);
 
 	prefs.setCharPref("changequote.headers.date_custom_format", document.getElementById("dateCustomBox").value);
 	prefs.setCharPref("changequote.headers.dateSender_custom_format", document.getElementById("dateCustomBoxUTC").value);
