@@ -1,0 +1,21 @@
+
+overlay	chrome://messenger/content/messenger.xul	chrome://changequote/content/mainwindowOverlay.xul
+overlay	chrome://messenger/content/mailWindowOverlay.xul	chrome://changequote/content/changequote.xul
+overlay	chrome://messenger/content/messengercompose/messengercompose.xul	chrome://changequote/content/messComposeOverlay.xul
+
+content	changequote	jar:chrome/changequote.jar!/content/changequote/
+
+locale	changequote	en-US	jar:chrome/changequote.jar!/locale/en-US/changequote/
+locale	changequote     it   jar:chrome/changequote.jar!/locale/it/changequote/
+locale	changequote     fi   jar:chrome/changequote.jar!/locale/fi/changequote/
+locale	changequote     fr   jar:chrome/changequote.jar!/locale/fr/changequote/
+locale	changequote     de	jar:chrome/changequote.jar!/locale/de/changequote/
+locale	changequote     pt-BR   jar:chrome/changequote.jar!/locale/pt-BR/changequote/
+locale	changequote     ru	jar:chrome/changequote.jar!/locale/ru/changequote/
+locale	changequote	nl	jar:chrome/changequote.jar!/locale/nl/changequote/
+locale	changequote	ja	jar:chrome/changequote.jar!/locale/ja/changequote/
+locale	changequote     sr	jar:chrome/changequote.jar!/locale/sr/changequote/
+locale	changequote     sv-SE	jar:chrome/changequote.jar!/locale/sv-SE/changequote/
+locale	changequote     zh-CN	jar:chrome/changequote.jar!/locale/zh-CN/changequote/
+locale	changequote     sk-SK	jar:chrome/changequote.jar!/locale/sk-SK/changequote/
+

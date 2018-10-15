@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<overlay id="CQoverlay2"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+<script type="application/x-javascript" src="chrome://changequote/content/changequote.js" />
+<script type="application/x-javascript">
+<![CDATA[
+	window.addEventListener("load", CQaddListener, false);
+	window.addEventListener("unload", standardHeader, false);
+]]>
+</script>
+
+</overlay>
