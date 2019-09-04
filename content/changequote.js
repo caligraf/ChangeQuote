@@ -6,6 +6,7 @@ var CQinlineImages = 0;
 var CQmsgComposeType = Components.interfaces.nsIMsgCompType;
 var CQmsgComposeFormat = Components.interfaces.nsIMsgCompFormat;
 
+var {MailUtils} = ChromeUtils.import("resource:///modules/MailUtils.jsm");
 // values for "changequote.headers.type":
 // 0 = extended headers
 // 1 = standard headers
@@ -124,7 +125,7 @@ function CQgetCurrentIdentity() {
 		identity = getIdentityForServer(server, hintForIdentity);
 	if (!identity)  {
 		var allIdentities = accountManager.allIdentities;
-		identity = getBestIdentity(allIdentities, hintForIdentity);
+		identity = MailUtils.getBestIdentity(allIdentities, hintForIdentity);
 	}	
 	return identity;
 }
@@ -859,9 +860,9 @@ function decodeCustomizedDate(date) {
 
 function getCustomizedHeader(sender,recipient,cclist,subject,hdr,headerDate,isNNTP) {
 	if (isNNTP)
-		var ch = CQprefs.getStringPref("changequote.headers.news.customized").data;
+		var ch = CQprefs.getStringPref("changequote.headers.news.customized");
 	else
-		var ch = CQprefs.getStringPref("changequote.headers.customized").data;
+		var ch = CQprefs.getStringPref("changequote.headers.customized");
 	if (cclist == "")
 		cclist ="§§§§";
 	else

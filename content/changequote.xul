@@ -4,10 +4,13 @@
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
 <script type="application/x-javascript" src="chrome://changequote/content/changequote.js" />
-<script type="application/x-javascript" src="chrome://changequote/content/common.js" />
-<script type="application/x-javascript" src="chrome://messenger/content/messenger.js" />
 <script type="application/x-javascript" src="chrome://messenger/content/dateFormat.js" />
-<script type="application/x-javascript" src="chrome://messenger/content/messenger/MsgComposeCommands.js" />
+<script type="application/x-javascript">
+<![CDATA[
+	window.addEventListener("load", CQaddListener, false);
+	window.addEventListener("unload", standardHeader, false);
+]]>
+</script>
 
 <toolbarbutton id="button-reply" type="menu-button" oncommand="MsgReplyMessage(event);">
 		<menupopup onpopupshowing="CQsetReverseLabel()">

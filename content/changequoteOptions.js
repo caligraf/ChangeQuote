@@ -29,12 +29,12 @@
 
 	document.getElementById("CQnewsCheckbox").checked = prefs.getBoolPref("changequote.set.headers.news");
 
-	var head = prefs.getStringPref("changequote.headers.customized").data;
+	var head = prefs.getStringPref("changequote.headers.customized");
 	head = head.replace(/\[\[/g, "<");
 	head = head.replace(/\]\]/g, ">");
 	document.getElementById("CHbox").value = head;
 
-	head = prefs.getStringPref("changequote.headers.news.customized").data;
+	head = prefs.getStringPref("changequote.headers.news.customized");
 	head = head.replace(/\[\[/g, "<");
 	head = head.replace(/\]\]/g, ">");	
 	document.getElementById("CHbox-news").value = head;
@@ -51,6 +51,7 @@
 	checkboxcheck3();
 }
 
+document.addEventListener("dialogaccept", CQprefsOut );
   
 function CQprefsOut()  {
 	var prefs = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefBranch);

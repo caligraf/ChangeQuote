@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
-<!DOCTYPE overlay SYSTEM "chrome://changequote/locale/changequote.dtd">
 <?xml-stylesheet href="chrome://communicator/skin/" type="text/css"?>
+<?xml-stylesheet type="text/css" href="chrome://messenger/skin/messenger.css"?>
+<!DOCTYPE overlay SYSTEM "chrome://changequote/locale/changequote.dtd">
 <dialog xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
 	onload="CQprefsIn();"
         buttons="accept, cancel"
-        ondialogaccept="CQprefsOut();"
         title="Change Quote and Reply Format">
   <script type="application/x-javascript" src="chrome://changequote/content/changequoteOptions.js" />
   <script type="application/x-javascript" src="chrome://changequote/content/changequote.js" />
