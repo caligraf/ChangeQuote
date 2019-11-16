@@ -122,7 +122,7 @@ function CQgetCurrentIdentity() {
 	}
 	catch(e) {}
 	if (server && !identity) 
-		identity = getIdentityForServer(server, hintForIdentity);
+		identity = MailUtils.getIdentityForServer(server, hintForIdentity);
 	if (!identity)  {
 		var allIdentities = accountManager.allIdentities;
 		identity = MailUtils.getBestIdentity(allIdentities, hintForIdentity);
