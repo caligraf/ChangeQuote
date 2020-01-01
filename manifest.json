@@ -8,7 +8,7 @@
     },
     "name": "changeQuote",
     "description": "Change the reply header and the reply format",
-    "version": "1.0",
+    "version": "1.1",
     "homepage_url": "https://github.com/caligraf/ChangeQuote/wiki",
     "icons": {
 		"32": "icon/icon32x32.png"
