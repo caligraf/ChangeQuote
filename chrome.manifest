@@ -1,5 +1,6 @@
 overlay	chrome://messenger/content/messenger.xul chrome://changequote/content/changequote.xul
 overlay	chrome://messenger/content/messengercompose/messengercompose.xul chrome://changequote/content/messComposeOverlay.xul
+overlay chrome://messenger/content/messageWindow.xul chrome://changequote/content/messComposeOverlay.xul
 
 content	changequote	content/
 icon	changequote	classic/1.0	icon/
