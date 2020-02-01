@@ -908,7 +908,7 @@ function getCustomizedHeader(sender,recipient,cclist,subject,hdr,headerDate,isNN
 	ch = ch.replace("%%9", cclist_nomail);
 
 	 if (cclist == "§§§§" ||  subject == "§§§§" || recipient == "§§§§" || sender == "§§§§") {
-                ch = ch.replace(/\{\{.*§§§§.*\}\}/g, "§§§§");
+                ch = ch.replace(/\{\{[^\{\}]*§§§§[^\{\}]*\}\}/g, "§§§§");
                 ch = ch.replace(/(\n§§§§\n)*§§§§$/g, "");
                 ch = ch.replace(/\n§§§§\n/g, "\n");
                 ch = ch.replace(/§§§§/g, "");
