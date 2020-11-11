@@ -1,3 +1,6 @@
+// Import any needed modules.
+var { Services } = ChromeUtils.import("resource://gre/modules/Services.jsm");
+
 // Global variables 
 var CQprefs = Components.classes["@mozilla.org/preferences-service;1"].
     		getService(Components.interfaces.nsIPrefBranch);
@@ -26,10 +29,13 @@ var CQstrBundleService = Components.classes["@mozilla.org/intl/stringbundle;1"].
 	getService(Components.interfaces.nsIStringBundleService);
 var CQbundle = CQstrBundleService.createBundle("chrome://messenger/locale/mime.properties")
 
+// Load an additional JavaScript file.
+Services.scriptloader.loadSubScript("chrome://changequote/content/changequote/changequote.js", window, "UTF-8");
+
 function CQGetFirstSelectedMessage() {
 	// TB3 has not GetFirstSelectedMessage function
 	if ( typeof GetFirstSelectedMessage  == "undefined" )
-		 var msgs = gFolderDisplay.selectedMessageUris[0];
+		 var msgs = window.gFolderDisplay.selectedMessageUris[0];
 	else
 		var msgs = GetFirstSelectedMessage();
 	return msgs;	
@@ -43,10 +49,10 @@ function CQnoReplyTo(event) {
 
 function isNews() {
 	try {
-		if (typeof GetLoadedMsgFolder == "undefined")
-			var typeserver = gFolderDisplay.displayedFolder.server.type;
+		if (typeof window.GetLoadedMsgFolder == "undefined")
+			var typeserver = window.gFolderDisplay.displayedFolder.server.type;
 		else
-			var typeserver = GetLoadedMsgFolder().server.type;
+			var typeserver = window.GetLoadedMsgFolder().server.type;
 	}
 	catch(e) {
 		var typeserver = "unknown";
@@ -63,10 +69,10 @@ function CQcomposeMessage(compType, format, isNNTP) {
 	var CQheaders_news = CQprefs.getBoolPref("changequote.set.headers.news");
 	CQuse_date_long = false;
 
-	if (typeof GetLoadedMsgFolder == "undefined")
-		var loadedFolder = gFolderDisplay.displayedFolder; 
+	if (typeof window.GetLoadedMsgFolder == "undefined")
+		var loadedFolder = window.gFolderDisplay.displayedFolder; 
 	else
-		var loadedFolder = GetLoadedMsgFolder();
+		var loadedFolder = window.GetLoadedMsgFolder();
 	// Avoid the multiple reply, just the first mail is loaded in the messageArray
 	var messageArray =  [CQGetFirstSelectedMessage()]; 
 	
@@ -98,8 +104,8 @@ function CQcomposeMessage(compType, format, isNNTP) {
 		else 
 			loadHeader(messageArray[0], true, isNNTP,false);
 	}
-	closeWindowOrMarkReadAfterReply(messageArray[0]);
-	ComposeMessage(compType, format, loadedFolder, messageArray);
+	window.closeWindowOrMarkReadAfterReply(messageArray[0]);
+	window.ComposeMessage(compType, format, loadedFolder, messageArray);
 }
 
 function CQgetCurrentIdentity() {
@@ -115,7 +121,7 @@ function CQgetCurrentIdentity() {
 		hintForIdentity = hdr.recipients + hdr.ccList;
 		var accountKey = hdr.accountKey;
 		if (accountKey.length > 0)   {
-			var account = accountManager.getAccount(accountKey);
+			var account = window.accountManager.getAccount(accountKey);
 			if (account)
 				server = account.incomingServer;
 		}
@@ -124,7 +130,7 @@ function CQgetCurrentIdentity() {
 	if (server && !identity) 
 		identity = MailUtils.getIdentityForServer(server, hintForIdentity);
 	if (!identity)  {
-		var allIdentities = accountManager.allIdentities;
+		var allIdentities = window.accountManager.allIdentities;
 		identity = MailUtils.getBestIdentity(allIdentities, hintForIdentity);
 	}	
 	return identity;
@@ -327,52 +333,6 @@ function replyAllText(event,reversequote) {
 	CQcomposeMessage(CQmsgComposeType.ReplyAll,2,isNNTP);
 }
 
-// Overwrite the original functions of reply and quote
-
-if (String.trim && typeof MsgReplyToListMessageORIG == "undefined" && typeof MsgReplyToListMessage != "undefined") {
-	var MsgReplyToListMessageORIG = MsgReplyToListMessage;
-	MsgReplyToListMessage = function(event) {
-		var messageArray =  [CQGetFirstSelectedMessage()];
-		var CQheaders_news = CQprefs.getBoolPref("changequote.set.headers.news");
-		if (CQheaders_news)
-			loadHeader(messageArray[0], true, true,false);
-		else
-	 		standardHeader(messageArray[0]);
-		MsgReplyToListMessageORIG.apply(this,arguments);
-	};
-}
-
-
-
-function MsgReplySender(event) {
-	
-	var CQreplyformat = CQprefs.getBoolPref("changequote.replyformat.enable");
-	// Choose the format of reply: clone the format of the mail?
-	if (CQreplyformat) 
-		CQcomposeMessage(CQmsgComposeType.ReplyToSender,-1,false);
-	else {
-		// So no - usual behaviour of TB
-		if (event && event.shiftKey)
-			CQcomposeMessage(CQmsgComposeType.ReplyToSender,CQmsgComposeFormat.OppositeOfDefault,false);
-		else
-			CQcomposeMessage(CQmsgComposeType.ReplyToSender,CQmsgComposeFormat.Default,false);
-	}
-}
-
-function MsgReplyToAllMessage(event){
-	
-	var CQreplyformat = CQprefs.getBoolPref("changequote.replyformat.enable");	
-	if (CQreplyformat) 
-		CQcomposeMessage(CQmsgComposeType.ReplyAll,-1,false);	
-	else {
-		// So no - usual behaviour of TB
-		if (event && event.shiftKey)
-			CQcomposeMessage(CQmsgComposeType.ReplyAll,CQmsgComposeFormat.OppositeOfDefault,false);
-		else
-			CQcomposeMessage(CQmsgComposeType.ReplyAll,CQmsgComposeFormat.Default,false);
-	}
-}
-
 function QuoteSelectedMessage() {
 	var CQheaders_type = CQprefs.getIntPref("changequote.headers.type");
 	var CQdateformat = CQprefs.getIntPref("changequote.headers.date_long_format");
@@ -394,15 +354,6 @@ function QuoteSelectedMessage() {
 	}
 }
 
-function MsgReplyGroup(event) {
-	if (event && event.shiftKey)
-		CQcomposeMessage(CQmsgComposeType.ReplyToGroup,CQmsgComposeFormat.OppositeOfDefault,true);
-	else
-		CQcomposeMessage(CQmsgComposeType.ReplyToGroup,CQmsgComposeFormat.Default,true);
-		
-	// if (CQinlineImages == 1)
-	//	 preRestoreInline();
-}
 
 // This function is used to parse the message header, to get the "Content-type" and the "Date"
 // I'd have prefered to do it with nsImessenger.streamMessage and a listener, but in this way
@@ -590,7 +541,7 @@ function loadHeader(email, custom, isNNTP,cite) {
         CQprefs.setStringPref("mailnews.reply_header_authorwrotesingle", str);
 	}
 
-	closeWindowOrMarkReadAfterReply(email);
+	window.closeWindowOrMarkReadAfterReply(email);
 }
 
 // Function decoding the ccList from the rfc2047/rfc2231 encoding
@@ -614,41 +565,6 @@ function d2h(d) {
 	var h = hD.substr(d&15,1);
 	while(d>15) {d>>=4;h=hD.substr(d&15,1)+h;}
 	return h;
-}
-
-// Reset the headers to the standard
-function standardHeader(msguri) {
-	if (CQprefs.prefHasUserValue("mailnews.reply_header_type"))
-	        CQprefs.clearUserPref("mailnews.reply_header_type");
-	if (CQprefs.prefHasUserValue("mailnews.reply_header_authorwrote"))
-   	     CQprefs.clearUserPref("mailnews.reply_header_authorwrote");
-	if (CQprefs.prefHasUserValue("mailnews.reply_header_ondate"))
-      		CQprefs.clearUserPref("mailnews.reply_header_ondate");
-	if (CQprefs.prefHasUserValue("mailnews.reply_header_separator"))
-        	CQprefs.clearUserPref("mailnews.reply_header_separator");
-	if (CQprefs.prefHasUserValue("mailnews.reply_header_colon"))
-        	CQprefs.clearUserPref("mailnews.reply_header_colon");
-	if (CQprefs.prefHasUserValue("mailnews.reply_header_authorwrotesingle"))
-   	     CQprefs.clearUserPref("mailnews.reply_header_authorwrotesingle");
-	if (msguri)
-		closeWindowOrMarkReadAfterReply(msguri);
-}
-
-
-function closeWindowOrMarkReadAfterReply(msguri) {
-	if (! msguri) 
-		return;
-	try {
-		if (CQprefs.getBoolPref("changequote.window.close_after_reply")) {
-			var winurl = document.location.href;
-                        if (winurl == "chrome://messenger/content/messageWindow.xul")
-				setTimeout(function(){window.close();}, 1500);
-		}
-		if (CQprefs.getBoolPref("changequote.message.markread_after_reply")) {
-			MarkSelectedMessagesRead(true);		
-		}
-	}
-	catch(e) {}
 }
 
 function getClassicEnglishHeader(sender,recipient,cclist,subject,hdr,headerDate) {
@@ -928,5 +844,104 @@ function CQcapitalize(val) {
         return newVal;
 }
 
+function onLoad(activatedWhileWindowOpen) {
 
-	
+    // Overwrite the original functions of reply and quote
+    
+    if (typeof MsgReplyToListMessageORIG == "undefined" && typeof window.MsgReplyToListMessage != "undefined") {
+        var MsgReplyToListMessageORIG = window.MsgReplyToListMessage;
+        window.MsgReplyToListMessage = function(event) {
+            var messageArray =  [CQGetFirstSelectedMessage()];
+            var CQheaders_news = CQprefs.getBoolPref("changequote.set.headers.news");
+            if (CQheaders_news)
+                loadHeader(messageArray[0], true, true,false);
+            else
+                standardHeader(messageArray[0]);
+            MsgReplyToListMessageORIG.apply(this,arguments);
+        };
+    }
+    
+    if (typeof MsgReplySenderORIG == "undefined" && typeof window.MsgReplySender != "undefined") {
+        var MsgReplySenderORIG = window.MsgReplySender;
+        window.MsgReplySender = function MsgReplySender(event) {
+            
+            var CQreplyformat = CQprefs.getBoolPref("changequote.replyformat.enable");
+            // Choose the format of reply: clone the format of the mail?
+            if (CQreplyformat)
+                CQcomposeMessage(CQmsgComposeType.ReplyToSender,-1,false);
+            else {
+                // So no - usual behaviour of TB
+                if (event && event.shiftKey)
+                    CQcomposeMessage(CQmsgComposeType.ReplyToSender,CQmsgComposeFormat.OppositeOfDefault,false);
+                else
+                    CQcomposeMessage(CQmsgComposeType.ReplyToSender,CQmsgComposeFormat.Default,false);
+            }
+        }
+    }
+    
+     if (typeof MsgReplyToAllMessageORIG == "undefined" && typeof window.MsgReplyToAllMessage != "undefined") {
+        var MsgReplyToAllMessageORIG = window.MsgReplyToAllMessage;
+        window.MsgReplyToAllMessage = function MsgReplyToAllMessage(event){
+        
+            var CQreplyformat = CQprefs.getBoolPref("changequote.replyformat.enable");	
+            if (CQreplyformat) 
+                CQcomposeMessage(CQmsgComposeType.ReplyAll,-1,false);	
+            else {
+                // So no - usual behaviour of TB
+                if (event && event.shiftKey)
+                    CQcomposeMessage(CQmsgComposeType.ReplyAll,CQmsgComposeFormat.OppositeOfDefault,false);
+                else
+                    CQcomposeMessage(CQmsgComposeType.ReplyAll,CQmsgComposeFormat.Default,false);
+            }
+        }
+    }
+    
+     if (typeof MsgReplyGroupORIG == "undefined" && typeof window.MsgReplyGroup != "undefined") {
+        var MsgReplyGroupORIG = window.MsgReplyGroup;
+        window.MsgReplyGroup = function MsgReplyGroup(event) {  
+    
+            if (event && event.shiftKey)
+                CQcomposeMessage(CQmsgComposeType.ReplyToGroup,CQmsgComposeFormat.OppositeOfDefault,true);
+            else
+                CQcomposeMessage(CQmsgComposeType.ReplyToGroup,CQmsgComposeFormat.Default,true);
+                
+            // if (CQinlineImages == 1)
+            //	 preRestoreInline();
+        }
+     }
+     
+    window.addEventListener("load", CQaddListener, false);
+	window.addEventListener("unload", window.standardHeader, false);
+
+
+
+    WL.injectElements(`<toolbaritem id="hdrSmartReplyButton">
+    <toolbarbutton is="toolbarbutton-menu-button" type="menu-button">
+        <menupopup id="hdrReplyDropdown" onpopupshowing="CQsetReverseLabelHRD()" >
+            <menuseparator />
+            <menuitem label="&CQlabelitem1;" tooltiptext="&CQlabelitem1;" oncommand="replyHTML(event,false);" />
+            <menuitem label="&CQlabelitem2;"  tooltiptext="&CQlabelitem2;" oncommand="replyText(event,false);" />
+            <menuseparator />
+            <menuitem id="replyhtml_reversequote_hrd1" label="&CQlabelitem1; &noquote;" tooltiptext="&CQlabelitem1;" oncommand="replyHTML(event,true);" />
+            <menuitem id="replytext_reversequote_hrd1" label="&CQlabelitem2;  &noquote;"  tooltiptext="&CQlabelitem2;" oncommand="replyText(event,true);" />
+            <menuitem id="replyhtml_reversequote_hrd2" label="&CQlabelitem1; &yesquote;" tooltiptext="&CQlabelitem1;" oncommand="replyHTML(event,true);" />
+            <menuitem id="replytext_reversequote_hrd2" label="&CQlabelitem2; &yesquote;"  tooltiptext="&CQlabelitem2;" oncommand="replyText(event,true);" />
+            <menuseparator />
+            <menuitem label="&CQnoReplyTo;" oncommand="CQnoReplyTo(event);" />
+        </menupopup>
+        <toolbarbutton id="hdrReplyToSenderButton" />
+        <dropmarker type="menu-button" class="toolbarbutton-menubutton-dropmarker" />
+    </toolbarbutton>
+</toolbaritem>`, ["chrome://changequote/locale/changequote.dtd"]);
+}
+
+
+function onUnload(deactivatedWhileWindowOpen) {
+  // Cleaning up the window UI is only needed when the
+  // add-on is being deactivated/removed while the window
+  // is still open. It can be skipped otherwise.
+  if (!deactivatedWhileWindowOpen) {
+    return
+  }
+
+}

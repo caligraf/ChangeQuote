@@ -1,4 +1,25 @@
+// Import any needed modules.
+var { Services } = ChromeUtils.import("resource://gre/modules/Services.jsm");
+
+// Load an additional JavaScript file.
+Services.scriptloader.loadSubScript("chrome://changequote/content/changequote/changequote.js", window, "UTF-8");
+
+function onLoad(activatedWhileWindowOpen) {
+    
+}
+
+function onUnload(deactivatedWhileWindowOpen) {
+  // Cleaning up the window UI is only needed when the
+  // add-on is being deactivated/removed while the window
+  // is still open. It can be skipped otherwise.
+  if (!deactivatedWhileWindowOpen) {
+    return
+  }
+
+}
+
  function CQprefsIn()  {
+     document.addEventListener("dialogaccept", CQprefsOut );
 	var prefs = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefBranch);
 	var headerstype = prefs.getIntPref("changequote.headers.type");
 	var replyformattype= prefs.getIntPref("changequote.replyformat.format");
@@ -51,7 +72,7 @@
 	checkboxcheck3();
 }
 
-document.addEventListener("dialogaccept", CQprefsOut );
+
   
 function CQprefsOut()  {
 	var prefs = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefBranch);
