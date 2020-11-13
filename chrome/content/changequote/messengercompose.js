@@ -45,7 +45,7 @@ function onLoad(activatedWhileWindowOpen) {
     var CompFields2RecipientsOrig = window.CompFields2Recipients;
     window.CompFields2Recipients = function(msgCompFields) {
         if (CQprefs.getBoolPref("changequote.headers.ignore_reply_to")) {
-            var uri = gMsgCompose.originalMsgURI;
+            var uri = window.gMsgCompose.originalMsgURI;
             var CQmessenger = Components.classes["@mozilla.org/messenger;1"].createInstance();
             CQmessenger = CQmessenger.QueryInterface(Components.interfaces.nsIMessenger);
             var hdr = CQmessenger.messageServiceFromURI(uri).messageURIToMsgHdr(uri);
@@ -79,7 +79,7 @@ function onLoad(activatedWhileWindowOpen) {
                 ))
                 return;	
             if (! nowDirty) {
-                var type = gMsgCompose.type;
+                var type = window.gMsgCompose.type;
                 // If it's not a reply, we don't need to do anything 
                 if (type != 1 && type !=2 && type !=6 && type !=7 && type !=8)
                     return;
@@ -106,7 +106,7 @@ function onUnload(deactivatedWhileWindowOpen) {
 function CQrestoreHTMLtags() {
     var doc = document.getElementById("content-frame").contentDocument;
     var inner = doc.body.innerHTML;
-    if (! gMsgCompose.composeHTML || inner.length < 20 || inner.indexOf("([[)") < 0)
+    if (! window.gMsgCompose.composeHTML || inner.length < 20 || inner.indexOf("([[)") < 0)
         return;
     inner = inner.replace(/\(\[\[\)/g,"<");
     inner = inner.replace(/\(\]\]\)/g,">");
