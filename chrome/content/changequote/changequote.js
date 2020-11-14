@@ -607,6 +607,8 @@ var changequote = {
         var mdo = 0;
         if (D.match(/\w{3}/) == null)
             mdo = -1;
+        // capitalize first letter
+        D = D.charAt(0).toUpperCase() + D.slice(1);
         var M = date.split(" ")[2 + mdo];
         switch (M) {
         case "jan":
