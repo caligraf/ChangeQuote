@@ -56,41 +56,9 @@ function onLoad(activatedWhileWindowOpen) {
         CompFields2RecipientsOrig(msgCompFields);
     };
     
-    var CQbodyListener = {
-        start : function() {
-            if (CQprefs.getPrefType("changequote.auto_quote.reverse_key") > 0) {
-                var identity = CQprefs.getCharPref("changequote.auto_quote.reverse_key");
-                var prefName = "mail.identity."+identity+".auto_quote";
-                CQprefs.deleteBranch("changequote.auto_quote.reverse_key");
-                setTimeout(function() {CQprefs.setBoolPref(prefName, ! CQprefs.getBoolPref(prefName));}, 500);
-            }
-            if (CQbodyListener.restoreInlineAttPref) {
-                setTimeout(function() {CQprefs.setBoolPref("mail.inline_attachments", true);}, 1000);
-            }
-        }
-    };
-    
-    var CQedListener = {
-        NotifyDocumentCreated : function() {},
-        NotifyDocumentStateChanged : function(nowDirty) {
-            if ( ! (CQprefs.getIntPref("changequote.headers.type") == 0 && CQprefs.getBoolPref("changequote.headers.label_bold")) &&
-                ! (CQprefs.getIntPref("changequote.headers.type") == 2 && 
-                (CQprefs.getBoolPref("changequote.headers.custom_news_html_enabled") || CQprefs.getBoolPref("changequote.headers.custom_html_enabled")) 
-                ))
-                return;	
-            if (! nowDirty) {
-                var type = window.gMsgCompose.type;
-                // If it's not a reply, we don't need to do anything 
-                if (type != 1 && type !=2 && type !=6 && type !=7 && type !=8)
-                    return;
-                CQrestoreHTMLtags();		
-            }
-        },
-        NotifyDocumentWillBeDestroyed : function() {}
-    };
     
     window.addEventListener("compose-window-reopen", CQbodyListener.start, true);
-    window.addEventListener("load", CQmsgWindowInit, false);
+    CQmsgWindowInit();
 }
 
 function onUnload(deactivatedWhileWindowOpen) {
@@ -127,6 +95,39 @@ function CQrestoreHTMLtags() {
     }
 }
 
+var CQbodyListener = {
+    start : function() {
+        if (CQprefs.getPrefType("changequote.auto_quote.reverse_key") > 0) {
+            var identity = CQprefs.getCharPref("changequote.auto_quote.reverse_key");
+            var prefName = "mail.identity."+identity+".auto_quote";
+            CQprefs.deleteBranch("changequote.auto_quote.reverse_key");
+            setTimeout(function() {CQprefs.setBoolPref(prefName, ! CQprefs.getBoolPref(prefName));}, 500);
+        }
+        if (CQbodyListener.restoreInlineAttPref) {
+            setTimeout(function() {CQprefs.setBoolPref("mail.inline_attachments", true);}, 1000);
+        }
+    }
+};
+
+var CQedListener = {
+    NotifyDocumentCreated : function() {},
+    NotifyDocumentStateChanged : function(nowDirty) {
+        if ( ! (CQprefs.getIntPref("changequote.headers.type") == 0 && CQprefs.getBoolPref("changequote.headers.label_bold")) &&
+            ! (CQprefs.getIntPref("changequote.headers.type") == 2 && 
+            (CQprefs.getBoolPref("changequote.headers.custom_news_html_enabled") || CQprefs.getBoolPref("changequote.headers.custom_html_enabled")) 
+            ))
+            return;	
+        if (! nowDirty) {
+            var type = window.gMsgCompose.type;
+            // If it's not a reply, we don't need to do anything 
+            if (type != 1 && type !=2 && type !=6 && type !=7 && type !=8)
+                return;
+            CQrestoreHTMLtags();		
+        }
+    },
+    NotifyDocumentWillBeDestroyed : function() {}
+};
+    
 function CQmsgWindowInit() {
     if (typeof QuoteAndComposeManager != "undefined") 
         CQbodyListener.QACM = true;
@@ -136,6 +137,6 @@ function CQmsgWindowInit() {
 }
 
 function cfAddLis() {
-    var ed = GetCurrentEditor();
+    var ed = window.GetCurrentEditor();
     ed.addDocumentStateListener(CQedListener);
 }

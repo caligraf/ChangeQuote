@@ -31,6 +31,6 @@ messenger.WindowListener.registerWindow(
    
 messenger.WindowListener.registerWindow(
 	"chrome://messenger/content/messageWindow.xhtml",
-	"chrome://changequote/content/changequote/messengerWindow.js");
+	"chrome://changequote/content/changequote/messenger.js");
     
 messenger.WindowListener.startListening();
