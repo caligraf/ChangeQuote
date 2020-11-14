@@ -117,6 +117,14 @@ function onLoad(activatedWhileWindowOpen) {
             }
         }
     }
+    
+    if (typeof MsgForwardMessageORIG == "undefined" && typeof window.MsgForwardMessage != "undefined") {
+        var MsgForwardMessageORIG = window.MsgForwardMessage;
+        window.MsgForwardMessage = function (event) {
+            window.closeWindowOrMarkReadAfterReply(window.changequote.CQGetFirstSelectedMessage());
+            MsgForwardMessageORIG.apply(this, arguments);        
+        }
+    }
 
     window.addEventListener("load", window.changequote.CQaddListener, false);
     window.addEventListener("unload", window.standardHeader, false);

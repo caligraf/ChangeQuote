@@ -88,7 +88,7 @@ function CQrestoreHTMLtags() {
             img.setAttribute("src", src);
         }
     }
-    var id = getCurrentIdentity();
+    var id = window.changequote.CQgetCurrentIdentity();
     if (! id.replyOnTop) {
         content.scroll(0,10000);
         GetCurrentEditor().endOfDocument();
