@@ -122,26 +122,172 @@ function onLoad(activatedWhileWindowOpen) {
     window.addEventListener("unload", window.standardHeader, false);
     
     
-    var replyButton = window.document.getElementById("hdrReplyToSenderButton");
-
-    //
+    var replyToSenderButton = window.document.getElementById("hdrReplyToSenderButton");
     // Turn the button into a menu and add the popup menu.
-    replyButton.setAttribute("type", "menu");
-    replyButton.setAttribute("wantdropmarker", "true");        
+    replyToSenderButton.setAttribute("type", "menu-button");
+    replyToSenderButton.setAttribute("wantdropmarker", "true");
+    replyToSenderButton.setAttribute("is","toolbarbutton-menu-button");
+    var labelReplyToSenderButton = replyToSenderButton.getAttribute("label");
+        
+    var child1 = replyToSenderButton.removeChild(replyToSenderButton.childNodes[0]);
+    var child2 = replyToSenderButton.removeChild(replyToSenderButton.childNodes[0]);
     
-    replyButton.appendChild(window.MozXULElement.parseXULToFragment(`<menupopup id="hdrReplyDropdown" onpopupshowing="changequote.CQsetReverseLabelHRD()" >
+    replyToSenderButton.appendChild(window.MozXULElement.parseXULToFragment(`<menupopup id="hdrReplyToSenderDropdown" onpopupshowing="changequote.CQsetReverseLabelHRD()" >
         <menuseparator />
         <menuitem label="&CQlabelitem1;" tooltiptext="&CQlabelitem1;" oncommand="changequote.replyHTML(event,false);" />
         <menuitem label="&CQlabelitem2;"  tooltiptext="&CQlabelitem2;" oncommand="changequote.replyText(event,false);" />
         <menuseparator />
-        <menuitem id="replyhtml_reversequote_hrd1" label="&CQlabelitem1; &noquote;" tooltiptext="&CQlabelitem1;" oncommand="changequote.replyHTML(event,true);" />
-        <menuitem id="replytext_reversequote_hrd1" label="&CQlabelitem2;  &noquote;"  tooltiptext="&CQlabelitem2;" oncommand="changequote.replyText(event,true);" />
-        <menuitem id="replyhtml_reversequote_hrd2" label="&CQlabelitem1; &yesquote;" tooltiptext="&CQlabelitem1;" oncommand="changequote.replyHTML(event,true);" />
-        <menuitem id="replytext_reversequote_hrd2" label="&CQlabelitem2; &yesquote;"  tooltiptext="&CQlabelitem2;" oncommand="changequote.replyText(event,true);" />
+        <menuitem id="replyhtml_reversequote_hrd3" label="&CQlabelitem1; &noquote;" tooltiptext="&CQlabelitem1;" oncommand="changequote.replyHTML(event,true);" />
+        <menuitem id="replytext_reversequote_hrd3" label="&CQlabelitem2;  &noquote;"  tooltiptext="&CQlabelitem2;" oncommand="changequote.replyText(event,true);" />
+        <menuitem id="replyhtml_reversequote_hrd4" label="&CQlabelitem1; &yesquote;" tooltiptext="&CQlabelitem1;" oncommand="changequote.replyHTML(event,true);" />
+        <menuitem id="replytext_reversequote_hrd4" label="&CQlabelitem2; &yesquote;"  tooltiptext="&CQlabelitem2;" oncommand="changequote.replyText(event,true);" />
         <menuseparator />
-        <menuitem label="&CQnoReplyTo;" oncommand="changequote.CQnoReplyTo(event);" /></menupopup>`,["chrome://changequote/locale/changequote.dtd"]));
+        <menuitem label="&CQnoReplyTo;" oncommand="changequote.CQnoReplyTo(event);" />
+        </menupopup>
+        <toolbarbutton id="hdrReplyToSenderButtonToolbar" class="box-inherit toolbarbutton-menubutton-button" flex="1" allowevents="true">
+        </toolbarbutton>
+        <dropmarker type="menu-button" class="toolbarbutton-menubutton-dropmarker"/>`,["chrome://changequote/locale/changequote.dtd"]));
     
-    replyButton.appendChild(window.MozXULElement.parseXULToFragment(`<dropmarker type="menu" class="toolbarbutton-menu-dropmarker"/>`));
+    var hdrReplyToSenderButtonToolbar = window.document.getElementById("hdrReplyToSenderButtonToolbar");
+    hdrReplyToSenderButtonToolbar.removeChild(hdrReplyToSenderButtonToolbar.childNodes[0]);
+    hdrReplyToSenderButtonToolbar.removeChild(hdrReplyToSenderButtonToolbar.childNodes[0]);
+    child1.setAttribute("type","menu-button");
+    hdrReplyToSenderButtonToolbar.appendChild(child1);
+    hdrReplyToSenderButtonToolbar.appendChild(child2);
+    hdrReplyToSenderButtonToolbar.setAttribute("label",labelReplyToSenderButton);
+    
+
+    var hdrReplyButton = window.document.getElementById("hdrReplyButton");
+    // Turn the button into a menu and add the popup menu.
+    hdrReplyButton.setAttribute("type", "menu-button");
+    hdrReplyButton.setAttribute("wantdropmarker", "true");
+    hdrReplyButton.setAttribute("is","toolbarbutton-menu-button");
+    var labelhdrReplyButton = hdrReplyButton.getAttribute("label");
+        
+    var child1 = hdrReplyButton.removeChild(hdrReplyButton.childNodes[0]);
+    var child2 = hdrReplyButton.removeChild(hdrReplyButton.childNodes[0]);
+    
+    hdrReplyButton.appendChild(window.MozXULElement.parseXULToFragment(`<menupopup id="hdrReplyDropdown" onpopupshowing="changequote.CQsetReverseLabelHRD()">
+		<menuseparator />
+		<menuitem label="&CQlabelitem1;" tooltiptext="&CQlabelitem1;" oncommand="changequote.replyHTML(event,false);" />
+		<menuitem label="&CQlabelitem2;"  tooltiptext="&CQlabelitem2;" oncommand="changequote.replyText(event,false);" />
+		<menuseparator />
+		<menuitem id="replyhtml_reversequote_hrd1" label="&CQlabelitem1; &noquote;" tooltiptext="&CQlabelitem1;" oncommand="changequote.replyHTML(event,true);" />
+		<menuitem id="replytext_reversequote_hrd1" label="&CQlabelitem2;  &noquote;"  tooltiptext="&CQlabelitem2;" oncommand="changequote.replyText(event,true);" />
+		<menuitem id="replyhtml_reversequote_hrd2" label="&CQlabelitem1; &yesquote;" tooltiptext="&CQlabelitem1;" oncommand="changequote.replyHTML(event,true);" />
+		<menuitem id="replytext_reversequote_hrd2" label="&CQlabelitem2; &yesquote;"  tooltiptext="&CQlabelitem2;" oncommand="changequote.replyText(event,true);" />
+		<menuseparator />
+		<menuitem label="&CQnoReplyTo;" oncommand="changequote.CQnoReplyTo(event);" />
+        </menupopup>
+        <toolbarbutton id="hdrReplyButtonToolbar" class="box-inherit toolbarbutton-menubutton-button" flex="1" allowevents="true">
+        </toolbarbutton>
+        <dropmarker type="menu-button" class="toolbarbutton-menubutton-dropmarker"/>`,["chrome://changequote/locale/changequote.dtd"]));
+    
+    
+    var hdrReplyButtonToolbar = window.document.getElementById("hdrReplyButtonToolbar");
+    hdrReplyButtonToolbar.removeChild(hdrReplyButtonToolbar.childNodes[0]);
+    hdrReplyButtonToolbar.removeChild(hdrReplyButtonToolbar.childNodes[0]);
+    child1.setAttribute("type","menu-button");
+    hdrReplyButtonToolbar.appendChild(child1);
+    hdrReplyButtonToolbar.appendChild(child2);
+    hdrReplyButtonToolbar.setAttribute("label",labelhdrReplyButton);
+    
+    /*    
+<toolbarbutton id="button-reply" type="menu-button" oncommand="MsgReplyMessage(event);">
+		<menupopup onpopupshowing="CQsetReverseLabel()">
+		<menuitem id="replyhtml" label="&CQlabelitem1;" tooltiptext="&CQlabelitem1;" oncommand="replyHTML(event,false);" />
+		<menuitem id="replytext" label="&CQlabelitem2;"  tooltiptext="&CQlabelitem2;" oncommand="replyText(event,false);" />
+		<menuseparator />
+		<menuitem id="replyhtml_reversequote1" label="&CQlabelitem1; &noquote;" tooltiptext="&CQlabelitem1;" oncommand="replyHTML(event,true);" />
+		<menuitem id="replytext_reversequote1" label="&CQlabelitem2;  &noquote;"  tooltiptext="&CQlabelitem2;" oncommand="replyText(event,true);" />
+		<menuitem id="replyhtml_reversequote2" label="&CQlabelitem1; &yesquote;" tooltiptext="&CQlabelitem1;" oncommand="replyHTML(event,true);" />
+		<menuitem id="replytext_reversequote2" label="&CQlabelitem2; &yesquote;"  tooltiptext="&CQlabelitem2;" oncommand="replyText(event,true);" />
+		<menuseparator />
+		<menuitem id="reply_noquote" label="&CQnoReplyTo;" oncommand="CQnoReplyTo(event);" />
+		</menupopup>
+</toolbarbutton>*/
+
+/*    var replyButton = window.document.getElementById("button-reply");
+    // Turn the button into a menu and add the popup menu.
+    replyButton.setAttribute("type", "menu");
+    
+    replyButton.removeAttribute("oncommand");
+
+    replyButton.setAttribute("oncommand", "changequote.MsgReplyMessage(event);");
+    //replyButton.setAttribute("wantdropmarker", "true");        
+    
+    replyButton.appendChild(window.MozXULElement.parseXULToFragment(`<menupopup onpopupshowing="changequote.CQsetReverseLabel()">
+		<menuitem id="replyhtml" label="&CQlabelitem1;" tooltiptext="&CQlabelitem1;" oncommand="changequote.replyHTML(event,false);" />
+		<menuitem id="replytext" label="&CQlabelitem2;"  tooltiptext="&CQlabelitem2;" oncommand="changequote.replyText(event,false);" />
+		<menuseparator />
+		<menuitem id="replyhtml_reversequote1" label="&CQlabelitem1; &noquote;" tooltiptext="&CQlabelitem1;" oncommand="changequote.replyHTML(event,true);" />
+		<menuitem id="replytext_reversequote1" label="&CQlabelitem2;  &noquote;"  tooltiptext="&CQlabelitem2;" oncommand="changequote.replyText(event,true);" />
+		<menuitem id="replyhtml_reversequote2" label="&CQlabelitem1; &yesquote;" tooltiptext="&CQlabelitem1;" oncommand="changequote.replyHTML(event,true);" />
+		<menuitem id="replytext_reversequote2" label="&CQlabelitem2; &yesquote;"  tooltiptext="&CQlabelitem2;" oncommand="changequote.replyText(event,true);" />
+		<menuseparator />
+		<menuitem id="reply_noquote" label="&CQnoReplyTo;" oncommand="changequote.CQnoReplyTo(event);" />
+		</menupopup>`,["chrome://changequote/locale/changequote.dtd"]));*/
+       
+
+/*<toolbarbutton id="button-replyall" type="menu-button" oncommand="MsgReplyToAllMessage(event);">
+		<menupopup onpopupshowing="CQsetReverseLabelALL()">
+		<menuitem id="replyallhtml" label="&CQlabelitem1;"  tooltiptext="&CQlabelitem1;" oncommand="replyAllHTML(event,false);" />
+		<menuitem id="replyalltext" label="&CQlabelitem2;"  tooltiptext="&CQlabelitem2;"  oncommand="replyAllText(event,false);" />
+		<menuseparator />
+		<menuitem id="replyhtmlALL_reversequote1" label="&CQlabelitem1; &noquote;" tooltiptext="&CQlabelitem1;" oncommand="replyAllHTML(event,true);" />
+		<menuitem id="replytextALL_reversequote1" label="&CQlabelitem2;  &noquote;"  tooltiptext="&CQlabelitem2;" oncommand="replyAllText(event,true);" />
+		<menuitem id="replyhtmlALL_reversequote2" label="&CQlabelitem1; &yesquote;" tooltiptext="&CQlabelitem1;" oncommand="replyAllHTML(event,true);" />
+		<menuitem id="replytextALL_reversequote2" label="&CQlabelitem2; &yesquote;"  tooltiptext="&CQlabelitem2;" oncommand="replyAllText(event,true);" />
+		</menupopup>
+</toolbarbutton>*/
+       
+    /*var replyAll = window.document.getElementById("button-replyall");
+    // Turn the button into a menu and add the popup menu.
+    replyAll.setAttribute("type", "menu");
+    
+    replyAll.removeAttribute("oncommand");
+
+    replyAll.setAttribute("oncommand", "changequote.MsgReplyToAllMessage(event);");
+    //replyAll.setAttribute("wantdropmarker", "true");        
+    
+    replyAll.appendChild(window.MozXULElement.parseXULToFragment(`<menupopup onpopupshowing="changequote.CQsetReverseLabelALL()">
+		<menuitem id="replyallhtml" label="&CQlabelitem1;"  tooltiptext="&CQlabelitem1;" oncommand="changequote.replyAllHTML(event,false);" />
+		<menuitem id="replyalltext" label="&CQlabelitem2;"  tooltiptext="&CQlabelitem2;"  oncommand="changequote.replyAllText(event,false);" />
+		<menuseparator />
+		<menuitem id="replyhtmlALL_reversequote1" label="&CQlabelitem1; &noquote;" tooltiptext="&CQlabelitem1;" oncommand="changequote.replyAllHTML(event,true);" />
+		<menuitem id="replytextALL_reversequote1" label="&CQlabelitem2;  &noquote;"  tooltiptext="&CQlabelitem2;" oncommand="changequote.replyAllText(event,true);" />
+		<menuitem id="replyhtmlALL_reversequote2" label="&CQlabelitem1; &yesquote;" tooltiptext="&CQlabelitem1;" oncommand="changequote.replyAllHTML(event,true);" />
+		<menuitem id="replytextALL_reversequote2" label="&CQlabelitem2; &yesquote;"  tooltiptext="&CQlabelitem2;" oncommand="changequote.replyAllText(event,true);" />
+		</menupopup>`,["chrome://changequote/locale/changequote.dtd"]));*/
+
+
+        
+/*<menupopup id="hdrReplyAllDropdown" onpopupshowing="CQsetReverseLabelAllHRD()">
+		<menuseparator />
+		<menuitem label="&CQlabelitem1;"  tooltiptext="&CQlabelitem1;" oncommand="replyAllHTML(event,false);" />
+		<menuitem label="&CQlabelitem2;"  tooltiptext="&CQlabelitem2;"  oncommand="replyAllText(event,false);" />
+		<menuseparator />
+		<menuitem id="replyhtmlALL_reversequote_hrd1" label="&CQlabelitem1; &noquote;" tooltiptext="&CQlabelitem1;" oncommand="replyAllHTML(event,true);" />
+		<menuitem id="replytextALL_reversequote_hrd1" label="&CQlabelitem2;  &noquote;"  tooltiptext="&CQlabelitem2;" oncommand="replyAllText(event,true);" />
+		<menuitem id="replyhtmlALL_reversequote_hrd2" label="&CQlabelitem1; &yesquote;" tooltiptext="&CQlabelitem1;" oncommand="replyAllHTML(event,true);" />
+		<menuitem id="replytextALL_reversequote_hrd2" label="&CQlabelitem2; &yesquote;"  tooltiptext="&CQlabelitem2;" oncommand="replyAllText(event,true);" />
+</menupopup>*/
+
+   /*var hdrReplyAllDropdown = window.document.getElementById("changequote.CQsetReverseLabelAllHRD()");
+    // Turn the button into a menu and add the popup menu.
+    hdrReplyAllDropdown.setAttribute("onpopupshowing", "menu");
+   
+    //replyAll.setAttribute("wantdropmarker", "true");        
+    
+    hdrReplyAllDropdown.appendChild(window.MozXULElement.parseXULToFragment(`<menuseparator />
+		<menuitem label="&CQlabelitem1;"  tooltiptext="&CQlabelitem1;" oncommand="changequote.replyAllHTML(event,false);" />
+		<menuitem label="&CQlabelitem2;"  tooltiptext="&CQlabelitem2;"  oncommand="changequote.replyAllText(event,false);" />
+		<menuseparator />
+		<menuitem id="replyhtmlALL_reversequote_hrd1" label="&CQlabelitem1; &noquote;" tooltiptext="&CQlabelitem1;" oncommand="changequote.replyAllHTML(event,true);" />
+		<menuitem id="replytextALL_reversequote_hrd1" label="&CQlabelitem2;  &noquote;"  tooltiptext="&CQlabelitem2;" oncommand="changequote.replyAllText(event,true);" />
+		<menuitem id="replyhtmlALL_reversequote_hrd2" label="&CQlabelitem1; &yesquote;" tooltiptext="&CQlabelitem1;" oncommand="changequote.replyAllHTML(event,true);" />
+		<menuitem id="replytextALL_reversequote_hrd2" label="&CQlabelitem2; &yesquote;"  tooltiptext="&CQlabelitem2;" oncommand="changequote.replyAllText(event,true);" />`,
+        ["chrome://changequote/locale/changequote.dtd"]));*/
 
 }
 

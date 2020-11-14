@@ -805,7 +805,7 @@ function closeWindowOrMarkReadAfterReply(msguri) {
     try {
         if (CQprefs.getBoolPref("changequote.window.close_after_reply")) {
             var winurl = document.location.href;
-            if (winurl == "chrome://messenger/content/messageWindow.xul")
+            if (winurl == "chrome://messenger/content/messageWindow.xhtml")
                 setTimeout(function () {
                     window.close();
                 }, 1500);
