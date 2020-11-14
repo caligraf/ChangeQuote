@@ -660,9 +660,9 @@ var changequote = {
         var i = date.split(" ")[4].split(":")[1];
         var s = date.split(" ")[4].split(":")[2];
         var H = date.split(" ")[4].split(":")[0];
-        var h = H > 12 ? H - 12 : H;
-        var a = H > 12 ? "pm" : "am";
-        var A = H > 12 ? "PM" : "AM";
+        var h = H > 12 ? H - 12 : H == 0 ? 12 : H;
+        var a = H > 11 && H < 24 ? "pm" : "am";
+        var A = H > 11 && H < 24 ? "PM" : "AM";
         var z = date.split(" ")[5];
         z = z.substring(0, 5);
         var str = CQprefs.getCharPref("changequote.headers.dateSender_custom_format");
@@ -699,9 +699,9 @@ var changequote = {
         var s = date.getSeconds();
         s = s < 10 ? "0" + s : s;
         var H = date.getHours();
-        var h = H > 12 ? H - 12 : H;
-        var a = H > 12 ? "pm" : "am";
-        var A = H > 12 ? "PM" : "AM";
+        var h = H > 12 ? H - 12 : H == 0 ? 12 : H;
+        var a = H > 11 && H < 24 ? "pm" : "am";
+        var A = H > 11 && H < 24 ? "PM" : "AM";
         var z = date.toString().split(" ")[5];
         z = z.replace(/[a-zA-Z]+/, "");
         z = z.substring(0, 5);
