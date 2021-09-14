@@ -4,13 +4,13 @@
         "gecko": {
             "id": "changequote@caligraf",
             "strict_min_version": "78.0",
-            "strict_max_version": "78.*"
+            "strict_max_version": "91.*"
         }
     },
     "name": "changeQuote",
     "description": "Change the reply header and the reply format",
     "author": "Caligraf",
-    "version": "1.5.2",
+    "version": "1.5.3",
     "homepage_url": "https://github.com/caligraf/ChangeQuote/wiki",
     "icons": {
         "32": "icon/icon32x32.png",
