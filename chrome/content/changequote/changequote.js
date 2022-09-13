@@ -1,7 +1,10 @@
 // Import any needed modules.
-var {
-    Services
-} = ChromeUtils.import("resource://gre/modules/Services.jsm");
+var { Services } = ChromeUtils.import(
+    "resource://gre/modules/Services.jsm"
+);
+var { MailServices } = ChromeUtils.import(
+    "resource:///modules/MailServices.jsm"
+);
 
 // Global variables
 var CQprefs = Components.classes["@mozilla.org/preferences-service;1"].
@@ -91,7 +94,7 @@ var changequote = {
             hintForIdentity = hdr.recipients + hdr.ccList;
             var accountKey = hdr.accountKey;
             if (accountKey.length > 0) {
-                var account = window.accountManager.getAccount(accountKey);
+                var account = MailServices.accounts.getAccount(accountKey);
                 if (account)
                     server = account.incomingServer;
             }
@@ -99,7 +102,7 @@ var changequote = {
         if (server && !identity)
             identity = MailUtils.getIdentityForServer(server, hintForIdentity);
         if (!identity) {
-            var allIdentities = window.accountManager.allIdentities;
+            var allIdentities = MailServices.accounts.allIdentities;
             identity = MailUtils.getBestIdentity(allIdentities, hintForIdentity);
         }
         return identity[0];

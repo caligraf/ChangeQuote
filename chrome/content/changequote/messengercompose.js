@@ -4,10 +4,14 @@ var { Services } = ChromeUtils.import("resource://gre/modules/Services.jsm");
 // Global variables 
 var CQprefs = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefBranch);
 
-var {MailUtils} = ChromeUtils.import("resource:///modules/MailUtils.jsm");
+var { MailUtils } = ChromeUtils.import("resource:///modules/MailUtils.jsm");
 
 // Load an additional JavaScript file.
 Services.scriptloader.loadSubScript("chrome://changequote/content/changequote/changequote.js", window, "UTF-8");
+
+const MESSAGE_EDITOR = parseInt(Services.appinfo.version.split(".")[0], 10) > 100 
+    ? "messageEditor" 
+    : "content-frame";
 
 function onLoad(activatedWhileWindowOpen) {
     var CQcomposeHeader;
@@ -39,7 +43,10 @@ function onLoad(activatedWhileWindowOpen) {
             }
         }
         catch(e) {};
-        TBComposeStartupOriginal.apply(this,arguments);	
+        // Return whatever TBComposeStartupOriginal returns. In TB102 this will be a Promise, so our
+        // overriden function will also return a Promise, even though we did not specify it as such.
+        // This way it will work in TB91 and TB102.
+        return TBComposeStartupOriginal.apply(this,arguments);	
     };
     
     var CompFields2RecipientsOrig = window.CompFields2Recipients;
@@ -53,7 +60,7 @@ function onLoad(activatedWhileWindowOpen) {
             msgCompFields.to = from;
             CQprefs.setBoolPref("changequote.headers.ignore_reply_to", false);
         }
-        CompFields2RecipientsOrig(msgCompFields);
+        return CompFields2RecipientsOrig(msgCompFields);
     };
     
     
@@ -68,11 +75,10 @@ function onUnload(deactivatedWhileWindowOpen) {
   if (!deactivatedWhileWindowOpen) {
     return
   }
-
 }
 
 function CQrestoreHTMLtags() {
-    var doc = document.getElementById("content-frame").contentDocument;
+    var doc = document.getElementById(MESSAGE_EDITOR).contentDocument;
     var inner = doc.body.innerHTML;
     if (! window.gMsgCompose.composeHTML || inner.length < 20 || inner.indexOf("([[)") < 0)
         return;
@@ -131,7 +137,7 @@ var CQedListener = {
 function CQmsgWindowInit() {
     if (typeof QuoteAndComposeManager != "undefined") 
         CQbodyListener.QACM = true;
-    var cf = document.getElementById("content-frame");
+    var cf = document.getElementById(MESSAGE_EDITOR);
     cf.addEventListener("load", cfAddLis, true);
     CQbodyListener.start();
 }
