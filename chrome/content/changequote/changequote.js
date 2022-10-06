@@ -332,9 +332,6 @@ var changequote = {
                 input.close();
             } else {
                 // This is for message stored in TB
-                // Objects that are required by getOfflineFileStream
-                var obj1 = new Object;
-                var obj2 = new Object;
                 var CQmessenger = Components.classes["@mozilla.org/messenger;1"].createInstance();
                 CQmessenger = CQmessenger.QueryInterface(Components.interfaces.nsIMessenger);
                 // Get the header in the form of nsIMsgDBHdr
@@ -343,7 +340,7 @@ var changequote = {
                 var ourfolder = hdr.folder;
                 // Open the stream, to read the folder starting from this message
                 try {
-                    ourfolder = ourfolder.getOfflineFileStream(hdr.messageKey, obj1, obj2);
+                    ourfolder = ourfolder.getLocalMsgStream(hdr);
                 } catch (e) {
                     // error in reading the streaming, this happens with IMAP message, without offline use
                     CQmailformat = 0;
