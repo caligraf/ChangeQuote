@@ -4,7 +4,7 @@ ADDON=changequote-$(VERSION)-tb.xpi
 xpi: $(ADDON)
 
 %.xpi:
-	zip -r $@ chrome.manifest chrome content defaults icon LICENSE manifest.json
+	zip -r $@ api background.js chrome.manifest chrome content defaults icon LICENSE manifest.json
 
 clean:
 	rm -f -- $(ADDON)
