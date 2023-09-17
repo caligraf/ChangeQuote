@@ -35,12 +35,12 @@ function onLoad(activatedWhileWindowOpen) {
     if (typeof MsgReplyToListMessageORIG == "undefined" && typeof window.MsgReplyToListMessage != "undefined") {
         var MsgReplyToListMessageORIG = window.MsgReplyToListMessage;
         window.MsgReplyToListMessage = function (event) {
-            var messageArray = [CQGetFirstSelectedMessage()];
+            var messageArray = [window.changequote.CQGetFirstSelectedMessage()];
             var CQheaders_news = CQprefs.getBoolPref("changequote.set.headers.news");
             if (CQheaders_news)
-                loadHeader(messageArray[0], true, true, false);
+                window.changequote.loadHeader(messageArray[0], true, true, false);
             else
-                standardHeader(messageArray[0]);
+                window.standardHeader(messageArray[0]);
             MsgReplyToListMessageORIG.apply(this, arguments);
         };
     }
@@ -107,11 +107,11 @@ function onLoad(activatedWhileWindowOpen) {
                     if (CQdateformat == 2)
                         CQparseheader(uri);
                     if (CQheaders_type == 0)
-                        loadHeader(uri, false, false, true);
+                        window.changequote.loadHeader(uri, false, false, true);
                     else if (CQheaders_type == 1)
-                        standardHeader(null);
+                        window.standardHeader(null);
                     else
-                        loadHeader(uri, true, false, true);
+                        window.changequote.loadHeader(uri, true, false, true);
                     window.gMsgCompose.quoteMessage(uri);
                 }
             }
