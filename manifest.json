@@ -1,34 +1,29 @@
 {
     "manifest_version": 2,
-    "applications": {
+    "browser_specific_settings": {
         "gecko": {
             "id": "changequote@caligraf",
-            "strict_min_version": "91.0",
-            "strict_max_version": "102.*"
+            "strict_min_version": "115.0",
+            "strict_max_version": "115.*"
         }
     },
     "name": "changeQuote",
     "description": "Change the reply header and the reply format",
     "author": "Caligraf",
-    "version": "1.6.1",
+    "version": "1.7.0",
     "homepage_url": "https://github.com/caligraf/ChangeQuote/wiki",
     "icons": {
         "32": "icon/icon32x32.png",
         "64": "icon/icon64x64.png"
 	},
-    "experiment_apis": {
-        "WindowListener": {
-        "schema": "api/WindowListener/schema.json",
-        "parent": {
-            "scopes": ["addon_parent"],
-            "paths": [["WindowListener"]],
-            "script": "api/WindowListener/implementation.js"
-        }
-        }
-    },
     "background": {
         "scripts": [
         "background.js"
         ]
-    }
+    },
+    "permissions": [
+        "messagesRead",
+        "messagesModify",
+        "compose"
+    ]
 }
