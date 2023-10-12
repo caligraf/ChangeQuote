@@ -1,0 +1,20 @@
+{
+  "OriginalMessage": {
+    "message": "-------- Original Message --------"
+  },
+  "From": {
+    "message": "From: "
+  },
+  "To": {
+    "message": "To: "
+  },
+  "Cc": {
+    "message": "Cc: "
+  },
+  "Subject": {
+    "message": "Subject: "
+  },
+  "Date": {
+    "message": "Date: "
+  }
+}

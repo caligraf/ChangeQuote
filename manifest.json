@@ -11,19 +11,38 @@
     "description": "Change the reply header and the reply format",
     "author": "Caligraf",
     "version": "1.7.0",
+    "default_locale": "en",
     "homepage_url": "https://github.com/caligraf/ChangeQuote/wiki",
     "icons": {
         "32": "icon/icon32x32.png",
         "64": "icon/icon64x64.png"
-	},
+    },
     "background": {
         "scripts": [
-        "background.js"
+            "background.js"
         ]
+    },
+    "message_display_action": {
+        "default_title": "test",
+        "type": "button"
+    },
+    "compose_action": {
+        "default_title": "Alter message body"
     },
     "permissions": [
         "messagesRead",
         "messagesModify",
-        "compose"
-    ]
+        "compose",
+        "accountsRead"
+    ],
+    "experiment_apis": {
+        "LegacyPrefs": {
+            "schema": "api/LegacyPrefs/schema.json",
+            "parent": {
+                "scopes": ["addon_parent"],
+                "paths": [["LegacyPrefs"]],
+                "script": "api/LegacyPrefs/implementation.js"
+            }
+        }
+    }
 }
