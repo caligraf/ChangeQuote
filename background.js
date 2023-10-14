@@ -1,3 +1,10 @@
+browser.composeScripts.register({
+    js: [{
+            file: "compose.js"
+        }
+    ]
+});
+
 async function CQgetDate(headerDate) {
     // if (headerDate) {
     // headerDate = headerDate.replace(/ +$/, "");
@@ -42,40 +49,40 @@ async function CQgetBtags() {
     return tagArr;
 }
 
-async function getClassicEnglishHeader(sender, recipient, cclist, subject, headerDate) {
+async function getClassicEnglishHeader(sender, recipient, cclist, subject, headerDate, endline) {
     let tags = await CQgetBtags();
-    let newhdr = "-------- Original Message  --------\n";
-    let senderhdr = tags[0] + "From: " + tags[1] + sender + "\n";
+    let newhdr = "-------- Original Message  --------"+endline;
+    let senderhdr = tags[0] + "From: " + tags[1] + sender + endline;
     let recipienthdr = tags[0] + "To: " + tags[1] + recipient;
     let cclabel = tags[0] + "Cc: " + tags[1];
     let changequote_headers_withcc = await messenger.LegacyPrefs.getPref("changequote.headers.withcc");
     if (changequote_headers_withcc && cclist.length > 0)
-        recipienthdr = recipienthdr + "\n" + cclabel + changequote.ccListDecoded(cclist);
+        recipienthdr = recipienthdr + endline + cclabel + changequote.ccListDecoded(cclist);
     let subjectlabel = tags[0] + "Subject: " + tags[1];
-    let realnewhdr = newhdr + subjectlabel + subject + "\n" + senderhdr + recipienthdr + "\n";
-    let datestring = CQgetDate(headerDate);
+    let realnewhdr = newhdr + subjectlabel + subject + endline + senderhdr + recipienthdr + endline;
+    let datestring = await CQgetDate(headerDate);
     let newdate = tags[0] + "Date: " + tags[1] + datestring;
     return realnewhdr + newdate;
 }
 
-async function getClassicFrenchHeader(sender, recipient, cclist, subject, headerDate) {
+async function getClassicLocalizedHeader(sender, recipient, cclist, subject, headerDate, endline) {
     let tags = await CQgetBtags();
-    let newhdr = messenger.i18n.getMessage("OriginalMessage", "-------- Original Message  --------") + "\n";
-    let senderhdr = tags[0] + messenger.i18n.getMessage("From", "From: ") + " : " + tags[1] + sender + "\n";
-    let recipienthdr = tags[0] + messenger.i18n.getMessage("To", "To: ") + " " + tags[1] + recipient;
-    let cclabel = tags[0] + messenger.i18n.getMessage("Cc", "") + " " + tags[1];
+    let newhdr = messenger.i18n.getMessage("OriginalMessage", "-------- Original Message  --------") + endline;
+    let senderhdr = tags[0] + messenger.i18n.getMessage("From", "From: ") + tags[1] + sender + endline;
+    let recipienthdr = tags[0] + messenger.i18n.getMessage("To", "To: ") + tags[1] + recipient;
+    let cclabel = tags[0] + messenger.i18n.getMessage("Cc: ", "") + tags[1];
     let changequote_headers_withcc = await messenger.LegacyPrefs.getPref("changequote.headers.withcc");
     if (changequote_headers_withcc && cclist.length > 0)
-        recipienthdr = recipienthdr + "\n" + cclabel + changequote.ccListDecoded(cclist);
-    let datelabel = tags[0] + messenger.i18n.getMessage("Date", "Date: ") + " : " + tags[1];
-    let subjectlabel = tags[0] + messenger.i18n.getMessage("Subject", "Subject: ") + " : " + tags[1];
-    let realnewhdr = newhdr + subjectlabel + subject + "\n" + senderhdr + recipienthdr + "\n";
-    let datestring = CQgetDate(headerDate);
+        recipienthdr = recipienthdr + endline + cclabel + changequote.ccListDecoded(cclist);
+    let datelabel = tags[0] + messenger.i18n.getMessage("Date", "Date: ") + tags[1];
+    let subjectlabel = tags[0] + messenger.i18n.getMessage("Subject", "Subject: ") + tags[1];
+    let realnewhdr = newhdr + subjectlabel + subject + endline + senderhdr + recipienthdr + endline;
+    let datestring = await CQgetDate(headerDate);
     let newdate = datelabel + datestring;
     return realnewhdr + newdate;
 }
 
-async function getCustomizedHeader(sender, recipient, cclist, subject, headerDate, isNNTP) {
+async function getCustomizedHeader(sender, recipient, cclist, subject, headerDate, isNNTP, endline) {
     let ch = "";
     if (isNNTP)
         ch = await messenger.LegacyPrefs.getPref("changequote.headers.news.customized");
@@ -114,7 +121,7 @@ async function getCustomizedHeader(sender, recipient, cclist, subject, headerDat
     if (cclist == "§§§§" || subject == "§§§§" || recipient == "§§§§" || sender == "§§§§") {
         ch = ch.replace(/\{\{[^\{\}]*§§§§[^\{\}]*\}\}/g, "§§§§");
         ch = ch.replace(/(\n§§§§\n)*§§§§$/g, "");
-        ch = ch.replace(/\n§§§§\n/g, "\n");
+        ch = ch.replace(/\n§§§§\n/g, endline);
         ch = ch.replace(/§§§§/g, "");
     }
 
@@ -124,7 +131,7 @@ async function getCustomizedHeader(sender, recipient, cclist, subject, headerDat
 }
 
 // Read the headers and load them in the prefs
-async function loadHeader(custom, isNNTP, cite, msgDate, messageHeader) {
+async function getHeader(custom, isNNTP, cite, msgDate, messageHeader, endline) {
     let isHeaderEnglish = await messenger.LegacyPrefs.getPref("changequote.headers.english");
     let tb_locale = messenger.i18n.getUILanguage();
 
@@ -134,18 +141,13 @@ async function loadHeader(custom, isNNTP, cite, msgDate, messageHeader) {
     let subject = messageHeader.subject;
     let realnewhdr = "";
     if (custom)
-        realnewhdr = await getCustomizedHeader(sender, recipient, cclist, subject, msgDate, isNNTP);
+        realnewhdr = await getCustomizedHeader(sender, recipient, cclist, subject, msgDate, isNNTP, endline);
     else if (isNNTP)
         standardHeader(email);
     else if (isHeaderEnglish)
-        realnewhdr = await getClassicEnglishHeader(sender, recipient, cclist, subject, msgDate);
-    // French locale has some specific details: some labels have already
-    // colons and a user told me that french uses a space before colons
-    // French locale test
-    else if (tb_locale.split('-')[0] === 'fr')
-        realnewhdr = await getClassicFrenchHeader(sender, recipient, cclist, subject, msgDate);
+        realnewhdr = await getClassicEnglishHeader(sender, recipient, cclist, subject, msgDate, endline);
     else
-        realnewhdr = changequote.getClassicLocalizedHeader(sender, recipient, cclist, subject, hdr, msgDate);
+        realnewhdr = await getClassicLocalizedHeader(sender, recipient, cclist, subject, msgDate, endline);
     // Fix for bug https://bugzilla.mozilla.org/show_bug.cgi?id=334053
     realnewhdr = realnewhdr.replace(/%/g, "%'");
 
@@ -156,22 +158,19 @@ async function loadHeader(custom, isNNTP, cite, msgDate, messageHeader) {
         realnewhdr = realnewhdr.replace(/\]\]/g, "(]])");
     }
 
-    await messenger.LegacyPrefs.setPref("mailnews.reply_header_type", 1);
+    //await messenger.LegacyPrefs.setPref("mailnews.reply_header_type", 1);
 
-    let reply_header_authorwrotesingle = await messenger.LegacyPrefs.getPref("mailnews.reply_header_authorwrotesingle");
+    //let reply_header_authorwrotesingle = await messenger.LegacyPrefs.getPref("mailnews.reply_header_originalmessage");
     let changequote_headers_add_newline = await messenger.LegacyPrefs.getPref("changequote.headers.add_newline", "");
-    if (reply_header_authorwrotesingle > 0) {
-        if (changequote_headers_add_newline)
-            realnewhdr = realnewhdr + "\n";
-        await messenger.LegacyPrefs.setPref("mailnews.reply_header_authorwrotesingle", realnewhdr);
-    } else {
-        if (custom && !changequote_headers_add_newline)
-            await messenger.LegacyPrefs.setPref("mailnews.reply_header_colon", "");
-        else
-            await messenger.LegacyPrefs.setPref("mailnews.reply_header_colon", "\n");
-        await messenger.LegacyPrefs.setPref("mailnews.reply_header_authorwrotesingle", realnewhdr);
-    }
+    if (changequote_headers_add_newline)
+        realnewhdr = realnewhdr + endline;
+    return realnewhdr;
+}
 
+// Read the headers and load them in the prefs
+async function loadHeader(custom, isNNTP, cite, msgDate, messageHeader) {
+    let realnewhdr = await getHeader(custom, isNNTP, cite, msgDate, messageHeader, "\n");
+    await messenger.LegacyPrefs.setPref("mailnews.reply_header_originalmessage", realnewhdr);
     //window.closeWindowOrMarkReadAfterReply(email);
 }
 
@@ -207,7 +206,7 @@ messenger.messageDisplayAction.onClicked.addListener(async(tab, buttonid) => {
         }
     }
 
-    let CQheaders_type = await messenger.LegacyPrefs.getPref("changequote.headers.type");
+/*    let CQheaders_type = await messenger.LegacyPrefs.getPref("changequote.headers.type");
     let CQheaders_news = await messenger.LegacyPrefs.getPref("changequote.set.headers.news");
     let msgDate = messageHeader.date;
     let isNNTP = false; // hardcoded for the moment
@@ -224,42 +223,87 @@ messenger.messageDisplayAction.onClicked.addListener(async(tab, buttonid) => {
             standardHeader(messageArray[0]);
         else
             await loadHeader(true, isNNTP, false, msgDate, messageHeader);
-    }
+    }*/
 
     messenger.compose.beginReply(messageHeader.id, "replyToSender", details);
 });
 
-messenger.composeAction.onClicked.addListener(async(tab) => {
-    // Get the existing message.
-    let details = await messenger.compose.getComposeDetails(tab.id);
-    console.log(details);
+async function doHandleCommand(message, sender) {
+    const {command, options } = message;
+    const {
+        tab: {
+            id: tabId
+        }
+    } = sender;
+    switch (command) {
+    case "getComposeDetails":
+        let composeDetails = await messenger.compose.getComposeDetails(tabId);
+        return composeDetails;
+        break;
+    case "getMessage":
+        let composeDetails2 = await messenger.compose.getComposeDetails(tabId);
+        let messageHeader = await messenger.messages.get(composeDetails2.relatedMessageId);
+        let messagePart = await messenger.messages.getFull(messageHeader.id);
+        let message = {};
+        message["messageHeader"] = messageHeader;
+        message["messagePart"] = messagePart;
+        return message;
+        break;
+    case "getPrefFormatAlternative":
+        let formatAlternative = await messenger.LegacyPrefs.getPref("changequote.replyformat.format");
+        return formatAlternative;
+        break;
+    case "getPrefCQHeaderType":
+        let cqheaders_type = await messenger.LegacyPrefs.getPref("changequote.headers.type");
+        return cqheaders_type;
+        break;
+    case "getPrefCQSetHeaderType":
+        let cqheaders_news = await messenger.LegacyPrefs.getPref("changequote.set.headers.news");
+        return cqheaders_news;
+        break;
+    case "getPrefCQHeaderDateLong":
+        let changequote_headers_date_long = await messenger.LegacyPrefs.getPref("changequote.headers.date_long");
+        return changequote_headers_date_long;
+        break;
+     case "getPrefCQHeaderDateLongFormat":
+        let dateLongFormat = await messenger.LegacyPrefs.getPref("changequote.headers.date_long_format");
+        return dateLongFormat;
+        break;
+    case "getPrefCQHeaderCapitalizeDate":
+        let changequote_headers_capitalize_date = await messenger.LegacyPrefs.getPref("changequote.headers.capitalize_date");
+        return changequote_headers_capitalize_date;
+        break;
+    case "getPrefCQHeaderLabelBold":
+        let changequote_headers_label_bold = await messenger.LegacyPrefs.getPref("changequote.headers.label_bold");
+        return changequote_headers_label_bold;
+        break;
+    case "getHeader":
+        let realnewhdr = getHeader(options.custom, options.isNNTP, options.cite, options.msgDate, options.messageHeader, options.endline);
+        return realnewhdr;
+        break;
+        
+    }
+    
+}
 
-    if (details.isPlainText) {
-        // The message is being composed in plain text mode.
-        let body = details.plainTextBody;
-        console.log(body);
-
-        // Make direct modifications to the message text, and send it back to the editor.
-        body += "\n\nSent from my Thunderbird";
-        console.log(body);
-        messenger.compose.setComposeDetails(tab.id, {
-            plainTextBody: body
-        });
-    } else {
-        // The message is being composed in HTML mode. Parse the message into an HTML document.
-        let document = new DOMParser().parseFromString(details.body, "text/html");
-        console.log(document);
-
-        // Use normal DOM manipulation to modify the message.
-        let para = document.createElement("p");
-        para.textContent = "Sent from my Thunderbird";
-        document.body.appendChild(para);
-
-        // Serialize the document back to HTML, and send it back to the editor.
-        let html = new XMLSerializer().serializeToString(document);
-        console.log(html);
-        messenger.compose.setComposeDetails(tab.id, {
-            body: html
-        });
+/**
+ * Handles the received commands by filtering all messages where "type" property
+ * is set to "command". Ignore all other requests.
+ */
+browser.runtime.onMessage.addListener((message, sender) => {
+    if (message && message.hasOwnProperty("command")) {
+        return doHandleCommand(message, sender);
     }
 });
+
+browser.runtime.onSuspend.addListener(async(message, sender) => {
+    await messenger.LegacyPrefs.clearUserPref("mailnews.reply_header_type");
+    await messenger.LegacyPrefs.clearUserPref("mailnews.reply_header_originalmessage");
+});
+
+async function main() {
+    await messenger.LegacyPrefs.setPref("mailnews.reply_header_type", 0);
+    await messenger.LegacyPrefs.setPref("mailnews.reply_header_originalmessage", "************HeaderChangeQuote*****************");
+}
+
+main();

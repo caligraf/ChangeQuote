@@ -26,9 +26,6 @@
         "default_title": "test",
         "type": "button"
     },
-    "compose_action": {
-        "default_title": "Alter message body"
-    },
     "permissions": [
         "messagesRead",
         "messagesModify",

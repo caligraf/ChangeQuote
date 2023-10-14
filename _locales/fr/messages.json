@@ -1,20 +1,20 @@
 {
   "OriginalMessage": {
-    "message": "-------- Original Message  --------"
+    "message": "-------- Message Original --------"
   },
   "From": {
-    "message": "De: "
+    "message": "De : "
   },
   "To": {
-    "message": "Pour: "
+    "message": "Pour : "
   },
   "Cc": {
-    "message": "Copie à: "
+    "message": "Copie à : "
   },
   "Subject": {
-    "message": "Sujet: "
+    "message": "Sujet : "
   },
   "Date": {
-    "message": "Date: "
+    "message": "Date : "
   }
 }
