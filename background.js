@@ -5,6 +5,19 @@ browser.composeScripts.register({
     ]
 });
 
+// Reset the headers to the standard
+async function standardHeader() {
+    await messenger.LegacyPrefs.clearUserPref("mailnews.reply_header_type");
+    await messenger.LegacyPrefs.clearUserPref("mailnews.reply_header_originalmessage");
+    await messenger.LegacyPrefs.clearUserPref("mailnews.reply_header_authorwrote");
+    await messenger.LegacyPrefs.clearUserPref("mailnews.reply_header_ondate");
+    await messenger.LegacyPrefs.clearUserPref("mailnews.reply_header_separator");
+    await messenger.LegacyPrefs.clearUserPref("mailnews.reply_header_colon");
+    await messenger.LegacyPrefs.clearUserPref("mailnews.reply_header_authorwrotesingle");
+    // if (msguri)
+        // closeWindowOrMarkReadAfterReply(msguri);
+}
+
 async function CQgetDate(headerDate) {
     // if (headerDate) {
     // headerDate = headerDate.replace(/ +$/, "");
@@ -143,7 +156,7 @@ async function getHeader(custom, isNNTP, cite, msgDate, messageHeader, endline) 
     if (custom)
         realnewhdr = await getCustomizedHeader(sender, recipient, cclist, subject, msgDate, isNNTP, endline);
     else if (isNNTP)
-        standardHeader(email);
+        await standardHeader(email);
     else if (isHeaderEnglish)
         realnewhdr = await getClassicEnglishHeader(sender, recipient, cclist, subject, msgDate, endline);
     else
@@ -280,8 +293,7 @@ async function doHandleCommand(message, sender) {
     case "getHeader":
         let realnewhdr = getHeader(options.custom, options.isNNTP, options.cite, options.msgDate, options.messageHeader, options.endline);
         return realnewhdr;
-        break;
-        
+        break;        
     }
     
 }
@@ -302,8 +314,13 @@ browser.runtime.onSuspend.addListener(async(message, sender) => {
 });
 
 async function main() {
-    await messenger.LegacyPrefs.setPref("mailnews.reply_header_type", 0);
-    await messenger.LegacyPrefs.setPref("mailnews.reply_header_originalmessage", "************HeaderChangeQuote*****************");
+    let cqheaders_type = await messenger.LegacyPrefs.getPref("changequote.headers.type");
+    if( cqheaders_type == 0 || cqheaders_type == 2) {
+        await messenger.LegacyPrefs.setPref("mailnews.reply_header_type", 0);
+        await messenger.LegacyPrefs.setPref("mailnews.reply_header_originalmessage", "************HeaderChangeQuote*****************");
+    } else {
+        standardHeader();
+    }
 }
 
 main();

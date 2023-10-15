@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+    <title>ChangeQuote Preferences</title>
+    <link rel="stylesheet" href="chrome://messenger/skin/colors.css">
+    <link rel="stylesheet" href="options.css">
+    <script src="/chrome/content/i18n.js"></script>
+    <script src="options.js" type="module"></script>
+    </head>
+
+    <body>
+
+        <div id="tabpanel">
+            <ul role="tablist" id="tablist">
+                <li id="link1" role="tab" aria-controls="panel-1" aria-selected="true">__MSG_CQcaption1__</li>
+                <li id="link2" role="tab" aria-controls="panel-2" aria-selected="false">__MSG_CQnewstitle__</li>
+                <li id="link3" role="tab" aria-controls="panel-3" aria-selected="false">__MSG_CQcaption2__</li>
+                <li id="link4" role="tab" aria-controls="panel-4" aria-selected="false">__MSG_Help__</li>
+            </ul>
+            <div id="tabcontent">
+                <div id="panel-1" role="tabpanel" aria-labelledby="link1" aria-hidden="false">
+                   <fieldset data-type="radiogroup" data-preference="changequote.headers.type">
+                   <div>
+                        <input type="radio" name="headersType" value="0" id="Extended"/>
+                        <label for="Extended">__MSG_CQlabel1__</label>
+                   </div>
+                   <div>
+                        <input type="radio" name="headersType" value="1" id="Standard"/>
+                        <label for="Standard">__MSG_CQlabel2__</label>
+                   </div>
+                   <div>
+                        <input type="radio" name="headersType" value="2" id="Customize"/>
+                        <label for="Customize">__MSG_CQlabel3__</label>
+                   </div>
+                   <div>
+                        <textarea id="CHbox" rows="5" data-preference="changequote.headers.customized" data-type="textarea"></textarea>
+                   </div>
+                   </fieldset>
+                </div>
+                
+                <div id="panel-2" role="tabpanel" aria-labelledby="link2" aria-hidden="true">
+                    <div class="vbox" data-type="radiogroup" data-preference="header.from.style">
+                        <label>
+                            <input type="radio" name="fromAttributionStyle" value="0" />
+                            Default
+                        </label>
+                        <label>
+                            <input type="radio" name="fromAttributionStyle" value="1" />
+                            Outlook Simple (From: Name)
+                        </label>
+                        <label>
+                            <input type="radio" name="fromAttributionStyle" value="2" />
+                            Outlook Extended (From: Name [mailto:email-address])
+                        </label>
+                    </div>
+                </div>
+                
+                <div id="panel-3" role="tabpanel" aria-labelledby="link3" aria-hidden="true">
+                    <div class="vbox" data-type="radiogroup" data-preference="header.from.style">
+                        <label>
+                            <input type="radio" name="fromAttributionStyle" value="0" />
+                            Default
+                        </label>
+                        <label>
+                            <input type="radio" name="fromAttributionStyle" value="1" />
+                            Outlook Simple (From: Name)
+                        </label>
+                        <label>
+                            <input type="radio" name="fromAttributionStyle" value="2" />
+                            Outlook Extended (From: Name [mailto:email-address])
+                        </label>
+                    </div>
+                </div>
+                
+                <div id="panel-4" role="tabpanel" aria-labelledby="link4" aria-hidden="true">
+                    <pre>__MSG_HelpText__</pre>
+                </div>
+                
+            </div>
+        </div> 
+        <script src="options.js"/>
+    </body>
+</html>

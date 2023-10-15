@@ -23,14 +23,19 @@
         ]
     },
     "message_display_action": {
-        "default_title": "test",
+        "default_title": "CQ",
         "type": "button"
+    },
+    "options_ui": {
+      "page": "/options/options.html",
+      "browser_style": true
     },
     "permissions": [
         "messagesRead",
         "messagesModify",
         "compose",
-        "accountsRead"
+        "accountsRead",
+        "storage"
     ],
     "experiment_apis": {
         "LegacyPrefs": {

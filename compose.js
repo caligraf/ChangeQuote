@@ -3,9 +3,6 @@
  */
 async function updateMessage(composeDetails, messageHeader, messagePart) {
     try {
-        // const src = browser.runtime.getURL("modules/messageTools.mjs");
-        // const contentMain = await import(src);
-        // contentMain.CQgetDate(null);
         if (composeDetails.type == "reply") {
             var inner = document.body.innerHTML;
             if (inner.length < 20) // || inner.indexOf("([[)") < 0)
@@ -48,12 +45,12 @@ async function updateMessage(composeDetails, messageHeader, messagePart) {
                 if (cqheaders_news)
                     realnewhdr = await browser.runtime.sendMessage({command: "getHeader", options:{custom:true, isNNTP:isnntp, cite:false, msgDate:msgdate, messageHeader:messageHeader, endline: "[[br /]]"}});
                 else
-                    standardheader(messagearray[0]);
+                    return;//await browser.runtime.sendMessage({command: "standardheader"});
             } else {
                 if (cqheaders_type == 0) {
                     realnewhdr = await browser.runtime.sendMessage({command: "getHeader", options:{custom:false, isNNTP:isnntp, cite:false, msgDate:msgdate, messageHeader:messageHeader, endline: "[[br /]]"}});
                 } else if (cqheaders_type == 1)
-                    standardheader(messagearray[0]);
+                    return;//await browser.runtime.sendMessage({command: "standardheader"});
                 else
                     realnewhdr = await browser.runtime.sendMessage({command: "getHeader", options:{custom:true, isNNTP:isnntp, cite:false, msgDate:msgdate, messageHeader:messageHeader, endline: "[[br /]]"}});
             }

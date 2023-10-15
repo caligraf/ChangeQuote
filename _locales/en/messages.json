@@ -1,20 +1,146 @@
 {
-  "OriginalMessage": {
-    "message": "-------- Original Message --------"
-  },
-  "From": {
-    "message": "From: "
-  },
-  "To": {
-    "message": "To: "
-  },
-  "Cc": {
-    "message": "Cc: "
-  },
-  "Subject": {
-    "message": "Subject: "
-  },
-  "Date": {
-    "message": "Date: "
-  }
+    "OriginalMessage": {
+        "message": "-------- Original Message --------"
+    },
+    "From": {
+        "message": "From: "
+    },
+    "To": {
+        "message": "To: "
+    },
+    "Cc": {
+        "message": "Cc: "
+    },
+    "Subject": {
+        "message": "Subject: "
+    },
+    "Date": {
+        "message": "Date: "
+    },
+    "HelpText": {
+        "message": "--------------------------------------------------------------------------\nSYNTAXE DES EN-TÊTES PERSONNALISÉS\n--------------------------------------------------------------------------\n%%1 = auteur\n%%2 = destinataires\n%%3 = destinataires (Copie)\n%%4 = sujet\n%%5 = date \n%%6 = auteur (seulement le nom) \n%%7 = auteur (seulement l'adresse)\n%%8 = destinataires (seulement le nom) \n%%9 = destinataires (Copie - seulement le nom) \n\nLes parties insérées entre {{ et }} seront affichées seulement si\nle champ correspondant de l'en-tête est renseigné.\n\nCela signifie par exemple que\n\nPour : %%2{{ et %%3}} \n\ndonnera :\n\nPour : mail1@xxx.org (si CC est vide)\nPour : mail1@xxx.org et mail2@xxx.org (si CC est mail2@xxx.org)\n\n----------------------------------------------------------------------------------------------\nSYNTAXE DU FORMAT DE DATE PERSONNALISÉ\n----------------------------------------------------------------------------------------------\n\n%d = jour du mois, sur deux chiffres (de \"01\" à \"31\")\n%D = jour de la semaine, en anglais, avec les trois lettres initiales (\"Fri\")\n%m = mois (\"01\" à \"12\")\n%M = mois, en anglais, avec les trois lettres initiales (\"Jan\")\n%y = année, 2 chiffres (\"99\")\n%Y = année, 4 chiffres (\"1999\")\n%i = minutes (\"00\" à \"59\")\n%s = secondes (\"00\" à \"59\")\n%H = heure, au format 24h (\"00\" à \"23\")\n%h = heure, au format 12h (\"01\" à \"12\")\n%A = \"AM\" ou \"PM\"\n%a = \"am\" ou \"pm\"\n%e = space-filled date of month\n%z = timezone offset from UTC"
+    },
+    "CQcaption1": {
+        "message": "Reply header"
+    },
+    "CQcaption2": {
+        "message": "Format and actions"
+    },
+    "CQlabel1": {
+        "message": "Extended reply header (sender, recipients, subject, date)"
+    },
+    "CQlabel1a": {
+        "message": "Insert the CC field into the header"
+    },
+    "CQlabel1b": {
+        "message": "Use always headers in english"
+    },
+    "CQlabel1d": {
+        "message": "Use customized headers for newsgroups"
+    },
+    "CQlabel2": {
+        "message": "Standard Thunderbird reply header"
+    },
+    "CQlabel3": {
+        "message": "Customized reply header"
+    },
+    "CQlabel4": {
+        "message": "Use in reply the same format (html or text) of the original mail"
+    },
+    "CQlabel5": {
+        "message": "Reply stripping off the inline attachments"
+    },
+    "CQlabel6": {
+        "message": "Close message window after reply or forward"
+    },
+    "CQlabel7": {
+        "message": "Mark message as read after reply"
+    },
+    "CQbutton1": {
+        "message": " Edit"
+    },
+    "CQlabelitem1": {
+        "message": "Reply in HTML"
+    },
+    "CQlabelitem2": {
+        "message": "Reply in plain text"
+    },
+    "CQlabelmenu": {
+        "message": "Other options"
+    },
+    "CQnewstitle": {
+        "message": "Newsgroup reply headers"
+    },
+    "CQnewslabel1": {
+        "message": "First header's part (&#37;s stands for the author):"
+    },
+    "CQnewslabel2": {
+        "message": "Second header's part (&#37;s stands for the date):"
+    },
+    "CQnewsdescr1": {
+        "message": "Choise the element at the begin of the reply header:"
+    },
+    "CQnewsradio1": {
+        "message": "Author"
+    },
+    "CQnewsradio2": {
+        "message": "Date"
+    },
+    "CQdatelongINTlabel": {
+        "message": "Date in international format"
+    },
+    "CQalternativeformat": {
+        "message": "Format for the mixed mails (content-type=alternative):"
+    },
+    "CQradio2defaultlabel": {
+        "message": "Default"
+    },
+    "CQradio2htmllabel": {
+        "message": "Html"
+    },
+    "CQradio2plainlabel": {
+        "message": "Plain text"
+    },
+    "CQdatelongLOClabel": {
+        "message": "Date in localized format"
+    },
+    "CQdatelongORIGlabel": {
+        "message": "Date in original format"
+    },
+    "noquote": {
+        "message": "(without quote)"
+    },
+    "yesquote": {
+        "message": "(with quote)"
+    },
+    "CQnoReplyTo": {
+        "message": "Reply ignoring Reply-To header"
+    },
+    "help": {
+        "message": "Help"
+    },
+    "addNewLine": {
+        "message": "Add a linebreak in text plain headers"
+    },
+    "CQlabel1c": {
+        "message": "Use long or customized format in date field"
+    },
+    "dateCustom": {
+        "message": "Customized format"
+    },
+    "capitalizeDate": {
+        "message": "Capitalise date"
+    },
+    "CQbold": {
+        "message": "Headers tags with bold font"
+    },
+    "htmlSupport": {
+        "message": "Html tags support"
+    },
+    "local": {
+        "message": "local"
+    },
+    "sender": {
+        "message": "sender"
+    }
 }
