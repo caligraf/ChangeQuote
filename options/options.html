@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html>
     <head>
         <meta charset="UTF-8">
@@ -22,22 +21,75 @@
             <div id="tabcontent">
                 <div id="panel-1" role="tabpanel" aria-labelledby="link1" aria-hidden="false">
                    <fieldset data-type="radiogroup" data-preference="changequote.headers.type">
-                   <div>
-                        <input type="radio" name="headersType" value="0" id="Extended"/>
-                        <label for="Extended">__MSG_CQlabel1__</label>
-                   </div>
-                   <div>
-                        <input type="radio" name="headersType" value="1" id="Standard"/>
-                        <label for="Standard">__MSG_CQlabel2__</label>
-                   </div>
-                   <div>
-                        <input type="radio" name="headersType" value="2" id="Customize"/>
-                        <label for="Customize">__MSG_CQlabel3__</label>
-                   </div>
-                   <div>
-                        <textarea id="CHbox" rows="5" data-preference="changequote.headers.customized" data-type="textarea"></textarea>
-                   </div>
+                        <div>
+                            <input type="radio" name="headersType" value="0" id="Extended"/>
+                            <label for="Extended">__MSG_CQlabel1__</label>
+                            <div class="hbox">
+                                <input type="checkbox" id="CQlabel1a" data-preference="changequote.headers.withcc" />
+                                <label for="CQlabel1a">__MSG_CQlabel1a__</label>
+                            </div>
+                            <div class="hbox">
+                                <input type="checkbox" id="CQlabel1b" data-preference="changequote.headers.english" />
+                                <label for="CQlabel1b">__MSG_CQlabel1b__</label>
+                            </div>
+                            <div class="hbox">
+                                <input type="checkbox" id="CQbold" data-preference="changequote.headers.label_bold" />
+                                <label for="CQbold">__MSG_CQbold__</label>
+                            </div>
+                        </div>
+                        <div>
+                            <input type="radio" name="headersType" value="1" id="Standard"/>
+                            <label for="Standard">__MSG_CQlabel2__</label>
+                        </div>
+                        <div>
+                            <input type="radio" name="headersType" value="2" id="Customize"/>
+                            <label for="Customize">__MSG_CQlabel3__</label>
+                        </div>
                    </fieldset>
+                   <div>
+                        <textarea id="CHbox" rows="5" cols="60"data-preference="changequote.headers.customized" data-type="textarea"></textarea>
+                   </div>
+                   <div class="hbox">
+                        <input type="checkbox" id="addNewLine" data-preference="changequote.headers.add_newline" />
+                        <label for="addNewLine">__MSG_addNewLine__</label>
+                    </div>
+                    <div class="hbox">
+                        <input type="checkbox" id="customHTML" data-preference="changequote.headers.custom_html_enabled" />
+                        <label for="customHTML">__MSG_htmlSupport__</label>
+                    </div>
+                    <div class="hbox">
+                        <input type="checkbox" id="dateLong" data-preference="changequote.headers.date_long" />
+                        <label for="dateLong">__MSG_CQlabel1c__</label>
+                    </div>
+                        <fieldset data-type="radiogroup" data-preference="changequote.headers.date_long_format">
+                            <div>
+                                <input type="radio" name="dateLongFormat" value="0" id="localizedFormat"/>
+                                <label for="localizedFormat">__MSG_CQdatelongLOClabel__</label>
+                            </div>
+                            <div>
+                                <input type="radio" name="dateLongFormat" value="1" id="internationalFormat"/>
+                                <label for="internationalFormat">__MSG_CQdatelongINTlabel__</label>
+                            </div>
+                            <div>
+                                <input type="radio" name="dateLongFormat" value="2" id="originalFormat"/>
+                                <label for="originalFormat">__MSG_CQdatelongORIGlabel__</label>
+                            </div>
+                            <div>
+                                <input type="radio" name="dateLongFormat" value="3" id="dateCustomLocal"/>
+                                <label for="dateCustomLocal">__MSG_dateCustomLocal__</label>
+                                <input type="text" id="date_custom_format" minlength="4" data-preference="changequote.headers.date_custom_format"/>
+                            </div>
+                            <div>
+                                <input type="radio" name="dateLongFormat" value="4" id="dateCustomSender"/>
+                                <label for="dateCustomSender">__MSG_dateCustomSender__</label>
+                                <input type="text" id="dateSender_custom_format" minlength="4" data-preference="changequote.headers.dateSender_custom_format"/>
+                            </div>
+                        </fieldset>
+                        <div class="hbox">
+                            <input type="checkbox" id="capitalizeDate" data-preference="changequote.headers.capitalize_date" />
+                            <label for="capitalizeDate">__MSG_capitalizeDate__</label>
+                        </div>
+                    </div>
                 </div>
                 
                 <div id="panel-2" role="tabpanel" aria-labelledby="link2" aria-hidden="true">

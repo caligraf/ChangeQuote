@@ -65,6 +65,7 @@ async function loadPref(prefElement) {
                 });
             }
             break;
+        case "text":
         case "textarea":
             prefElement.value = value;
             prefElement.addEventListener("change", () => savePref(prefElement));
@@ -92,6 +93,7 @@ async function savePref(prefElement) {
                 }
             }
             break;
+        case "text":
         case "textarea":
             browser.LegacyPrefs.setPref(`${name}`, prefElement.value);
             break;

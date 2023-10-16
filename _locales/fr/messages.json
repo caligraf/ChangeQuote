@@ -42,7 +42,7 @@
         "message": "En-tête pour réponse standard de Thunderbird"
     },
     "CQlabel3": {
-        "message": "En-tête de réponse personnalisé"
+        "message": "En-tête de réponse personnalisé :"
     },
     "CQlabel4": {
         "message": "Utiliser le même format (html ou texte) pour la réponse que celui du mail d'origine"
@@ -123,10 +123,13 @@
         "message": "Ajouter un saut de ligne aux en-têtes en texte brut"
     },
     "CQlabel1c": {
-        "message": "Utiliser un format long ou personnalisé dans le champ « date »"
+        "message": "Utiliser un format long ou personnalisé dans le champ « date » :"
     },
-    "dateCustom": {
-        "message": "Format personnalisé"
+    "dateCustomLocal": {
+        "message": "Format personnalisé (local)"
+    },
+    "dateCustomSender": {
+        "message": "Format personnalisé (sender)"
     },
     "capitalizeDate": {
         "message": "Mettre la date en capitales"
@@ -136,11 +139,5 @@
     },
     "htmlSupport": {
         "message": "Prise en charge des balises HTML"
-    },
-    "local": {
-        "message": "local"
-    },
-    "sender": {
-        "message": "sender"
     }
 }

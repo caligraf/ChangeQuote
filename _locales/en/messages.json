@@ -42,7 +42,7 @@
         "message": "Standard Thunderbird reply header"
     },
     "CQlabel3": {
-        "message": "Customized reply header"
+        "message": "Customized reply header:"
     },
     "CQlabel4": {
         "message": "Use in reply the same format (html or text) of the original mail"
@@ -123,10 +123,13 @@
         "message": "Add a linebreak in text plain headers"
     },
     "CQlabel1c": {
-        "message": "Use long or customized format in date field"
+        "message": "Use long or customized format in date field:"
     },
-    "dateCustom": {
-        "message": "Customized format"
+    "dateCustomLocal": {
+        "message": "Customized format (local)"
+    },
+    "dateCustomSender": {
+        "message": "Customized format (sender)"
     },
     "capitalizeDate": {
         "message": "Capitalise date"
@@ -136,11 +139,5 @@
     },
     "htmlSupport": {
         "message": "Html tags support"
-    },
-    "local": {
-        "message": "local"
-    },
-    "sender": {
-        "message": "sender"
     }
 }
