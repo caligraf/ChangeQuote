@@ -43,7 +43,7 @@ async function CQgetDate(headerDate) {
         datestring = datestring.replace(/ +$/, "");
         return datestring;
     } else {
-        var formDate = new Services.intl.DateTimeFormat().format(date)
+        var formDate = new Intl.DateTimeFormat().format(headerDate);
             formDate = formDate.replace(/ +$/, "");
         return formDate;
     }

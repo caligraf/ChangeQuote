@@ -27,7 +27,7 @@
         "message": "Format et actions"
     },
     "CQlabel1": {
-        "message": "En-tête de réponse étendu (expéditeur, destinataire, sujet, date)"
+        "message": "En-tête de réponse étendu (expéditeur, destinataire, sujet, date) :"
     },
     "CQlabel1a": {
         "message": "Insérer aussi le champ « Copie à » dans l'en-tête"

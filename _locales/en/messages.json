@@ -18,7 +18,7 @@
         "message": "Date: "
     },
     "HelpText": {
-        "message": "--------------------------------------------------------------------------\nSYNTAXE DES EN-TÊTES PERSONNALISÉS\n--------------------------------------------------------------------------\n%%1 = auteur\n%%2 = destinataires\n%%3 = destinataires (Copie)\n%%4 = sujet\n%%5 = date \n%%6 = auteur (seulement le nom) \n%%7 = auteur (seulement l'adresse)\n%%8 = destinataires (seulement le nom) \n%%9 = destinataires (Copie - seulement le nom) \n\nLes parties insérées entre {{ et }} seront affichées seulement si\nle champ correspondant de l'en-tête est renseigné.\n\nCela signifie par exemple que\n\nPour : %%2{{ et %%3}} \n\ndonnera :\n\nPour : mail1@xxx.org (si CC est vide)\nPour : mail1@xxx.org et mail2@xxx.org (si CC est mail2@xxx.org)\n\n----------------------------------------------------------------------------------------------\nSYNTAXE DU FORMAT DE DATE PERSONNALISÉ\n----------------------------------------------------------------------------------------------\n\n%d = jour du mois, sur deux chiffres (de \"01\" à \"31\")\n%D = jour de la semaine, en anglais, avec les trois lettres initiales (\"Fri\")\n%m = mois (\"01\" à \"12\")\n%M = mois, en anglais, avec les trois lettres initiales (\"Jan\")\n%y = année, 2 chiffres (\"99\")\n%Y = année, 4 chiffres (\"1999\")\n%i = minutes (\"00\" à \"59\")\n%s = secondes (\"00\" à \"59\")\n%H = heure, au format 24h (\"00\" à \"23\")\n%h = heure, au format 12h (\"01\" à \"12\")\n%A = \"AM\" ou \"PM\"\n%a = \"am\" ou \"pm\"\n%e = space-filled date of month\n%z = timezone offset from UTC"
+        "message": "SYNTAX FOR CUSTOMIZED HEADERS\n\n%%1 = author \n%%2 = recipients \n%%3 = recipients (CC)\n%%4 = subject\n%%5 = date \n%%6 = author (name only) \n%%7 = author (address only)\n%%8 = recipients (name only)\n%%9 = recipients (CC - name only)\n\nThe parts enclosed between {{ and }} are displayed\njust if the header inside is not null.\nThis means that a header with\n\nTo : %%2{{ and %%3}} \n\nwill give\n\nTo : mail1@xxx.org (if CC is null)\nTo : mail1@xxx.org and mail2@xxx.org (if CC is mail2@xxx.org)\n\n\nSYNTAX FOR CUSTOMIZED DATE FORMAT\n\n%d = day of the month, 2 digits (\"01\" to \"31\")\n%D = day of the week, textual, english, 3 letters (\"Fri\")\n%m = month (\"01\" to \"12\")\n%M = month, textual, english, 3 letters (\"Jan\")\n%Y, %y = year, 4 digits (\"1999\")\n%i = minutes (\"00\" to \"59\")\n%s = seconds (\"00\" to \"59\")\n%H = hour, 24-hour format (\"00\" to \"23\")\n%h = hour, 12-hour format (\"01\" to \"12\")\n%A = \"AM\" or \"PM\"\n%a = \"am\" or \"pm\"\n%e = space-filled date of month\n%z = timezone offset from UTC"
     },
     "CQcaption1": {
         "message": "Reply header"
@@ -27,7 +27,7 @@
         "message": "Format and actions"
     },
     "CQlabel1": {
-        "message": "Extended reply header (sender, recipients, subject, date)"
+        "message": "Extended reply header (sender, recipients, subject, date):"
     },
     "CQlabel1a": {
         "message": "Insert the CC field into the header"

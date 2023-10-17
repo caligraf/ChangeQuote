@@ -10,7 +10,6 @@
     </head>
 
     <body>
-
         <div id="tabpanel">
             <ul role="tablist" id="tablist">
                 <li id="link1" role="tab" aria-controls="panel-1" aria-selected="true">__MSG_CQcaption1__</li>
@@ -22,114 +21,136 @@
                 <div id="panel-1" role="tabpanel" aria-labelledby="link1" aria-hidden="false">
                    <fieldset data-type="radiogroup" data-preference="changequote.headers.type">
                         <div>
-                            <input type="radio" name="headersType" value="0" id="Extended"/>
+                            <input type="radio" name="headersType" value="0" id="Extended" />
                             <label for="Extended">__MSG_CQlabel1__</label>
-                            <div class="hbox">
-                                <input type="checkbox" id="CQlabel1a" data-preference="changequote.headers.withcc" />
-                                <label for="CQlabel1a">__MSG_CQlabel1a__</label>
-                            </div>
-                            <div class="hbox">
-                                <input type="checkbox" id="CQlabel1b" data-preference="changequote.headers.english" />
-                                <label for="CQlabel1b">__MSG_CQlabel1b__</label>
-                            </div>
-                            <div class="hbox">
-                                <input type="checkbox" id="CQbold" data-preference="changequote.headers.label_bold" />
-                                <label for="CQbold">__MSG_CQbold__</label>
+                            <div id="content">
+                                <div class="hbox">
+                                    <input type="checkbox" id="CQwithoutCC" data-preference="changequote.headers.withcc" />
+                                    <label for="CQwithoutCC">__MSG_CQlabel1a__</label>
+                                </div>
+                                <div class="hbox">
+                                    <input type="checkbox" id="CQAlwaysEnglish" data-preference="changequote.headers.english" />
+                                    <label for="CQAlwaysEnglish">__MSG_CQlabel1b__</label>
+                                </div>
+                                <div class="hbox">
+                                    <input type="checkbox" id="CQbold" data-preference="changequote.headers.label_bold" />
+                                    <label for="CQbold">__MSG_CQbold__</label>
+                                </div>
                             </div>
                         </div>
                         <div>
-                            <input type="radio" name="headersType" value="1" id="Standard"/>
-                            <label for="Standard">__MSG_CQlabel2__</label>
+                            <input type="radio" name="headersType" value="1" id="CQStandard" />
+                            <label for="CQStandard">__MSG_CQlabel2__</label>
                         </div>
                         <div>
-                            <input type="radio" name="headersType" value="2" id="Customize"/>
-                            <label for="Customize">__MSG_CQlabel3__</label>
+                            <input type="radio" name="headersType" value="2" id="CQCustomize"/>
+                            <label for="CQCustomize">__MSG_CQlabel3__</label>
+                            <div>
+                                <textarea id="CHbox" rows="5" cols="60"data-preference="changequote.headers.customized" data-type="textarea"></textarea>
+                            </div>
                         </div>
                    </fieldset>
-                   <div>
-                        <textarea id="CHbox" rows="5" cols="60"data-preference="changequote.headers.customized" data-type="textarea"></textarea>
-                   </div>
                    <div class="hbox">
-                        <input type="checkbox" id="addNewLine" data-preference="changequote.headers.add_newline" />
-                        <label for="addNewLine">__MSG_addNewLine__</label>
+                        <input type="checkbox" id="CQadd_newline" data-preference="changequote.headers.add_newline" />
+                        <label for="CQadd_newline">__MSG_addNewLine__</label>
                     </div>
                     <div class="hbox">
-                        <input type="checkbox" id="customHTML" data-preference="changequote.headers.custom_html_enabled" />
-                        <label for="customHTML">__MSG_htmlSupport__</label>
+                        <input type="checkbox" id="CQhtml_support" data-preference="changequote.headers.custom_html_enabled" />
+                        <label for="CQhtml_support">__MSG_htmlSupport__</label>
                     </div>
                     <div class="hbox">
-                        <input type="checkbox" id="dateLong" data-preference="changequote.headers.date_long" />
-                        <label for="dateLong">__MSG_CQlabel1c__</label>
+                        <input type="checkbox" id="CQdateLong" data-preference="changequote.headers.date_long" />
+                        <label for="CQdateLong">__MSG_CQlabel1c__</label>
                     </div>
                         <fieldset data-type="radiogroup" data-preference="changequote.headers.date_long_format">
                             <div>
-                                <input type="radio" name="dateLongFormat" value="0" id="localizedFormat"/>
-                                <label for="localizedFormat">__MSG_CQdatelongLOClabel__</label>
+                                <input type="radio" name="dateLongFormat" value="0" id="CQdatelocalized"/>
+                                <label for="CQdatelocalized">__MSG_CQdatelongLOClabel__</label>
                             </div>
                             <div>
-                                <input type="radio" name="dateLongFormat" value="1" id="internationalFormat"/>
-                                <label for="internationalFormat">__MSG_CQdatelongINTlabel__</label>
+                                <input type="radio" name="dateLongFormat" value="1" id="CQdatelongINT"/>
+                                <label for="CQdatelongINT">__MSG_CQdatelongINTlabel__</label>
                             </div>
                             <div>
-                                <input type="radio" name="dateLongFormat" value="2" id="originalFormat"/>
-                                <label for="originalFormat">__MSG_CQdatelongORIGlabel__</label>
+                                <input type="radio" name="dateLongFormat" value="2" id="CQdateorig"/>
+                                <label for="CQdateorig">__MSG_CQdatelongORIGlabel__</label>
                             </div>
                             <div>
-                                <input type="radio" name="dateLongFormat" value="3" id="dateCustomLocal"/>
-                                <label for="dateCustomLocal">__MSG_dateCustomLocal__</label>
+                                <input type="radio" name="dateLongFormat" value="3" id="CQdatecustom"/>
+                                <label for="CQdatecustom">__MSG_dateCustomLocal__</label>
                                 <input type="text" id="date_custom_format" minlength="4" data-preference="changequote.headers.date_custom_format"/>
                             </div>
                             <div>
-                                <input type="radio" name="dateLongFormat" value="4" id="dateCustomSender"/>
-                                <label for="dateCustomSender">__MSG_dateCustomSender__</label>
+                                <input type="radio" name="dateLongFormat" value="4" id="CQdatecustomUTC"/>
+                                <label for="CQdatecustomUTC">__MSG_dateCustomSender__</label>
                                 <input type="text" id="dateSender_custom_format" minlength="4" data-preference="changequote.headers.dateSender_custom_format"/>
                             </div>
                         </fieldset>
                         <div class="hbox">
-                            <input type="checkbox" id="capitalizeDate" data-preference="changequote.headers.capitalize_date" />
-                            <label for="capitalizeDate">__MSG_capitalizeDate__</label>
+                            <input type="checkbox" id="CQcapitalize_date" data-preference="changequote.headers.capitalize_date" />
+                            <label for="CQcapitalize_date">__MSG_capitalizeDate__</label>
                         </div>
                     </div>
                 </div>
                 
                 <div id="panel-2" role="tabpanel" aria-labelledby="link2" aria-hidden="true">
-                    <div class="vbox" data-type="radiogroup" data-preference="header.from.style">
-                        <label>
-                            <input type="radio" name="fromAttributionStyle" value="0" />
-                            Default
-                        </label>
-                        <label>
-                            <input type="radio" name="fromAttributionStyle" value="1" />
-                            Outlook Simple (From: Name)
-                        </label>
-                        <label>
-                            <input type="radio" name="fromAttributionStyle" value="2" />
-                            Outlook Extended (From: Name [mailto:email-address])
-                        </label>
-                    </div>
+                    <div class="white">
+                        <div class="hbox">
+                            <input type="checkbox" id="CQcustomizeHeaderForNewsGroup" data-preference="changequote.set.header.news" />
+                            <label for="CQcustomizeHeaderForNewsGroup">__MSG_CQlabel1d__</label>
+                        </div>
+                        <div>
+                        <input type="text" id="CHbox-news" minlength="4" data-preference="changequote.headers.news.customized"/>
+                        </div>
+                        <div class="hbox">
+                            <input type="checkbox" id="customNewsHTML" data-preference="changequote.headers.custom_news_html_enabled" />
+                            <label for="customNewsHTML">__MSG_htmlSupport__</label>
+                        </div>
+                        </div>
                 </div>
                 
                 <div id="panel-3" role="tabpanel" aria-labelledby="link3" aria-hidden="true">
-                    <div class="vbox" data-type="radiogroup" data-preference="header.from.style">
-                        <label>
-                            <input type="radio" name="fromAttributionStyle" value="0" />
-                            Default
-                        </label>
-                        <label>
-                            <input type="radio" name="fromAttributionStyle" value="1" />
-                            Outlook Simple (From: Name)
-                        </label>
-                        <label>
-                            <input type="radio" name="fromAttributionStyle" value="2" />
-                            Outlook Extended (From: Name [mailto:email-address])
-                        </label>
+                    <div class="white">
+                        <div class="hbox">
+                            <input type="checkbox" id="CQsameReplyFormat" data-preference="changequote.replyformat.enable" />
+                            <label for="CQsameReplyFormat">__MSG_CQlabel4__</label>
+                        </div>
+                        <div id="content2">
+                            <label>__MSG_CQalternativeformat__</label>
+                            <fieldset data-type="radiogroup" data-preference="changequote.replyformat.format" />
+                                <div>
+                                    <input type="radio" name="replyFormat" value="0" id="CQDefault"/>
+                                    <label for="CQDefault">__MSG_CQradio2defaultlabel__</label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="replyFormat" value="1" id="CQHTML"/>
+                                    <label for="CQHTML">__MSG_CQradio2htmllabel__</label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="replyFormat" value="2" id="CQPlainText"/>
+                                    <label for="CQPlainText">__MSG_CQradio2plainlabel__</label>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="hbox">
+                            <input type="checkbox" id="replyStrippingOffAttach" data-preference="changequote.reply.without_inline_images" />
+                            <label for="replyStrippingOffAttach">__MSG_CQlabel5__</label>
+                        </div>
+                        <div class="hbox">
+                            <input type="checkbox" id="closeWindowsAfter" data-preference="changequote.window.close_after_reply" />
+                            <label for="closeWindowsAfter">__MSG_CQlabel6__</label>
+                        </div>
+                        <div class="hbox">
+                            <input type="checkbox" id="markMsgRead" data-preference="changequote.message.markread_after_reply" />
+                            <label for="markMsgRead">__MSG_CQlabel7__</label>
+                        </div>
                     </div>
                 </div>
                 
                 <div id="panel-4" role="tabpanel" aria-labelledby="link4" aria-hidden="true">
                     <pre>__MSG_HelpText__</pre>
                 </div>
-                
+
             </div>
         </div> 
         <script src="options.js"/>
