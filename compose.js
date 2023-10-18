@@ -35,6 +35,18 @@ async function updateMessage(composeDetails, messageHeader, messagePart) {
                     break;
                 }
             }
+            let receivedDate = "";
+            let received = messagePart.headers["received"];
+            if( received ) {
+                let size = received.length;
+                if( size >= 1 ) {
+                    let receivedDateTab = received[size-1].split(";");
+                    if( receivedDateTab.length > 1 ) {
+                        receivedDate = receivedDateTab[1];
+                    }
+                }
+            }
+            
 
             let cqheaders_type = await browser.runtime.sendMessage({command: "getPrefCQHeaderType"});
             let cqheaders_news = await browser.runtime.sendMessage({command: "getPrefCQSetHeaderType"});
@@ -43,16 +55,16 @@ async function updateMessage(composeDetails, messageHeader, messagePart) {
             let realnewhdr = '';
             if (isnntp) {
                 if (cqheaders_news)
-                    realnewhdr = await browser.runtime.sendMessage({command: "getHeader", options:{custom:true, isNNTP:isnntp, cite:false, msgDate:msgdate, messageHeader:messageHeader, endline: "[[br /]]"}});
+                    realnewhdr = await browser.runtime.sendMessage({command: "getHeader", options:{custom:true, isNNTP:isnntp, cite:false, msgDate:msgdate, receivedDate: receivedDate, messageHeader:messageHeader, endline: "[[br /]]"}});
                 else
                     return;//await browser.runtime.sendMessage({command: "standardheader"});
             } else {
                 if (cqheaders_type == 0) {
-                    realnewhdr = await browser.runtime.sendMessage({command: "getHeader", options:{custom:false, isNNTP:isnntp, cite:false, msgDate:msgdate, messageHeader:messageHeader, endline: "[[br /]]"}});
+                    realnewhdr = await browser.runtime.sendMessage({command: "getHeader", options:{custom:false, isNNTP:isnntp, cite:false, msgDate:msgdate, receivedDate: receivedDate, messageHeader:messageHeader, endline: "[[br /]]"}});
                 } else if (cqheaders_type == 1)
                     return;//await browser.runtime.sendMessage({command: "standardheader"});
                 else
-                    realnewhdr = await browser.runtime.sendMessage({command: "getHeader", options:{custom:true, isNNTP:isnntp, cite:false, msgDate:msgdate, messageHeader:messageHeader, endline: "[[br /]]"}});
+                    realnewhdr = await browser.runtime.sendMessage({command: "getHeader", options:{custom:true, isNNTP:isnntp, cite:false, msgDate:msgdate, receivedDate: receivedDate, messageHeader:messageHeader, endline: "[[br /]]"}});
             }
 
             inner = inner.replace(/\*\*\*\*\*\*\*\*\*\*\*\*HeaderChangeQuote\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*/g, realnewhdr);
