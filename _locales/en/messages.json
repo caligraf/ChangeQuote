@@ -65,6 +65,12 @@
     "CQlabelitem2": {
         "message": "Reply in plain text"
     },
+     "CQReplyAllHtlm": {
+        "message": "Reply All in HTML"
+    },
+    "CQReplyAllText": {
+        "message": "Reply in plain text"
+    },
     "CQlabelmenu": {
         "message": "Other options"
     },

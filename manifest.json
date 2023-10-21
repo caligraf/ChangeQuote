@@ -32,12 +32,12 @@
     },
     "permissions": [
         "messagesRead",
-        "messagesModify",
         "compose",
         "accountsRead",
         "storage",
         "menus",
-        "accountsRead"
+        "accountsRead",
+        "tabs"
     ],
     "experiment_apis": {
         "LegacyPrefs": {

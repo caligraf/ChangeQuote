@@ -4,10 +4,10 @@
 async function updateMessage(composeDetails, messageHeader, messagePart) {
     try {
         if (composeDetails.type == "reply") {
-            var inner = document.body.innerHTML;
+            let inner = document.body.innerHTML;
             if (inner.length < 20) // || inner.indexOf("([[)") < 0)
                 return;
-
+                        
             let details = {};
             let msgFormat = messagePart.headers["content-type"];
             let CQmailformat = 0;
@@ -73,6 +73,19 @@ async function updateMessage(composeDetails, messageHeader, messagePart) {
             inner = inner.replace(/\(\[\[\)/g,"<");
             inner = inner.replace(/\(\]\]\)/g,">");
             document.body.innerHTML = inner;
+            
+            let inlineImgRemove = await browser.runtime.sendMessage({command: "needToRemoveInlineImages"});
+            if( inlineImgRemove ) {
+                let elementImages = document.body.getElementsByTagName("img");
+                for( let i = 0; i < elementImages.length ; i++ ) {
+                    let imgSrc = elementImages[i].getAttribute("src");
+                    if( imgSrc.indexOf("http://") == -1 && imgSrc.indexOf("https://") == -1 )
+                        elementImages[i].remove();
+                }
+            }
+            
+            await browser.runtime.sendMessage({command: "markMsgRead"});
+            await browser.runtime.sendMessage({command: "closeWindows"});
         }
     } catch (e) {
         console.error(e);
