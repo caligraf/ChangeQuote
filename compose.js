@@ -51,7 +51,9 @@ async function updateMessage(composeDetails, messageHeader, messagePart) {
             let cqheaders_type = await browser.runtime.sendMessage({command: "getPrefCQHeaderType"});
             let cqheaders_news = await browser.runtime.sendMessage({command: "getPrefCQSetHeaderType"});
             let msgdate = messageHeader.date;
-            let isnntp = false; // hardcoded for the moment
+            
+            let folder = messageHeader.folder;
+            let isnntp = await browser.runtime.sendMessage({command: "isNntpAccount", options:{accountId:folder.accountId}});
             let realnewhdr = '';
             if (isnntp) {
                 if (cqheaders_news)

@@ -24,7 +24,7 @@
     },
     "message_display_action": {
         "default_title": "CQ",
-        "type": "button"
+        "type": "menu"
     },
     "options_ui": {
       "page": "/options/options.html",
@@ -35,7 +35,9 @@
         "messagesModify",
         "compose",
         "accountsRead",
-        "storage"
+        "storage",
+        "menus",
+        "accountsRead"
     ],
     "experiment_apis": {
         "LegacyPrefs": {
