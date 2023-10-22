@@ -14,8 +14,6 @@ async function standardHeader() {
     await messenger.LegacyPrefs.clearUserPref("mailnews.reply_header_separator");
     await messenger.LegacyPrefs.clearUserPref("mailnews.reply_header_colon");
     await messenger.LegacyPrefs.clearUserPref("mailnews.reply_header_authorwrotesingle");
-    // if (msguri)
-    // closeWindowOrMarkReadAfterReply(msguri);
 }
 
 function CQcapitalize(val) {
@@ -49,7 +47,6 @@ function decodeCustomizedDate(date, str) {
     let z = date.toString().split(" ")[5];
     z = z.replace(/[a-zA-Z]+/, "");
     z = z.substring(0, 5);
-    //var str = CQprefs.getCharPref("changequote.headers.date_custom_format");
     H = H < 10 ? "0" + H : H;
     h = h < 10 ? "0" + h : h;
     str = str.replace("%d", d);
@@ -225,7 +222,6 @@ async function getHeader(custom, isNNTP, cite, msgDate, receivedDateString, mess
 async function loadHeader(custom, isNNTP, cite, msgDate, receivedDateString, messageHeader) {
     let realnewhdr = await getHeader(custom, isNNTP, cite, msgDate, receivedDateString, messageHeader, "\n");
     await messenger.LegacyPrefs.setPref("mailnews.reply_header_originalmessage", realnewhdr);
-    //window.closeWindowOrMarkReadAfterReply(email);
 }
 
 async function isNntpAccount(accountId) {
@@ -316,9 +312,10 @@ async function doHandleCommand(message, sender) {
         if( close_after_reply ) {
             let composeDetails = await messenger.compose.getComposeDetails(tabId);
             let originalMsgId = composeDetails.relatedMessageId;
-            let originalMsgHeader = await messenger.messages.get(originalMsgId);
-            let expectedTitle = originalMsgHeader.subject + " - Mozilla Thunderbird";
-            let windows = await messenger.windows.getAll({ windowTypes: ["messageDisplay" ]});
+            let messagePart = await messenger.messages.getFull(originalMsgId);
+            let msgSubject = messagePart.headers["subject"];
+            let expectedTitle = msgSubject + " - Mozilla Thunderbird";
+            let windows = await messenger.windows.getAll({ populate:true, windowTypes: ["messageDisplay" ]});
             for(let i=0;i<windows.length;i++) {
                 if( windows[i].title === expectedTitle )
                     await messenger.windows.remove(windows[i].id);
