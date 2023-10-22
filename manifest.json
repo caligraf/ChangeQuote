@@ -24,7 +24,11 @@
     },
     "message_display_action": {
         "default_title": "CQ",
-        "type": "menu"
+        "type": "menu",
+        "default_icon" : {
+            "16": "icon/icon16x16.png",
+            "32": "icon/icon32x32.png"
+        }
     },
     "options_ui": {
       "page": "/options/options.html",
@@ -33,11 +37,11 @@
     "permissions": [
         "messagesRead",
         "compose",
-        "accountsRead",
         "storage",
         "menus",
         "accountsRead",
-        "tabs"
+        "tabs",
+        "management"
     ],
     "experiment_apis": {
         "LegacyPrefs": {
