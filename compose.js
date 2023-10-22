@@ -1,91 +1,168 @@
+async function getPrefInStorage(prefName, defaultValue) {
+    let prefObj = await browser.storage.local.get(prefName);
+    if (prefObj && prefObj[prefName] != null )
+        return prefObj[prefName];
+    return defaultValue;
+}
+
 /**
  * Update the message reply
  */
 async function updateMessage(composeDetails, messageHeader, messagePart) {
     try {
         if (composeDetails.type == "reply") {
-            let inner = document.body.innerHTML;
-            if (inner.length < 20) // || inner.indexOf("([[)") < 0)
-                return;
-                        
-            let details = {};
-            let msgFormat = messagePart.headers["content-type"];
-            let CQmailformat = 0;
-            for (let i = 0; i < msgFormat.length; i++) {
-                if (msgFormat[i].indexOf("plain") > -1) {
-                    CQmailformat = 2; // plain
-                    break;
-                } else if (msgFormat[i].indexOf("alternative") > -1) {
-                    CQmailformat = 0; // alternative
-                    let formatAlternative = await browser.runtime.sendMessage({command: "getPrefFormatAlternative"});
-                    if (formatAlternative) {
-                        if (formatAlternative == 0) {
-                            details.deliveryFormat = 'both';
-                        } else if (formatAlternative == 1) {
-                            details.deliveryFormat = 'html';
-                        } else if (formatAlternative == 2) {
-                            details.deliveryFormat = 'text';
-                        }
-                    } else {
-                        details.deliveryFormat = 'auto';
+            let identityId = await browser.runtime.sendMessage({
+                    command: "getIdentityId",
+                    options: {
+                        messageId: composeDetails.relatedMessageId
                     }
-                    break;
-                } else if (msgFormat[i].indexOf("html") > -1) {
-                    CQmailformat = 1; // html
-                    break;
-                }
-            }
-            let receivedDate = "";
-            let received = messagePart.headers["received"];
-            if( received ) {
-                let size = received.length;
-                if( size >= 1 ) {
-                    let receivedDateTab = received[size-1].split(";");
-                    if( receivedDateTab.length > 1 ) {
-                        receivedDate = receivedDateTab[1];
-                    }
-                }
-            }
-            
-
-            let cqheaders_type = await browser.runtime.sendMessage({command: "getPrefCQHeaderType"});
-            let cqheaders_news = await browser.runtime.sendMessage({command: "getPrefCQSetHeaderType"});
-            let msgdate = messageHeader.date;
-            
-            let folder = messageHeader.folder;
-            let isnntp = await browser.runtime.sendMessage({command: "isNntpAccount", options:{accountId:folder.accountId}});
-            let realnewhdr = '';
-            if (isnntp) {
-                if (cqheaders_news)
-                    realnewhdr = await browser.runtime.sendMessage({command: "getHeader", options:{custom:true, isNNTP:isnntp, cite:false, msgDate:msgdate, receivedDate: receivedDate, messageHeader:messageHeader, endline: "[[br /]]"}});
-                else
-                    return;//await browser.runtime.sendMessage({command: "standardheader"});
+                });
+            let prefAutoQuote = "changequote." + identityId + ".auto_quote";
+            let quoted = await getPrefInStorage(prefAutoQuote, true);
+            if (!quoted) { // no quote
+                document.body.innerHTML = "<p></br><p>";
             } else {
-                if (cqheaders_type == 0) {
-                    realnewhdr = await browser.runtime.sendMessage({command: "getHeader", options:{custom:false, isNNTP:isnntp, cite:false, msgDate:msgdate, receivedDate: receivedDate, messageHeader:messageHeader, endline: "[[br /]]"}});
-                } else if (cqheaders_type == 1)
-                    return;//await browser.runtime.sendMessage({command: "standardheader"});
-                else
-                    realnewhdr = await browser.runtime.sendMessage({command: "getHeader", options:{custom:true, isNNTP:isnntp, cite:false, msgDate:msgdate, receivedDate: receivedDate, messageHeader:messageHeader, endline: "[[br /]]"}});
-            }
+                let inner = document.body.innerHTML;
 
-            inner = inner.replace(/\*\*\*\*\*\*\*\*\*\*\*\*HeaderChangeQuote\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*/g, realnewhdr);
-            inner = inner.replace(/\(\[\[\)/g,"<");
-            inner = inner.replace(/\(\]\]\)/g,">");
-            document.body.innerHTML = inner;
-            
-            let inlineImgRemove = await browser.runtime.sendMessage({command: "needToRemoveInlineImages"});
-            if( inlineImgRemove ) {
+                if (inner.length < 20) // || inner.indexOf("([[)") < 0)
+                    return;
+
+                let sameFormatAsReceived = await getPrefInStorage("changequote.replyformat.enable");
+                if (sameFormatAsReceived) {
+                    let details = {};
+                    let msgFormat = messagePart.headers["content-type"];
+                    for (let i = 0; i < msgFormat.length; i++) {
+                        if (msgFormat[i].indexOf("plain") > -1) {
+                            details.deliveryFormat = 'plaintext';
+                            details.isPlainText = true;
+                            break;
+                        } else if (msgFormat[i].indexOf("alternative") > -1) {
+                            let formatAlternative = await getPrefInStorage("changequote.replyformat.format");
+                            if (formatAlternative) {
+                                if (formatAlternative == 0) {
+                                    details.deliveryFormat = 'both';
+                                } else if (formatAlternative == 1) {
+                                    details.deliveryFormat = 'html';
+                                    details.isPlainText = false;
+                                } else if (formatAlternative == 2) {
+                                    details.deliveryFormat = 'plaintext';
+                                    details.isPlainText = true;
+                                }
+                            } else {
+                                details.deliveryFormat = 'auto';
+                            }
+                            break;
+                        } else if (msgFormat[i].indexOf("html") > -1) {
+                            details.deliveryFormat = 'plaintext';
+                            details.isPlainText = false;
+                            break;
+                        }
+                    }
+                    await browser.runtime.sendMessage({
+                                command: "updateComposeDetail",
+                                options: {
+                                    details
+                                }
+                            });
+                }
+                let receivedDate = "";
+                let received = messagePart.headers["received"];
+                if (received) {
+                    let size = received.length;
+                    if (size >= 1) {
+                        let receivedDateTab = received[size - 1].split(";");
+                        if (receivedDateTab.length > 1) {
+                            receivedDate = receivedDateTab[1];
+                        }
+                    }
+                }
+
+                let cqheaders_type = await getPrefInStorage("changequote.headers.type");
+                let cqheaders_news = await getPrefInStorage("changequote.set.headers.news");
+                let msgdate = messageHeader.date;
+
+                let folder = messageHeader.folder;
+                let isnntp = await browser.runtime.sendMessage({
+                        command: "isNntpAccount",
+                        options: {
+                            accountId: folder.accountId
+                        }
+                    });
+                let realnewhdr = '';
+                if (isnntp) {
+                    if (cqheaders_news)
+                        realnewhdr = await browser.runtime.sendMessage({
+                                command: "getHeader",
+                                options: {
+                                    custom: true,
+                                    isNNTP: isnntp,
+                                    cite: false,
+                                    msgDate: msgdate,
+                                    receivedDate: receivedDate,
+                                    messageHeader: messageHeader,
+                                    endline: "[[br /]]"
+                                }
+                            });
+                    else
+                        return; //await browser.runtime.sendMessage({command: "standardheader"});
+                } else {
+                    if (cqheaders_type == 0) {
+                        realnewhdr = await browser.runtime.sendMessage({
+                                command: "getHeader",
+                                options: {
+                                    custom: false,
+                                    isNNTP: isnntp,
+                                    cite: false,
+                                    msgDate: msgdate,
+                                    receivedDate: receivedDate,
+                                    messageHeader: messageHeader,
+                                    endline: "[[br /]]"
+                                }
+                            });
+                    } else if (cqheaders_type == 1)
+                        return; //await browser.runtime.sendMessage({command: "standardheader"});
+                    else
+                        realnewhdr = await browser.runtime.sendMessage({
+                                command: "getHeader",
+                                options: {
+                                    custom: true,
+                                    isNNTP: isnntp,
+                                    cite: false,
+                                    msgDate: msgdate,
+                                    receivedDate: receivedDate,
+                                    messageHeader: messageHeader,
+                                    endline: "[[br /]]"
+                                }
+                            });
+                }
+
+                inner = inner.replace(/\*\*\*\*\*\*\*\*\*\*\*\*HeaderChangeQuote\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*/g, realnewhdr);
+                inner = inner.replace(/\(\[\[\)/g, "<");
+                inner = inner.replace(/\(\]\]\)/g, ">");
+                document.body.innerHTML = inner;
+            }
+            let inlineImgRemove = await browser.runtime.sendMessage({
+                    command: "needToRemoveInlineImages"
+                });
+            if (inlineImgRemove) {
                 let elementImages = document.body.getElementsByTagName("img");
-                for( let i = 0; i < elementImages.length ; i++ ) {
+                for (let i = 0; i < elementImages.length; i++) {
                     let imgSrc = elementImages[i].getAttribute("src");
-                    if( imgSrc.indexOf("http://") == -1 && imgSrc.indexOf("https://") == -1 )
+                    if (imgSrc.indexOf("http://") == -1 && imgSrc.indexOf("https://") == -1)
                         elementImages[i].remove();
                 }
             }
-            
-            await browser.runtime.sendMessage({command: "markMsgRead"});
-            await browser.runtime.sendMessage({command: "closeWindows"});
+
+            let markread_after_reply = await getPrefInStorage("changequote.message.markread_after_reply");
+            if (markread_after_reply)
+                await browser.runtime.sendMessage({
+                    command: "markMsgRead"
+                });
+            let close_after_reply = await getPrefInStorage("changequote.window.close_after_reply");
+            if (close_after_reply)
+                await browser.runtime.sendMessage({
+                    command: "closeWindows"
+                });
         }
     } catch (e) {
         console.error(e);
@@ -93,8 +170,12 @@ async function updateMessage(composeDetails, messageHeader, messagePart) {
 }
 
 async function main() {
-    let composeDetails = await browser.runtime.sendMessage({command: "getComposeDetails"});
-    let message = await browser.runtime.sendMessage({command: "getMessage"});
+    let composeDetails = await browser.runtime.sendMessage({
+            command: "getComposeDetails"
+        });
+    let message = await browser.runtime.sendMessage({
+            command: "getMessage"
+        });
     updateMessage(composeDetails, message.messageHeader, message.messagePart);
 }
 

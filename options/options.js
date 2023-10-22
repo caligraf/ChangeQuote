@@ -2,11 +2,6 @@
 async function standardHeader() {
     await browser.LegacyPrefs.clearUserPref("mailnews.reply_header_type");
     await browser.LegacyPrefs.clearUserPref("mailnews.reply_header_originalmessage");
-    await browser.LegacyPrefs.clearUserPref("mailnews.reply_header_authorwrote");
-    await browser.LegacyPrefs.clearUserPref("mailnews.reply_header_ondate");
-    await browser.LegacyPrefs.clearUserPref("mailnews.reply_header_separator");
-    await browser.LegacyPrefs.clearUserPref("mailnews.reply_header_colon");
-    await browser.LegacyPrefs.clearUserPref("mailnews.reply_header_authorwrotesingle");
 }
 
 function toggleCustomizedBox() {
@@ -27,6 +22,7 @@ function toggleStandard() {
 	document.getElementById("CQdatelocalized").setAttribute("disabled", "true");
 	document.getElementById("CQdateorig").setAttribute("disabled", "true");
 	document.getElementById("CQdatecustom").setAttribute("disabled", "true");
+    document.getElementById("CQdatecustomSender").setAttribute("disabled", "true");
 	document.getElementById("CQcapitalize_date").setAttribute("disabled", "true");
 	document.getElementById("CQwithoutCC").setAttribute("disabled", "true");
 	document.getElementById("CQAlwaysEnglish").setAttribute("disabled", "true");
@@ -41,6 +37,7 @@ function toggleLongDate() {
 		document.getElementById("CQdatelocalized").removeAttribute("disabled");
 		document.getElementById("CQdateorig").removeAttribute("disabled");
 		document.getElementById("CQdatecustom").removeAttribute("disabled");
+        document.getElementById("CQdatecustomSender").removeAttribute("disabled");
 		document.getElementById("CQcapitalize_date").removeAttribute("disabled");
 	}
 	else {
@@ -48,6 +45,7 @@ function toggleLongDate() {
 		document.getElementById("CQdatelocalized").setAttribute("disabled", "true");
 		document.getElementById("CQdateorig").setAttribute("disabled", "true");
 		document.getElementById("CQdatecustom").setAttribute("disabled", "true");
+        document.getElementById("CQdatecustomSender").setAttribute("disabled", "true");
 		document.getElementById("CQcapitalize_date").setAttribute("disabled", "true");
 	}
 }
@@ -115,10 +113,21 @@ function tablistClickHandler(elem) {
     panel.setAttribute('aria-hidden', false);
 }
 
+async function getPrefInStorage(prefName) {
+    let prefObj = await browser.storage.local.get(prefName);
+    return prefObj[prefName];
+}
+
+async function setPrefInStorage(prefName, prefValue) {
+    let prefObj = {};
+    prefObj[prefName] = prefValue;
+    await browser.storage.local.set(prefObj);
+}
+
 async function loadPref(prefElement) {
     let type = prefElement.dataset.type || prefElement.getAttribute("type") || prefElement.tagName;
     let name = prefElement.dataset.preference;
-    let value = await browser.LegacyPrefs.getPref(`${name}`);
+    let value = await getPrefInStorage(`${name}`);
     switch (type) {
         case "checkbox":
             prefElement.checked = value;
@@ -148,18 +157,18 @@ async function savePref(prefElement) {
     let name = prefElement.dataset.preference;
     switch (type) {
         case "checkbox":
-            browser.LegacyPrefs.setPref(`${name}`, !!prefElement.checked);
+            await setPrefInStorage(`${name}`, !!prefElement.checked);
             if( prefElement.dataset.preference === "changequote.headers.date_long" )
                 toggleLongDate();
             else if(prefElement.dataset.preference === "changequote.set.header.news" )
                 checkboxcheck4();
-            else if(prefElement.dataset.preference === "changequote.replyformat.format" )
+            else if(prefElement.dataset.preference === "changequote.replyformat.enable" )
                 checkboxcheck3();
             break;
         case "radiogroup":
             let selectedElement = prefElement.querySelector(`input[type="radio"]:checked`)
             if (selectedElement) {
-                browser.LegacyPrefs.setPref(`${name}`, selectedElement.value);
+                await setPrefInStorage(`${name}`, selectedElement.value);
                 if( prefElement.dataset.preference === "changequote.headers.type" ) {
                     if( selectedElement.value == 0 || selectedElement.value == 2) {
                             browser.LegacyPrefs.setPref("mailnews.reply_header_type", 0);
@@ -177,7 +186,7 @@ async function savePref(prefElement) {
             break;
         case "text":
         case "textarea":
-            browser.LegacyPrefs.setPref(`${name}`, prefElement.value);
+            await setPrefInStorage(`${name}`, prefElement.value);
             break;
     }
 }
