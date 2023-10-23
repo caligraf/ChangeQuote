@@ -88,6 +88,7 @@ async function updateMessage(composeDetails, messageHeader, messagePart) {
                             accountId: folder.accountId
                         }
                     });
+                let isStandardHeader = false;
                 let realnewhdr = '';
                 if (isnntp) {
                     if (cqheaders_news)
@@ -104,7 +105,7 @@ async function updateMessage(composeDetails, messageHeader, messagePart) {
                                 }
                             });
                     else
-                        return; //await browser.runtime.sendMessage({command: "standardheader"});
+                        isStandardHeader = true;
                 } else {
                     if (cqheaders_type == 0) {
                         realnewhdr = await browser.runtime.sendMessage({
@@ -120,7 +121,7 @@ async function updateMessage(composeDetails, messageHeader, messagePart) {
                                 }
                             });
                     } else if (cqheaders_type == 1)
-                        return; //await browser.runtime.sendMessage({command: "standardheader"});
+                        isStandardHeader = true;
                     else
                         realnewhdr = await browser.runtime.sendMessage({
                                 command: "getHeader",
@@ -135,11 +136,12 @@ async function updateMessage(composeDetails, messageHeader, messagePart) {
                                 }
                             });
                 }
-
-                inner = inner.replace(/\*\*\*\*\*\*\*\*\*\*\*\*HeaderChangeQuote\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*/g, realnewhdr);
-                inner = inner.replace(/\(\[\[\)/g, "<");
-                inner = inner.replace(/\(\]\]\)/g, ">");
-                document.body.innerHTML = inner;
+                if (!isStandardHeader) {
+                    inner = inner.replace(/\*\*\*\*\*\*\*\*\*\*\*\*HeaderChangeQuote\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*/g, realnewhdr);
+                    inner = inner.replace(/\(\[\[\)/g, "<");
+                    inner = inner.replace(/\(\]\]\)/g, ">");
+                    document.body.innerHTML = inner;
+                }
             }
             let inlineImgRemove = await browser.runtime.sendMessage({
                     command: "needToRemoveInlineImages"
