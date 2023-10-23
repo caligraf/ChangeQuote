@@ -1,0 +1,149 @@
+{
+    "CQalternativeformat": {
+        "message": "Formato para mensagens mistas (content-type=alternative):"
+    },
+    "CQbold": {
+        "message": "Headers tags with bold font"
+    },
+    "CQbutton1": {
+        "message": "Editar"
+    },
+    "CQcaption1": {
+        "message": "Cabeçalho de resposta"
+    },
+    "CQcaption2": {
+        "message": "Formato e ações"
+    },
+    "CQdatelongINTlabel": {
+        "message": "Data em formato internacional"
+    },
+    "CQdatelongLOClabel": {
+        "message": "Data em formato localizado"
+    },
+    "CQdatelongORIGlabel": {
+        "message": "Data no formato original"
+    },
+    "CQlabel1": {
+        "message": "Cabeçalho de resposta estendido (remetente, destinatários, assunto, data):"
+    },
+    "CQlabel1a": {
+        "message": "Inserir no cabeçalho o campo CC também"
+    },
+    "CQlabel1b": {
+        "message": "Usar sempre cabeçalhos em inglês"
+    },
+    "CQlabel1c": {
+        "message": "Usar formatos longos ou customizados no campo data:"
+    },
+    "CQlabel1d": {
+        "message": "usar cabeçalhos customizados para grupos de notícias"
+    },
+    "CQlabel2": {
+        "message": "Cabeçalho de resposta padrão do Thunderbird"
+    },
+    "CQlabel3": {
+        "message": "Cabeçalho de resposta customizado:"
+    },
+    "CQlabel4": {
+        "message": "Usar na resposta o mesmo formato (html ou texto) da mensagem original"
+    },
+    "CQlabel5": {
+        "message": "Responder sem incluir anexos incorporados à mensagem"
+    },
+    "CQlabel6": {
+        "message": "Feche a janela da mensagem após responder ou encaminhar"
+    },
+    "CQlabel7": {
+        "message": "Marcar a mensagem como lida após responder"
+    },
+    "CQlabelitem1": {
+        "message": "Responder em HTML"
+    },
+    "CQlabelitem2": {
+        "message": "Responder em texto puro"
+    },
+    "CQlabelmenu": {
+        "message": "Outras opções"
+    },
+    "CQnewsdescr1": {
+        "message": "Escolher o elemento no início do cabeçalho de resposta"
+    },
+    "CQnewslabel1": {
+        "message": "Primeira parte do cabeçalho (&#37;s correspondem ao autor):"
+    },
+    "CQnewslabel2": {
+        "message": "Segunda parte do cabeçalho (&#37;s correspondem a data):"
+    },
+    "CQnewsradio1": {
+        "message": "Autor"
+    },
+    "CQnewsradio2": {
+        "message": "Data"
+    },
+    "CQnewstitle": {
+        "message": "Cabeçalho de resposta de grupos de notícias"
+    },
+    "CQnoReplyTo": {
+        "message": "Responder ignorando o cabeçalho &quot;Responder para&quot;"
+    },
+    "CQradio2defaultlabel": {
+        "message": "Padrão"
+    },
+    "CQradio2htmllabel": {
+        "message": "Html"
+    },
+    "CQradio2plainlabel": {
+        "message": "Texto puro"
+    },
+    "addNewLine": {
+        "message": "Adicionar uma quebra de linha em cabeçalhos de texto puro"
+    },
+    "capitalizeDate": {
+        "message": "Capitalizar a data"
+    },
+    "help": {
+        "message": "Ajuda"
+    },
+    "htmlSupport": {
+        "message": "Html tags support"
+    },
+    "noquote": {
+        "message": "(sem aspas)"
+    },
+    "yesquote": {
+        "message": "(com aspas)"
+    },
+    "OriginalMessage": {
+        "message": "-------- Mensagem original --------"
+    },
+    "From": {
+        "message": "De: "
+    },
+    "To": {
+        "message": "Para: "
+    },
+    "Cc": {
+        "message": "Cc: "
+    },
+    "Subject": {
+        "message": "Assunto: "
+    },
+    "Date": {
+        "message": "Data: "
+    },
+    "HelpText": {
+        "message": "SINTAXE PARA CABEÇALHOS CUSTOMIZADOS\n\n%%1 = autor\n%%2 = destinatários \n%%3 = destinatários (CC)\n%%4 = assunto\n%%5 = data \n%%6 = autor (apenas nome) \n%%7 = autor (apenas endereço)\n%%8 = destinatários (apenas nome) \n%%9 = destinatários (CC - apenas nome) \n\nOs trechos envolvidos por {{ e }} são exibidos\nsomente se o cabeçalho interno não for vazio.\nIsto significa que um cabeçalho com\n\nPara : %%2{{ e %%3}} \n\nresultará em\n\nPara : mail1@xxx.org (se CC estiver vazio)\nPara : mail1@xxx.org e mail2@xxx.org (se CC for mail2@xxx.org)\n\n\nSINTAXE PARA FORMATOS DE DATA CUSTOMIZADOS\n\n%d = dia do mês, 2 dígitos (\"01\" a \"31\")\n%D = dia da semana, textual, inglês, 3 letras (\"Sex\")\n%m = mês (\"01\" a \"12\")\n%M = mês, textual, inglês, 3 letras (\"Jan\")\n%y = ano, 2 dígitos (\"99\")\n%Y = ano, 4 dígitos (\"1999\")\n%i = minutos (\"00\" a \"59\")\n%s = segundos (\"00\" a \"59\")\n%H = hora, formato 24 horas (\"00\" a \"23\")\n%h = hora, formato 12 horas (\"01\" a \"12\")\n%A = \"AM\" ou \"PM\"\n%a = \"am\" ou \"pm\"\n%e = space-filled date of month\n%z = timezone offset from UTC\n"
+    },
+    "CQReplyAllHtlm": {
+        "message": "Responder a todos em HTML"
+    },
+    "CQReplyAllText": {
+        "message": "Responder a todos em texto puro"
+    },
+    "dateCustomLocal": {
+        "message": "Formato customizado (local)"
+    },
+    "dateCustomSender": {
+        "message": "Formato customizado (remetente)"
+    }
+}

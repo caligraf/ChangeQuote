@@ -1,0 +1,149 @@
+{
+    "CQalternativeformat": {
+        "message": "Muotoilu sekamuotoisille viesteille (content-type=alternative):"
+    },
+    "CQbold": {
+        "message": "Näytä otsakkeiden tunnisteet lihavoituna"
+    },
+    "CQbutton1": {
+        "message": "Muokkaa"
+    },
+    "CQcaption1": {
+        "message": "Vastausotsakkeet"
+    },
+    "CQcaption2": {
+        "message": "Muotoilu ja toiminnot"
+    },
+    "CQdatelongINTlabel": {
+        "message": "Päiväys kansainvälisessä muodossa"
+    },
+    "CQdatelongLOClabel": {
+        "message": "Päiväys kotoistetussa muodossa"
+    },
+    "CQdatelongORIGlabel": {
+        "message": "Päiväys alkuperäisessä muodossa"
+    },
+    "CQlabel1": {
+        "message": "Laajat vastausotsakkeet (lähettäjä, vastaanottaja, aihe, päiväys)"
+    },
+    "CQlabel1a": {
+        "message": "Lisää Kopio-kentän sisältö otsakkeisiin"
+    },
+    "CQlabel1b": {
+        "message": "Käytä aina englanninkielisiä otsakkeita"
+    },
+    "CQlabel1c": {
+        "message": "Käytä pitkää tai mukautettua muotoa päiväyskentässä:"
+    },
+    "CQlabel1d": {
+        "message": "Käytä mukautettuja otsaketietoja keskusteluryhmissä"
+    },
+    "CQlabel2": {
+        "message": "Thunderbirdin vakiovastausotsakkeet"
+    },
+    "CQlabel3": {
+        "message": "Mukautetut vastausotsakkeet:"
+    },
+    "CQlabel4": {
+        "message": "Käytä vastauksessa samaa muotoa (HTML tai pelkkä teksti) kuin alkuperäisessä viestissä."
+    },
+    "CQlabel5": {
+        "message": "Vastaa poistaen viestiin upotetut liitetiedostot"
+    },
+    "CQlabel6": {
+        "message": "Sulje viesti-ikkuna vastaamisen tai edelleenlähetyksen jälkeen"
+    },
+    "CQlabel7": {
+        "message": "Merkitse viesti luetuksi vastaamisen jälkeen"
+    },
+    "CQlabelitem1": {
+        "message": "Vastaa HTML-muodossa"
+    },
+    "CQlabelitem2": {
+        "message": "Vastaa pelkkä teksti -muodossa"
+    },
+    "CQlabelmenu": {
+        "message": "Muut valinnat"
+    },
+    "CQnewsdescr1": {
+        "message": "Valitse otsaketiedot aloittava kenttä:"
+    },
+    "CQnewslabel1": {
+        "message": "Otsakkeen ensimmäinen osa (&#37;s vastaa lähettäjää):"
+    },
+    "CQnewslabel2": {
+        "message": "Otsakkeen toinen osa (&#37;s vastaa päiväystä):"
+    },
+    "CQnewsradio1": {
+        "message": "Lähettäjä"
+    },
+    "CQnewsradio2": {
+        "message": "Päiväys"
+    },
+    "CQnewstitle": {
+        "message": "Keskusteluryhmien vastausotsakkeet"
+    },
+    "CQnoReplyTo": {
+        "message": "Vastaa ohittaen Vastausosoite-otsake"
+    },
+    "CQradio2defaultlabel": {
+        "message": "Oletus"
+    },
+    "CQradio2htmllabel": {
+        "message": "HTML"
+    },
+    "CQradio2plainlabel": {
+        "message": "Pelkkä teksti"
+    },
+    "addNewLine": {
+        "message": "Lisää rivinvaihto, kun viesti on pelkkä teksti -muodossa"
+    },
+    "capitalizeDate": {
+        "message": "Käytä isoja alkukirjaimia"
+    },
+    "help": {
+        "message": "Ohje"
+    },
+    "htmlSupport": {
+        "message": "HTML-tunnisteiden tuki"
+    },
+    "noquote": {
+        "message": "(ilman lainausta)"
+    },
+    "yesquote": {
+        "message": "(lainauksen kanssa)"
+    },
+    "OriginalMessage": {
+        "message": "-------- Alkuperäinen viesti / Orig.Msg. --------"
+    },
+    "From": {
+        "message": "Lähettäjä: "
+    },
+    "To": {
+        "message": "Vastaanottajat: "
+    },
+    "Cc": {
+        "message": "Kopio: "
+    },
+    "Subject": {
+        "message": "Aihe: "
+    },
+    "Date": {
+        "message": "Päiväys: "
+    },
+    "HelpText": {
+        "message": "MUKAUTETTUJEN OTSAKETIETOJEN SYNTAKSI\n\n%%1 = lähettäjä\n%%2 = vastaanottajat\n%%3 = vastaanottajat (kopio)\n%%4 = aihe\n%%5 = päiväys\n%%6 = lähettäjä (vain nimi) \n%%7 = lähettäjä (vain osoite)\n%%8 = vastaanottajat (vain nimi) \n%%9 = vastaanottajat (kopio - vain nimi) \n\nKomennot, jotka sijoitetaan aaltosulkeiden {{ ja }} väliin,\nnäytetään vain silloin, jos otsaketieto ei ole tyhjä \n(null). Tämä tarkoittaa, että otsaketieto\n\nVastaanottaja: %%2{{ ja %%3}} \n\nantaa tulokseksi\n\nVastaanottaja: mail1@xxx.org (jos kopio-otsake on tyhjä)\nVastaanottaja: mail1@xxx.org ja mail2@xxx.org (jos kopio-\n   otsake on mail2@xxx.org)\n\n\nMUKAUTETUN PÄIVÄYSMUODON SYNTAKSI\n\n%d = kuukaudenpäivä, 2 numeroa (”01” - ”31”)\n%D = viikonpäivä tekstinä, englanninkielinen,\n     3 kirjainta (”Fri”)\n%m = kuukausi (”01” - ”12”)\n%M = kuukausi tekstinä, englanninkielinen,\n     3 kirjainta (”Jan”)\n%y = vuosi, 2 numeroa (”99”)\n%Y = vuosi, 4 numeroa (”1999”)\n%i = minuutit (”00” - ”59”)\n%s = sekunnit (”00” - ”59”)\n%H = tunnit, 24 tunnin muoto (”00” - ”23”)\n%h = tunnit, 12 tunnin muoto (”01” - ”12”)\n%A = ”AM” tai ”PM”\n%a = ”am” tai ”pm”\n%e = space-filled date of month\n%z = timezone offset from UTC\n"
+    },
+    "CQReplyAllHtlm": {
+        "message": "Vastaa kaikille HTML-muodossa"
+    },
+    "CQReplyAllText": {
+        "message": "Vastaa kaikille pelkkä teksti muodossa"
+    },
+    "dateCustomLocal": {
+        "message": "Mukautettu muoto (paikallinen)"
+    },
+    "dateCustomSender": {
+        "message": "Mukautettu muoto (lähettäjä)"
+    }
+}

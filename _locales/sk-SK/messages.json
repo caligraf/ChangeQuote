@@ -1,0 +1,149 @@
+{
+    "CQalternativeformat": {
+        "message": "Formát pre zmiešané správy (content-type=alternative):"
+    },
+    "CQbold": {
+        "message": "Značky hlavičky tučným písmom"
+    },
+    "CQbutton1": {
+        "message": "Upraviť"
+    },
+    "CQcaption1": {
+        "message": "Hlavička odpovede"
+    },
+    "CQcaption2": {
+        "message": "Formát a akcie"
+    },
+    "CQdatelongINTlabel": {
+        "message": "Dátum v medzinárodnom formáte"
+    },
+    "CQdatelongLOClabel": {
+        "message": "Dátum v lokálnom formáte"
+    },
+    "CQdatelongORIGlabel": {
+        "message": "Dátum v pôvodnom formáte"
+    },
+    "CQlabel1": {
+        "message": "Rozšírená hlavička odpovede (odosielateľ, príjemca, predmet, dátum):"
+    },
+    "CQlabel1a": {
+        "message": "Vložiť pole Kópia do hlavičky"
+    },
+    "CQlabel1b": {
+        "message": "Vždy používať hlavičku v angličtine"
+    },
+    "CQlabel1c": {
+        "message": "Použiť dlhý alebo prispôsobený formát dátumu:"
+    },
+    "CQlabel1d": {
+        "message": "Použiť prispôsobenú hlavičku pre diskusné skupiny"
+    },
+    "CQlabel2": {
+        "message": "Štandardná hlavička Thunderbirdu"
+    },
+    "CQlabel3": {
+        "message": "Prispôsobená hlavička odpovede:"
+    },
+    "CQlabel4": {
+        "message": "V odpovedi použiť rovnaký formát (html alebo text) ako v pôvodnej správe"
+    },
+    "CQlabel5": {
+        "message": "Odpovedať bez príloh v správe"
+    },
+    "CQlabel6": {
+        "message": "Po odpovedi alebo preposlaní zatvorte okno správy"
+    },
+    "CQlabel7": {
+        "message": "Po odpovedaní označiť správu za prečítanú"
+    },
+    "CQlabelitem1": {
+        "message": "Odpovedať v HTML"
+    },
+    "CQlabelitem2": {
+        "message": "Odpovedať ako text"
+    },
+    "CQlabelmenu": {
+        "message": "Iné možnosti"
+    },
+    "CQnewsdescr1": {
+        "message": "Zvoľte element na začiatok hlavičky odpovede"
+    },
+    "CQnewslabel1": {
+        "message": "Prvá časť hlavičky (&#37;s je autor):"
+    },
+    "CQnewslabel2": {
+        "message": "Druhá časť hlavičky (&#37;s je dátum)"
+    },
+    "CQnewsradio1": {
+        "message": "Autor"
+    },
+    "CQnewsradio2": {
+        "message": "Dátum"
+    },
+    "CQnewstitle": {
+        "message": "Hlavička odpovede v diskusných skupinách"
+    },
+    "CQnoReplyTo": {
+        "message": "Odpovedať ignorujúc pole Reply-To"
+    },
+    "CQradio2defaultlabel": {
+        "message": "Predvolené"
+    },
+    "CQradio2htmllabel": {
+        "message": "Html"
+    },
+    "CQradio2plainlabel": {
+        "message": "Len text"
+    },
+    "addNewLine": {
+        "message": "Vložiť zlom riadka v"
+    },
+    "capitalizeDate": {
+        "message": "Dátum veľkým písmenom"
+    },
+    "help": {
+        "message": "Pomoc"
+    },
+    "htmlSupport": {
+        "message": "Povoliť HTML značky"
+    },
+    "noquote": {
+        "message": "(bez citácie)"
+    },
+    "yesquote": {
+        "message": "(s citáciou)"
+    },
+    "OriginalMessage": {
+        "message": "-------- Pôvodná správa --- Original Message --------"
+    },
+    "From": {
+        "message": "Od: "
+    },
+    "To": {
+        "message": "Komu: "
+    },
+    "Cc": {
+        "message": "Kópia: "
+    },
+    "Subject": {
+        "message": "Predmet: "
+    },
+    "Date": {
+        "message": "Dátum: "
+    },
+    "HelpText": {
+        "message": "SYNTAX FOR CUSTOMIZED HEADERS\n\n%%1 = author \n%%2 = recipients \n%%3 = recipients (CC)\n%%4 = subject\n%%5 = date \n%%6 = author (name only) \n%%7 = author (address only)\n%%8 = recipients (name only)\n%%9 = recipients (CC - name only)\n\nThe parts enclosed between {{ and }} are displayed\njust if the header inside is not null.\nThis means that a header with\n\nTo : %%2{{ and %%3}} \n\nwill give\n\nTo : mail1@xxx.org (if CC is null)\nTo : mail1@xxx.org and mail2@xxx.org (if CC is mail2@xxx.org)\n\n\nSYNTAX FOR CUSTOMIZED DATE FORMAT\n\n%d = day of the month, 2 digits (\"01\" to \"31\")\n%D = day of the week, textual, english, 3 letters (\"Fri\")\n%m = month (\"01\" to \"12\")\n%M = month, textual, english, 3 letters (\"Jan\")\n%Y, %y = year, 4 digits (\"1999\")\n%i = minutes (\"00\" to \"59\")\n%s = seconds (\"00\" to \"59\")\n%H = hour, 24-hour format (\"00\" to \"23\")\n%h = hour, 12-hour format (\"01\" to \"12\")\n%A = \"AM\" or \"PM\"\n%a = \"am\" or \"pm\"\n%e = space-filled date of month\n%z = timezone offset from UTC\n"
+    },
+    "CQReplyAllHtlm": {
+        "message": "Odpovedajte všetkým v jazyku HTML"
+    },
+    "CQReplyAllText": {
+        "message": "Odpovedať všetko vo formáte obyčajného textu"
+    },
+    "dateCustomLocal": {
+        "message": "Prispôsobený formát (local)"
+    },
+    "dateCustomSender": {
+        "message": "Prispôsobený formát (sender)"
+    }
+}

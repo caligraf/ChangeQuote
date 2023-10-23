@@ -135,7 +135,7 @@
         "message": "Format personnalisé (local)"
     },
     "dateCustomSender": {
-        "message": "Format personnalisé (sender)"
+        "message": "Format personnalisé (expéditeur)"
     },
     "capitalizeDate": {
         "message": "Mettre la date en capitales"

@@ -1,0 +1,149 @@
+{
+    "CQalternativeformat": {
+        "message": "混合邮件格式 (content-type=alternative)："
+    },
+    "CQbold": {
+        "message": "头标签粗体"
+    },
+    "CQbutton1": {
+        "message": "编辑"
+    },
+    "CQcaption1": {
+        "message": "回复头"
+    },
+    "CQcaption2": {
+        "message": "格式和动作"
+    },
+    "CQdatelongINTlabel": {
+        "message": "国际日期格式"
+    },
+    "CQdatelongLOClabel": {
+        "message": "本地化的日期格式"
+    },
+    "CQdatelongORIGlabel": {
+        "message": "原始日期格式"
+    },
+    "CQlabel1": {
+        "message": "扩展回复头（发件人、收件人、主题、日期）:"
+    },
+    "CQlabel1a": {
+        "message": "在头插入同时抄送字段"
+    },
+    "CQlabel1b": {
+        "message": "在英语总是使用头"
+    },
+    "CQlabel1c": {
+        "message": "在日起字段使用长或自定义日期格式:"
+    },
+    "CQlabel1d": {
+        "message": "对新闻组使用自定义头"
+    },
+    "CQlabel2": {
+        "message": "标准 Thunderbird 回复头"
+    },
+    "CQlabel3": {
+        "message": "自定义回复头:"
+    },
+    "CQlabel4": {
+        "message": "在回复使用与原始邮件的相同格式（HTML或文本）"
+    },
+    "CQlabel5": {
+        "message": "回复剥离内嵌附件"
+    },
+    "CQlabel6": {
+        "message": "回复或转发后关闭消息窗口"
+    },
+    "CQlabel7": {
+        "message": "回复后标记为已读消息"
+    },
+    "CQlabelitem1": {
+        "message": "在HTML回复"
+    },
+    "CQlabelitem2": {
+        "message": "在纯文本回复"
+    },
+    "CQlabelmenu": {
+        "message": "其他选项"
+    },
+    "CQnewsdescr1": {
+        "message": "在回复头开始选择元素："
+    },
+    "CQnewslabel1": {
+        "message": "首个头的部分 (&#37;s 作者立场)："
+    },
+    "CQnewslabel2": {
+        "message": "第二头的部分 (&#37;s 日期立场)："
+    },
+    "CQnewsradio1": {
+        "message": "作者"
+    },
+    "CQnewsradio2": {
+        "message": "日期"
+    },
+    "CQnewstitle": {
+        "message": "新闻组回复头"
+    },
+    "CQnoReplyTo": {
+        "message": "回复忽视回复到头"
+    },
+    "CQradio2defaultlabel": {
+        "message": "默认"
+    },
+    "CQradio2htmllabel": {
+        "message": "Html"
+    },
+    "CQradio2plainlabel": {
+        "message": "纯文本"
+    },
+    "addNewLine": {
+        "message": "在纯文本头添加断行"
+    },
+    "capitalizeDate": {
+        "message": "大写日期"
+    },
+    "help": {
+        "message": "帮助"
+    },
+    "htmlSupport": {
+        "message": "支持 HTML 标签"
+    },
+    "noquote": {
+        "message": "（无引号）"
+    },
+    "yesquote": {
+        "message": "（带引号）"
+    },
+    "OriginalMessage": {
+        "message": "------- 原始郵件 ------- "
+    },
+    "From": {
+        "message": "從: "
+    },
+    "To": {
+        "message": "給: "
+    },
+    "Cc": {
+        "message": "副本: "
+    },
+    "Subject": {
+        "message": "主旨: "
+    },
+    "Date": {
+        "message": "日期: "
+    },
+    "HelpText": {
+        "message": "SYNTAX FOR CUSTOMIZED HEADERS\n\n%%1 = author \n%%2 = recipients \n%%3 = recipients (CC)\n%%4 = subject\n%%5 = date \n%%6 = author (name only) \n%%7 = author (address only)\n%%8 = recipients (name only)\n%%9 = recipients (CC - name only)\n\nThe parts enclosed between {{ and }} are displayed\njust if the header inside is not null.\nThis means that a header with\n\nTo : %%2{{ and %%3}} \n\nwill give\n\nTo : mail1@xxx.org (if CC is null)\nTo : mail1@xxx.org and mail2@xxx.org (if CC is mail2@xxx.org)\n\n\nSYNTAX FOR CUSTOMIZED DATE FORMAT\n\n%d = day of the month, 2 digits (\"01\" to \"31\")\n%D = day of the week, textual, english, 3 letters (\"Fri\")\n%m = month (\"01\" to \"12\")\n%M = month, textual, english, 3 letters (\"Jan\")\n%y = year, 2 digits (\"99\")\n%Y = year, 4 digits (\"1999\")\n%i = minutes (\"00\" to \"59\")\n%s = seconds (\"00\" to \"59\")\n%H = hour, 24-hour format (\"00\" to \"23\")\n%h = hour, 12-hour format (\"01\" to \"12\")\n%A = \"AM\" or \"PM\"\n%a = \"am\" or \"pm\"\n%e = space-filled date of month\n%z = timezone offset from UTC\n"
+    },
+    "CQReplyAllHtlm": {
+        "message": "在 HTML 中全部回复"
+    },
+    "CQReplyAllText": {
+        "message": "全部回复 纯文本"
+    },
+    "dateCustomLocal": {
+        "message": "自定义格式 (本地)"
+    },
+    "dateCustomSender": {
+        "message": "自定义格式 (发送者)"
+    }
+}

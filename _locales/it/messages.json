@@ -1,0 +1,149 @@
+{
+    "CQalternativeformat": {
+        "message": "Formato per le mail miste (content-type=alternative):"
+    },
+    "CQbold": {
+        "message": "Etichette delle intestazioni in grassetto"
+    },
+    "CQbutton1": {
+        "message": "Modifica"
+    },
+    "CQcaption1": {
+        "message": "Intestazione risposte"
+    },
+    "CQcaption2": {
+        "message": "Formato e azioni"
+    },
+    "CQdatelongINTlabel": {
+        "message": "Data in formato internazionale"
+    },
+    "CQdatelongLOClabel": {
+        "message": "Formato localizzato"
+    },
+    "CQdatelongORIGlabel": {
+        "message": "Formato originale"
+    },
+    "CQlabel1": {
+        "message": "Intestazione estesa (mittente, destinatario, oggetto, data)"
+    },
+    "CQlabel1a": {
+        "message": "Inserisci nella intestazione anche il campo CC"
+    },
+    "CQlabel1b": {
+        "message": "Usa l'intestazione in inglese"
+    },
+    "CQlabel1c": {
+        "message": "Usa il formato lungo o personalizzato nella data"
+    },
+    "CQlabel1d": {
+        "message": "Personalizza intestazioni per i newsgroup"
+    },
+    "CQlabel2": {
+        "message": "Intestazione standard di Thunderbid"
+    },
+    "CQlabel3": {
+        "message": "Intestazione personalizzata"
+    },
+    "CQlabel4": {
+        "message": "Usa nella risposta lo stesso formato (html o testo) dell'email originale"
+    },
+    "CQlabel5": {
+        "message": "Elimina gli allegati in linea dalle risposte"
+    },
+    "CQlabel6": {
+        "message": "Chiudi la finestra del messaggio dopo aver risposto o inoltrato"
+    },
+    "CQlabel7": {
+        "message": "Marca il messaggio come letto dopo la risposta"
+    },
+    "CQlabelitem1": {
+        "message": "Rispondi in HTML"
+    },
+    "CQlabelitem2": {
+        "message": "Rispondi in formato testo"
+    },
+    "CQlabelmenu": {
+        "message": "Altre opzioni"
+    },
+    "CQnewsdescr1": {
+        "message": "Indicare l'elemento con cui iniziare l'intestazione:"
+    },
+    "CQnewslabel1": {
+        "message": "Prima parte dell'intestazione (&#37;s equivale all'autore):"
+    },
+    "CQnewslabel2": {
+        "message": "Seconda parte dell'intestazione (&#37;s equivale alla data):"
+    },
+    "CQnewsradio1": {
+        "message": "Autore"
+    },
+    "CQnewsradio2": {
+        "message": "Data"
+    },
+    "CQnewstitle": {
+        "message": "Intestazioni newsgroup"
+    },
+    "CQnoReplyTo": {
+        "message": "Rispondi ignorando il Reply-To"
+    },
+    "CQradio2defaultlabel": {
+        "message": "Predefinito"
+    },
+    "CQradio2htmllabel": {
+        "message": "Html"
+    },
+    "CQradio2plainlabel": {
+        "message": "Formato testo"
+    },
+    "addNewLine": {
+        "message": "Aggiungi un a capo nelle intestazioni in formato testo"
+    },
+    "capitalizeDate": {
+        "message": "Data con le iniziali tutti maiuscole"
+    },
+    "help": {
+        "message": "Aiuto"
+    },
+    "htmlSupport": {
+        "message": "Supporto per i tag html"
+    },
+    "noquote": {
+        "message": "(senza quotare)"
+    },
+    "yesquote": {
+        "message": "(quotando il messaggio)"
+    },
+    "OriginalMessage": {
+        "message": "-------- Messagio originale --------"
+    },
+    "From": {
+        "message": "Da: "
+    },
+    "To": {
+        "message": "A: "
+    },
+    "Cc": {
+        "message": "Cc: "
+    },
+    "Subject": {
+        "message": "Oggetto: "
+    },
+    "Date": {
+        "message": "Data: "
+    },
+    "HelpText": {
+        "message": "SINTASSI PER LE INTESTAZIONI PERSONALIZZATE\n\n%%1 = autore\n%%2 = destinatari\n%%3 = destinatari (CC)\n%%4 = oggetto\n%%5 = data \n%%6 = autore (solo nome) \n%%7 = autore (solo email)\n%%8 = destinatari (solo nome)\n%%9 = destinatari (CC - solo nome)\n\nLe parti racchiuse tra {{ e }} sono mostrate solo\nse l'intestazione all'interno non è nulla.\nQuesto significa che con un'intestazione con\n\nA : %%2{{ and %%3}} \n\nsi avrà\n\nA : mail1@xxx.org (se CC è nullo)\nA : mail1@xxx.org and mail2@xxx.org (se CC è mail2@xxx.org)\n\n\nSINTASSI PER IL FORMATO PERSONALIZZATO DELLA DATA\n\n%d = giorno del mese a 2 cifre (\"01\" - \"31\")\n%D = giorno del mese, testo, inglese, 3 lettere (\"Fri\")\n%m = mese (\"01\" - \"12\")\n%M = mese, testo, inglese, 3 lettere (\"Jan\")\n%Y, %y = anno, 4 cifre (\"1999\")\n%i = minuti (\"00\" to \"59\")\n%s = secondi (\"00\" to \"59\")\n%H = ora, formato 24 ore (\"00\" - \"23\")\n%h = ora, formato 12 ore (\"01\" - \"12\")\n%A = \"AM\" o \"PM\"\n%a = \"am\" o \"pm\"\n%e = giorno del mese con spazi\n%z = fuso orario rispetto all'UTC"
+    },
+    "CQReplyAllHtlm": {
+        "message": "Respondi a tuti in HTML"
+    },
+    "CQReplyAllText": {
+        "message": "Respondi a tuti in formato testo"
+    },
+    "dateCustomLocal": {
+        "message": "Formato personalizzato (locale)"
+    },
+    "dateCustomSender": {
+        "message": "Formato personalizzato (mittente)"
+    }
+}

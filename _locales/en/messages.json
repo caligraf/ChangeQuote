@@ -66,10 +66,10 @@
         "message": "Reply in plain text"
     },
      "CQReplyAllHtlm": {
-        "message": "Reply All in HTML"
+        "message": "Reply all in HTML"
     },
     "CQReplyAllText": {
-        "message": "Reply in plain text"
+        "message": "Reply all in plain text"
     },
     "CQlabelmenu": {
         "message": "Other options"

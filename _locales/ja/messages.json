@@ -1,0 +1,149 @@
+{
+    "CQalternativeformat": {
+        "message": "混合形式用 (content-type=alternative):"
+    },
+    "CQbold": {
+        "message": "太字のヘッダタグにする"
+    },
+    "CQbutton1": {
+        "message": "編集"
+    },
+    "CQcaption1": {
+        "message": "返信ヘッダ"
+    },
+    "CQcaption2": {
+        "message": "フォーマットと機能"
+    },
+    "CQdatelongINTlabel": {
+        "message": "国際標準時間"
+    },
+    "CQdatelongLOClabel": {
+        "message": "OS 設定時間"
+    },
+    "CQdatelongORIGlabel": {
+        "message": "独自設定時間"
+    },
+    "CQlabel1": {
+        "message": "返信ヘッダの拡張 (差出人、受取人、件名、日付):"
+    },
+    "CQlabel1a": {
+        "message": "CC もヘッダに挿入する"
+    },
+    "CQlabel1b": {
+        "message": "常に英語ヘッダを使用する"
+    },
+    "CQlabel1c": {
+        "message": "長い日付形式にする:"
+    },
+    "CQlabel1d": {
+        "message": "ニュースグループ用のカスタマイズヘッダを使用する:"
+    },
+    "CQlabel2": {
+        "message": "Thunderbird 標準ヘッダを使用する"
+    },
+    "CQlabel3": {
+        "message": "返信ヘッダのカスタマイズ"
+    },
+    "CQlabel4": {
+        "message": "オリジナルメール (HTML か テキスト) と同じ形式を使用する"
+    },
+    "CQlabel5": {
+        "message": "添付ファイルを削除して返信する"
+    },
+    "CQlabel6": {
+        "message": "返信または転送した後、メッセージウィンドウを閉じます"
+    },
+    "CQlabel7": {
+        "message": "返信後に既読にする"
+    },
+    "CQlabelitem1": {
+        "message": "HTML 形式で返信"
+    },
+    "CQlabelitem2": {
+        "message": "プレーンテキスト形式で返信"
+    },
+    "CQlabelmenu": {
+        "message": "その他"
+    },
+    "CQnewsdescr1": {
+        "message": "返信ヘッダ先頭部の選択"
+    },
+    "CQnewslabel1": {
+        "message": "第 1 ヘッダ部分 (&#37;s 差出人):"
+    },
+    "CQnewslabel2": {
+        "message": "第 2 ヘッダ部分（&#37;s 日付):"
+    },
+    "CQnewsradio1": {
+        "message": "差出人"
+    },
+    "CQnewsradio2": {
+        "message": "日付"
+    },
+    "CQnewstitle": {
+        "message": "ニュースグループ返信ヘッダ"
+    },
+    "CQnoReplyTo": {
+        "message": "Reply-To ヘッダを無視して返信"
+    },
+    "CQradio2defaultlabel": {
+        "message": "デフォルト"
+    },
+    "CQradio2htmllabel": {
+        "message": "HTML"
+    },
+    "CQradio2plainlabel": {
+        "message": "プレーンテキスト"
+    },
+    "addNewLine": {
+        "message": "テキストヘッダに改行を追加する"
+    },
+    "capitalizeDate": {
+        "message": "日付を大文字にする"
+    },
+    "help": {
+        "message": "ヘルプ"
+    },
+    "htmlSupport": {
+        "message": "HTML タグに対応する"
+    },
+    "noquote": {
+        "message": "(引用なし)"
+    },
+    "yesquote": {
+        "message": "(引用付き)"
+    },
+    "OriginalMessage": {
+        "message": "-------- Original Message --------"
+    },
+    "From": {
+        "message": "差出人: "
+    },
+    "To": {
+        "message": "宛先: "
+    },
+    "Cc": {
+        "message": "Cc: "
+    },
+    "Subject": {
+        "message": "件名: "
+    },
+    "Date": {
+        "message": "日付: "
+    },
+    "HelpText": {
+        "message": "[カスタマイズ用の変換構文]\n\n%%1 = 差出人 (From)\n%%2 = 受取人 (To)\n%%3 = 同報受取人 (Cc)\n%%4 = 件名 (Subject)\n%%5 = 日付 (Date)\n%%6 = 差出人 (名前のみ)\n%%7 = 差出人 (メールアドレスのみ)\n%%8 = 受取人 (To - 名前のみ)\n%%9 = 同報受取人 (Cc - 名前のみ)\n\n内部ヘッダが空白でない場合、{{ and }} で\n囲まれた部分を表示することができます。\nこれは次のような内容となります。\n\nTo : %%2{{ and %%3}} \n\nとすると下記のように展開されます。\n\nTo : mail1@xxx.org (Cc が空白の場合)\nTo : mail1@xxx.org and mail2@xxx.org (Cc が mail2@xxx.org の場合)\n\n\n[カスタマイズ用の日付変換構文]\n\n%d = 日付 (01 ～ 31)\n%D = 曜日 (\"Fri\")\n%m = 月 (01 ～ 12)\n%M = 月 (\"Jan\")\n%Y = 年 (西暦 4 桁 \"1999\")\n%i = 分 (00 ～ 59)\n%s = 秒 (00 ～ 59)\n%H = 24 時間制 (00 ～ 23)\n%h = 12 時間制 (01 ～ 12)\n%A = \"AM\" または \"PM\"\n%a = \"am\" または \"pm\"\n%e = \"月初からの日数\"\n%z = \"UTC タイムゾーン\"\n"
+    },
+    "CQReplyAllHtlm": {
+        "message": "HTML 全員に返信"
+    },
+    "CQReplyAllText": {
+        "message": "すべてプレーンテキストで返信"
+    },
+    "dateCustomLocal": {
+        "message": "形式のカスタマイズ (受取人ロケール時間)"
+    },
+    "dateCustomSender": {
+        "message": "形式のカスタマイズ (差出人ロケール時間)"
+    }
+}
