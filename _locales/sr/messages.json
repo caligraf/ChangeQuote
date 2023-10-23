@@ -1,0 +1,149 @@
+{
+    "CQalternativeformat": {
+        "message": "Облик за помешане поруке (content-type=alternative):"
+    },
+    "CQbold": {
+        "message": "Подебљај ознаке заглавља"
+    },
+    "CQbutton1": {
+        "message": "Уреди"
+    },
+    "CQcaption1": {
+        "message": "Заглавље одговора"
+    },
+    "CQcaption2": {
+        "message": "Облик и радње"
+    },
+    "CQdatelongINTlabel": {
+        "message": "Датум у међународном облику"
+    },
+    "CQdatelongLOClabel": {
+        "message": "Датум у локализованом облику"
+    },
+    "CQdatelongORIGlabel": {
+        "message": "Датум у оригиналном облику"
+    },
+    "CQlabel1": {
+        "message": "Проширено  заглавље одговора (пошиљалац, прималац, предмет, датум):"
+    },
+    "CQlabel1a": {
+        "message": "Уметни CC поље у заглавље"
+    },
+    "CQlabel1b": {
+        "message": "Увек користи заглавља на енглеском језику"
+    },
+    "CQlabel1c": {
+        "message": "Користи дуги или прилагођени облик у пољу за датум:"
+    },
+    "CQlabel1d": {
+        "message": "Користи прилагођено заглавље за дискусионе групе"
+    },
+    "CQlabel2": {
+        "message": "Стандардно Тандербердово заглавље одговора"
+    },
+    "CQlabel3": {
+        "message": "Прилагођено заглавље одговора:"
+    },
+    "CQlabel4": {
+        "message": "У одговору користи исти облик (HTML или текст) оригиналне поруке"
+    },
+    "CQlabel5": {
+        "message": "Одговори уз искључивање уметнутих прилога"
+    },
+    "CQlabel6": {
+        "message": "Затворите прозор поруке након одговарања или прослеђивања"
+    },
+    "CQlabel7": {
+        "message": "Означи поруку као прочитану после одговора"
+    },
+    "CQlabelitem1": {
+        "message": "Одговори у HTML"
+    },
+    "CQlabelitem2": {
+        "message": "Одговори у чистом тексту"
+    },
+    "CQlabelmenu": {
+        "message": "Остале опције"
+    },
+    "CQnewsdescr1": {
+        "message": "Изаберите елемент за почетак заглавља одговора:"
+    },
+    "CQnewslabel1": {
+        "message": "Први део заглавља (&#37;s означава аутора):"
+    },
+    "CQnewslabel2": {
+        "message": "Други део заглавља (&#37;s означава датум):"
+    },
+    "CQnewsradio1": {
+        "message": "Аутор"
+    },
+    "CQnewsradio2": {
+        "message": "Датум"
+    },
+    "CQnewstitle": {
+        "message": "Заглавља одговора дискусионих група"
+    },
+    "CQnoReplyTo": {
+        "message": "Одговори игноришући Reply-To заглавље"
+    },
+    "CQradio2defaultlabel": {
+        "message": "Подразумевано"
+    },
+    "CQradio2htmllabel": {
+        "message": "HTML"
+    },
+    "CQradio2plainlabel": {
+        "message": "Чисти текст"
+    },
+    "addNewLine": {
+        "message": "Додај нови ред у заглавља чистог текста"
+    },
+    "capitalizeDate": {
+        "message": "Датум испиши великим словима"
+    },
+    "help": {
+        "message": "Помоћ"
+    },
+    "htmlSupport": {
+        "message": "Подршка за HTML ознаке"
+    },
+    "noquote": {
+        "message": "(без наводника)"
+    },
+    "yesquote": {
+        "message": "(са наводницима)"
+    },
+    "OriginalMessage": {
+        "message": "-------- Изворна порука --------"
+    },
+    "From": {
+        "message": "Шаље: "
+    },
+    "To": {
+        "message": "Прима: "
+    },
+    "Cc": {
+        "message": "Kon: "
+    },
+    "Subject": {
+        "message": "Тема: "
+    },
+    "Date": {
+        "message": "Датум: "
+    },
+    "HelpText": {
+        "message": "SYNTAX FOR CUSTOMIZED HEADERS\n\n%%1 = author \n%%2 = recipients \n%%3 = recipients (CC)\n%%4 = subject\n%%5 = date \n%%6 = author (name only) \n%%7 = author (address only)\n%%8 = recipients (name only)\n%%9 = recipients (CC - name only)\n\nThe parts enclosed between {{ and }} are displayed\njust if the header inside is not null.\nThis means that a header with\n\nTo : %%2{{ and %%3}} \n\nwill give\n\nTo : mail1@xxx.org (if CC is null)\nTo : mail1@xxx.org and mail2@xxx.org (if CC is mail2@xxx.org)\n\n\nSYNTAX FOR CUSTOMIZED DATE FORMAT\n\n%d = day of the month, 2 digits (\"01\" to \"31\")\n%D = day of the week, textual, english, 3 letters (\"Fri\")\n%m = month (\"01\" to \"12\")\n%M = month, textual, english, 3 letters (\"Jan\")\n%y = year, 2 digits (\"99\")\n%Y = year, 4 digits (\"1999\")\n%i = minutes (\"00\" to \"59\")\n%s = seconds (\"00\" to \"59\")\n%H = hour, 24-hour format (\"00\" to \"23\")\n%h = hour, 12-hour format (\"01\" to \"12\")\n%A = \"AM\" or \"PM\"\n%a = \"am\" or \"pm\"\n%e = space-filled date of month\n%z = timezone offset from UTC"
+    },
+    "CQReplyAllHtlm": {
+        "message": "Одговори свима у HTML формату"
+    },
+    "CQReplyAllText": {
+        "message": "Одговори свима у формату чистог текста"
+    },
+    "dateCustomLocal": {
+        "message": "Прилагођени облик (локално)"
+    },
+    "dateCustomSender": {
+        "message": "Прилагођени облик (пошиљалац)"
+    }
+}

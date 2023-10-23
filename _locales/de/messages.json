@@ -1,0 +1,149 @@
+{
+    "CQalternativeformat": {
+        "message": "Format für gemischte Emails(content-type=alternative):"
+    },
+    "CQbold": {
+        "message": "Kopfzeilen im Fett"
+    },
+    "CQbutton1": {
+        "message": "Bearbeiten"
+    },
+    "CQcaption1": {
+        "message": "Antwortkopf"
+    },
+    "CQcaption2": {
+        "message": "Format und Aktionen"
+    },
+    "CQdatelongINTlabel": {
+        "message": "Datum im internationalen Format"
+    },
+    "CQdatelongLOClabel": {
+        "message": "Datum im lokalen Format"
+    },
+    "CQdatelongORIGlabel": {
+        "message": "Datum im originalen Format"
+    },
+    "CQlabel1": {
+        "message": "Erweiterter Antwortkopf(Absender, Empfänger, Betreff, Datum):"
+    },
+    "CQlabel1a": {
+        "message": "Auch CC Felder im Kopf hinzufügen"
+    },
+    "CQlabel1b": {
+        "message": "Immer Kopfzeilen auf Englisch benutzen"
+    },
+    "CQlabel1c": {
+        "message": "Benutze langes oder angepasstes Datumformat:"
+    },
+    "CQlabel1d": {
+        "message": "Benutze angepasste Kopfzeilen für Newsgruppen."
+    },
+    "CQlabel2": {
+        "message": "Standard Antwortkopf"
+    },
+    "CQlabel3": {
+        "message": "Angepasster Antwortkopf:"
+    },
+    "CQlabel4": {
+        "message": "Antwort im gleichen Format (HTML oder Text) wie Original-Mail"
+    },
+    "CQlabel5": {
+        "message": "Anhänge aus dem Antwort entfernen"
+    },
+    "CQlabel6": {
+        "message": "Schließen Sie das Nachrichtenfenster nach dem Antworten oder Weiterleiten"
+    },
+    "CQlabel7": {
+        "message": "Nach dem Antworten die Mail als gelesen markieren"
+    },
+    "CQlabelitem1": {
+        "message": "Antwort als HTML"
+    },
+    "CQlabelitem2": {
+        "message": "Antwort als Text"
+    },
+    "CQlabelmenu": {
+        "message": "Andere Optionen"
+    },
+    "CQnewsdescr1": {
+        "message": "Wählen Sie ein Element am Anfang des Antwortkopfes:"
+    },
+    "CQnewslabel1": {
+        "message": "Erste Kopfteil(&#37; steht für Autor)"
+    },
+    "CQnewslabel2": {
+        "message": "Zweite Kopfteil(&#37; steht für Datum)"
+    },
+    "CQnewsradio1": {
+        "message": "Autor"
+    },
+    "CQnewsradio2": {
+        "message": "Datum"
+    },
+    "CQnewstitle": {
+        "message": "Antwortkopf für Newsgruppen"
+    },
+    "CQnoReplyTo": {
+        "message": "Antwort ignoriert Reply-To Kopfzeile"
+    },
+    "CQradio2defaultlabel": {
+        "message": "Standard"
+    },
+    "CQradio2htmllabel": {
+        "message": "HTML"
+    },
+    "CQradio2plainlabel": {
+        "message": "Text"
+    },
+    "addNewLine": {
+        "message": "Zeilenumbruch im Antwortkopf von Textmails"
+    },
+    "capitalizeDate": {
+        "message": "Datum in Großbuchstaben"
+    },
+    "help": {
+        "message": "Hilfe"
+    },
+    "htmlSupport": {
+        "message": "Unterstützung von HTML-Tags"
+    },
+    "noquote": {
+        "message": "Mit Zitat"
+    },
+    "yesquote": {
+        "message": "Ohne Zitat"
+    },
+    "OriginalMessage": {
+        "message": "-------- Original Nachricht --------"
+    },
+    "From": {
+        "message": "Von: "
+    },
+    "To": {
+        "message": "An: "
+    },
+    "Cc": {
+        "message": "Kopie (CC): "
+    },
+    "Subject": {
+        "message": "Betreff: "
+    },
+    "Date": {
+        "message": "Datum: "
+    },
+    "HelpText": {
+        "message": "SYNTAX FÜR ANGEPASSTES ANTWORTFORMAT\n\n%%1 = Autor\n%%2 = Empfänger\n%%3 = Empfänger (CC)\n%%4 = Betreff\n%%5 = Datum\n%%6 = Autor (nur Name) \n%%7 = Autor (nur Adresse)\n%%8 = Empfänger (nur Name) \n%%9 = Empfänger (CC - nur Name) \n\nDas Teil zwischen {{ und }} wird nur dann\nangezeigt, wenn Inhalt dazwischen nicht leer ist. \nDas bedeutet, dass Antwortkopf\n\nAn: %%2{{ und %%3}} \n\nwird so aussehen:\n\nAn: mail1@xxx.org (wenn CC leer ist)\nAn: mail1@xxx.org und mail2@xxx.org (wenn CC mail2@xxx.org ist)\n\n\nSYNTAX FÜR ANGEPASSTES DATUMFORMAT\n\n%d = Tag des Monats, 2 Zahlen(\"01\" bis \"31\")\n%D = Tag der Woche, 3 Buchstaben(\"Fri\")\n%m = Monat(\"01\" bis \"12\")\n%M = Monat, 3 Buchstaben(\"Jan\")\n%y = Jahr, 2 Zahlen(\"99\")\n%Y = Jahr, 4 Zahlen(\"1999\")\n%i = Minuten(\"00\" bis \"59\")\n%s = Sekunden(\"00\" bis \"59\")\n%H = Stunde, 24-Stunden Format (\"00\" bis \"23\")\n%h = Stunde, 12-Stunden Format (\"01\" bis \"12\")\n%A = \"AM\" oder \"PM\"\n%a = \"am\" oder \"pm\"\n%e = space-filled date of month\n%z = timezone offset from UTC\n"
+    },
+    "CQReplyAllHtlm": {
+        "message": "Allen antworten als HTML"
+    },
+    "CQReplyAllText": {
+        "message": "Allen antworten als Text"
+    },
+    "dateCustomLocal": {
+        "message": "Angepasstes Format (lokal)"
+    },
+    "dateCustomSender": {
+        "message": "Angepasstes Format (Absender)"
+    }
+}

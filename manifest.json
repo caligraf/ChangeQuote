@@ -1,34 +1,56 @@
 {
     "manifest_version": 2,
-    "applications": {
+    "browser_specific_settings": {
         "gecko": {
             "id": "changequote@caligraf",
-            "strict_min_version": "91.0",
-            "strict_max_version": "102.*"
+            "strict_min_version": "115.0",
+            "strict_max_version": "115.*"
         }
     },
     "name": "changeQuote",
     "description": "Change the reply header and the reply format",
     "author": "Caligraf",
-    "version": "1.6.1",
+    "version": "1.7.4",
+    "default_locale": "en",
     "homepage_url": "https://github.com/caligraf/ChangeQuote/wiki",
     "icons": {
         "32": "icon/icon32x32.png",
         "64": "icon/icon64x64.png"
-	},
-    "experiment_apis": {
-        "WindowListener": {
-        "schema": "api/WindowListener/schema.json",
-        "parent": {
-            "scopes": ["addon_parent"],
-            "paths": [["WindowListener"]],
-            "script": "api/WindowListener/implementation.js"
-        }
-        }
     },
     "background": {
         "scripts": [
-        "background.js"
+            "background.js"
         ]
+    },
+    "message_display_action": {
+        "default_title": "CQ",
+        "type": "menu",
+        "default_icon" : {
+            "16": "icon/icon16x16.png",
+            "32": "icon/icon32x32.png"
+        }
+    },
+    "options_ui": {
+      "page": "/options/options.html",
+      "browser_style": true
+    },
+    "permissions": [
+        "messagesRead",
+        "compose",
+        "storage",
+        "menus",
+        "accountsRead",
+        "tabs",
+        "management"
+    ],
+    "experiment_apis": {
+        "LegacyPrefs": {
+            "schema": "api/LegacyPrefs/schema.json",
+            "parent": {
+                "scopes": ["addon_parent"],
+                "paths": [["LegacyPrefs"]],
+                "script": "api/LegacyPrefs/implementation.js"
+            }
+        }
     }
 }

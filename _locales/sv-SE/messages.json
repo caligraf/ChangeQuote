@@ -1,0 +1,149 @@
+{
+    "CQalternativeformat": {
+        "message": "Format för blandade meddelanden (content-type=alternative):"
+    },
+    "CQbold": {
+        "message": "Huvudtaggar i fetstil"
+    },
+    "CQbutton1": {
+        "message": " Redigera "
+    },
+    "CQcaption1": {
+        "message": "Svarshuvud"
+    },
+    "CQcaption2": {
+        "message": "Format och åtgärder"
+    },
+    "CQdatelongINTlabel": {
+        "message": "Datum i internationellt format"
+    },
+    "CQdatelongLOClabel": {
+        "message": "Datum i lokaliserat format"
+    },
+    "CQdatelongORIGlabel": {
+        "message": "Datum i originalformat"
+    },
+    "CQlabel1": {
+        "message": "Utökat svarshuvud (avsändare, mottagare, ämne, datum):"
+    },
+    "CQlabel1a": {
+        "message": "Infoga &quot;Kopia:&quot;-fältet i huvudet"
+    },
+    "CQlabel1b": {
+        "message": "Använd alltid huvuden på engelska"
+    },
+    "CQlabel1c": {
+        "message": "Använd långt eller anpassat format i datumfält:"
+    },
+    "CQlabel1d": {
+        "message": "Använd anpassade huvuden för diskussionsgrupper"
+    },
+    "CQlabel2": {
+        "message": "Standardsvarshuvud i Thunderbird"
+    },
+    "CQlabel3": {
+        "message": "Anpassat svarshuvud:"
+    },
+    "CQlabel4": {
+        "message": "Använd samma format i svaret (HTML eller text) som i originalmeddelandet"
+    },
+    "CQlabel5": {
+        "message": "Ta bort infogade bilagor i svaret"
+    },
+    "CQlabel6": {
+        "message": "Stäng meddelandefönstret efter att ha svarat eller vidarebefordrat"
+    },
+    "CQlabel7": {
+        "message": "Märk meddelandet som läst när svaret skickats"
+    },
+    "CQlabelitem1": {
+        "message": "Svara i HTML"
+    },
+    "CQlabelitem2": {
+        "message": "Svara i oformaterad text"
+    },
+    "CQlabelmenu": {
+        "message": "Övriga inställningar"
+    },
+    "CQnewsdescr1": {
+        "message": "Välj element till inledningen av svarshuvudet:"
+    },
+    "CQnewslabel1": {
+        "message": "Första huvudets del (&#37;-tecken står för avsändaren):"
+    },
+    "CQnewslabel2": {
+        "message": "Andra huvudets del (&#37;-tecken står för datumet):"
+    },
+    "CQnewsradio1": {
+        "message": "Avsändare"
+    },
+    "CQnewsradio2": {
+        "message": "Datum"
+    },
+    "CQnewstitle": {
+        "message": "Diskussionsgruppssvarshuvuden"
+    },
+    "CQnoReplyTo": {
+        "message": "Ignorera ReplyTo-huvud vid svar"
+    },
+    "CQradio2defaultlabel": {
+        "message": "Standard"
+    },
+    "CQradio2htmllabel": {
+        "message": "HTML"
+    },
+    "CQradio2plainlabel": {
+        "message": "Oformaterad text"
+    },
+    "addNewLine": {
+        "message": "Lägg till en radbrytning i huvuden i oformaterad text"
+    },
+    "capitalizeDate": {
+        "message": "Inledande versal i datum"
+    },
+    "help": {
+        "message": "Hjälp"
+    },
+    "htmlSupport": {
+        "message": "Stöd för HTML-taggar"
+    },
+    "noquote": {
+        "message": "(utan citering)"
+    },
+    "yesquote": {
+        "message": "(med citering)"
+    },
+    "OriginalMessage": {
+        "message": "-------- Ursprungligt meddelande --------"
+    },
+    "From": {
+        "message": "Från: "
+    },
+    "To": {
+        "message": "Till: "
+    },
+    "Cc": {
+        "message": "Kopia: "
+    },
+    "Subject": {
+        "message": "Ämne: "
+    },
+    "Date": {
+        "message": "Data: "
+    },
+    "HelpText": {
+        "message": "SYNTAX FÖR ANPASSADE HUVUDEN\n\n%%1 = avsändare \n%%2 = mottagare \n%%3 = mottagare (Kopia:)\n%%4 = ämne\n%%5 = datum \n%%6 = avsändare (endast namn) \n%%7 = avsändare (endast adress)\n%%8 = mottagare (endast namn) \n%%9 = mottagare (Kopia: - endast namn) \n\nDe delar som är omslutna av {{ och }} visas\nendast om huvudet inuti dem inte är null.\nDet betyder att ett huvud med\n\nTill: %%2{{ och %%3}} \n\nkommer att ge\n\nTill: mail1@xxx.org (om Kopia: är null)\nTill: mail1@xxx.org och mail2@xxx.org (om Kopia: är mail2@xxx.org)\n\n\nSYNTAX FÖR ANPASSADE DATUMFORMAT\n\n%d = dag i månaden, 2 siffror (\"01\" till \"31\")\n%D = dag i veckan, textuell, engelska, 3 bokstäver (\"Fri\")\n%m = månad (\"01\" till \"12\")\n%M = månad, textuell, engelska, 3 bokstäver (\"Oct\")\n%y = år, 2 siffror (\"99\")\n%Y = år, 4 siffror (\"1999\")\n%i = minuter (\"00\" till \"59\")\n%s = sekunder (\"00\" till \"59\")\n%H = timmar, 24-timmarsformat (\"00\" till \"23\")\n%h = timmar, 12-timmarsformat (\"01\" till \"12\")\n%A = \"AM\" eller \"PM\"\n%a = \"am\" eller \"pm\"\n%e = space-filled date of month\n%z = timezone offset from UTC\n"
+    },
+    "CQReplyAllHtlm": {
+        "message": "Svara alla i HTML"
+    },
+    "CQReplyAllText": {
+        "message": "Svara alla i oformaterad text"
+    },
+    "dateCustomLocal": {
+        "message": "Anpassat format (local)"
+    },
+    "dateCustomSender": {
+        "message": "Anpassat format (sender)"
+    }
+}

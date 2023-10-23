@@ -1,0 +1,149 @@
+{
+    "OriginalMessage": {
+        "message": "-------- Message d'origine --------"
+    },
+    "From": {
+        "message": "De : "
+    },
+    "To": {
+        "message": "Pour : "
+    },
+    "Cc": {
+        "message": "Copie à : "
+    },
+    "Subject": {
+        "message": "Sujet : "
+    },
+    "Date": {
+        "message": "Date : "
+    },
+    "HelpText": {
+        "message": "--------------------------------------------------------------------------\nSYNTAXE DES EN-TÊTES PERSONNALISÉS\n--------------------------------------------------------------------------\n%%1 = auteur\n%%2 = destinataires\n%%3 = destinataires (Copie)\n%%4 = sujet\n%%5 = date \n%%6 = auteur (seulement le nom) \n%%7 = auteur (seulement l'adresse)\n%%8 = destinataires (seulement le nom) \n%%9 = destinataires (Copie - seulement le nom) \n\nLes parties insérées entre {{ et }} seront affichées seulement si\nle champ correspondant de l'en-tête est renseigné.\n\nCela signifie par exemple que\n\nPour : %%2{{ et %%3}} \n\ndonnera :\n\nPour : mail1@xxx.org (si CC est vide)\nPour : mail1@xxx.org et mail2@xxx.org (si CC est mail2@xxx.org)\n\n----------------------------------------------------------------------------------------------\nSYNTAXE DU FORMAT DE DATE PERSONNALISÉ\n----------------------------------------------------------------------------------------------\n\n%d = jour du mois, sur deux chiffres (de \"01\" à \"31\")\n%D = jour de la semaine, en anglais, avec les trois lettres initiales (\"Fri\")\n%m = mois (\"01\" à \"12\")\n%M = mois, en anglais, avec les trois lettres initiales (\"Jan\")\n%y = année, 2 chiffres (\"99\")\n%Y = année, 4 chiffres (\"1999\")\n%i = minutes (\"00\" à \"59\")\n%s = secondes (\"00\" à \"59\")\n%H = heure, au format 24h (\"00\" à \"23\")\n%h = heure, au format 12h (\"01\" à \"12\")\n%A = \"AM\" ou \"PM\"\n%a = \"am\" ou \"pm\"\n%e = space-filled date of month\n%z = timezone offset from UTC"
+    },
+    "CQcaption1": {
+        "message": "En-tête de réponse"
+    },
+    "CQcaption2": {
+        "message": "Format et actions"
+    },
+    "CQlabel1": {
+        "message": "En-tête de réponse étendu (expéditeur, destinataire, sujet, date) :"
+    },
+    "CQlabel1a": {
+        "message": "Insérer aussi le champ « Copie à » dans l'en-tête"
+    },
+    "CQlabel1b": {
+        "message": "Toujours utiliser les en-têtes en anglais"
+    },
+    "CQlabel1d": {
+        "message": "Utiliser des en-têtes personnalisés pour les groupes de discussion"
+    },
+    "CQlabel2": {
+        "message": "En-tête pour réponse standard de Thunderbird"
+    },
+    "CQlabel3": {
+        "message": "En-tête de réponse personnalisé :"
+    },
+    "CQlabel4": {
+        "message": "Utiliser le même format (html ou texte) pour la réponse que celui du mail d'origine"
+    },
+    "CQlabel5": {
+        "message": "Répondre en éliminant les fichiers incorporés"
+    },
+    "CQlabel6": {
+        "message": "Fermer la fenêtre du message après avoir répondu ou transféré"
+    },
+    "CQlabel7": {
+        "message": "Marquer le message comme lu après avoir répondu"
+    },
+    "CQbutton1": {
+        "message": "Éditer"
+    },
+    "CQlabelitem1": {
+        "message": "Répondre en HTML"
+    },
+    "CQlabelitem2": {
+        "message": "Répondre en texte brut"
+    },
+    "CQReplyAllHtlm": {
+        "message": "Répondre à tous en HTML"
+    },
+    "CQReplyAllText": {
+        "message": "Répondre à tous en texte brut"
+    },
+    "CQlabelmenu": {
+        "message": "Autres options"
+    },
+    "CQnewstitle": {
+        "message": "En-têtes de réponse pour les groupes de discussion"
+    },
+    "CQnewslabel1": {
+        "message": "Première partie de l'en-tête (&#37;s représente l'auteur) :"
+    },
+    "CQnewslabel2": {
+        "message": "Deuxième partie de l'en-tête (&#37;s représente la date) :"
+    },
+    "CQnewsdescr1": {
+        "message": "Choisir l'élément initial de l'en-tête de réponse :"
+    },
+    "CQnewsradio1": {
+        "message": "Auteur"
+    },
+    "CQnewsradio2": {
+        "message": "Date"
+    },
+    "CQdatelongINTlabel": {
+        "message": "Date au format international"
+    },
+    "CQalternativeformat": {
+        "message": "Format pour les mails mixtes (content-type=alternative) :"
+    },
+    "CQradio2defaultlabel": {
+        "message": "Par défaut"
+    },
+    "CQradio2htmllabel": {
+        "message": "Html"
+    },
+    "CQradio2plainlabel": {
+        "message": "Texte brut"
+    },
+    "CQdatelongLOClabel": {
+        "message": "Date au format local"
+    },
+    "CQdatelongORIGlabel": {
+        "message": "Date au format d'origine"
+    },
+    "noquote": {
+        "message": "(sans citation)"
+    },
+    "yesquote": {
+        "message": "(avec citation)"
+    },
+    "CQnoReplyTo": {
+        "message": "Réponse en ignorant l'en-tête de réponse"
+    },
+    "help": {
+        "message": "Aide"
+    },
+    "addNewLine": {
+        "message": "Ajouter un saut de ligne aux en-têtes en texte brut"
+    },
+    "CQlabel1c": {
+        "message": "Utiliser un format long ou personnalisé dans le champ « date » :"
+    },
+    "dateCustomLocal": {
+        "message": "Format personnalisé (local)"
+    },
+    "dateCustomSender": {
+        "message": "Format personnalisé (expéditeur)"
+    },
+    "capitalizeDate": {
+        "message": "Mettre la date en capitales"
+    },
+    "CQbold": {
+        "message": "Balises d'en-tête en gras"
+    },
+    "htmlSupport": {
+        "message": "Prise en charge des balises HTML"
+    }
+}

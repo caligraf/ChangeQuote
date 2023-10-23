@@ -1,0 +1,149 @@
+{
+    "OriginalMessage": {
+        "message": "-------- Original Message --------"
+    },
+    "From": {
+        "message": "From: "
+    },
+    "To": {
+        "message": "To: "
+    },
+    "Cc": {
+        "message": "Cc: "
+    },
+    "Subject": {
+        "message": "Subject: "
+    },
+    "Date": {
+        "message": "Date: "
+    },
+    "HelpText": {
+        "message": "SYNTAX FOR CUSTOMIZED HEADERS\n\n%%1 = author \n%%2 = recipients \n%%3 = recipients (CC)\n%%4 = subject\n%%5 = date \n%%6 = author (name only) \n%%7 = author (address only)\n%%8 = recipients (name only)\n%%9 = recipients (CC - name only)\n\nThe parts enclosed between {{ and }} are displayed\njust if the header inside is not null.\nThis means that a header with\n\nTo : %%2{{ and %%3}} \n\nwill give\n\nTo : mail1@xxx.org (if CC is null)\nTo : mail1@xxx.org and mail2@xxx.org (if CC is mail2@xxx.org)\n\n\nSYNTAX FOR CUSTOMIZED DATE FORMAT\n\n%d = day of the month, 2 digits (\"01\" to \"31\")\n%D = day of the week, textual, english, 3 letters (\"Fri\")\n%m = month (\"01\" to \"12\")\n%M = month, textual, english, 3 letters (\"Jan\")\n%Y, %y = year, 4 digits (\"1999\")\n%i = minutes (\"00\" to \"59\")\n%s = seconds (\"00\" to \"59\")\n%H = hour, 24-hour format (\"00\" to \"23\")\n%h = hour, 12-hour format (\"01\" to \"12\")\n%A = \"AM\" or \"PM\"\n%a = \"am\" or \"pm\"\n%e = space-filled date of month\n%z = timezone offset from UTC"
+    },
+    "CQcaption1": {
+        "message": "Reply header"
+    },
+    "CQcaption2": {
+        "message": "Format and actions"
+    },
+    "CQlabel1": {
+        "message": "Extended reply header (sender, recipients, subject, date):"
+    },
+    "CQlabel1a": {
+        "message": "Insert the CC field into the header"
+    },
+    "CQlabel1b": {
+        "message": "Use always headers in english"
+    },
+    "CQlabel1d": {
+        "message": "Use customized headers for newsgroups"
+    },
+    "CQlabel2": {
+        "message": "Standard Thunderbird reply header"
+    },
+    "CQlabel3": {
+        "message": "Customized reply header:"
+    },
+    "CQlabel4": {
+        "message": "Use in reply the same format (html or text) of the original mail"
+    },
+    "CQlabel5": {
+        "message": "Reply stripping off the inline attachments"
+    },
+    "CQlabel6": {
+        "message": "Close message window after reply or forward"
+    },
+    "CQlabel7": {
+        "message": "Mark message as read after reply"
+    },
+    "CQbutton1": {
+        "message": " Edit"
+    },
+    "CQlabelitem1": {
+        "message": "Reply in HTML"
+    },
+    "CQlabelitem2": {
+        "message": "Reply in plain text"
+    },
+     "CQReplyAllHtlm": {
+        "message": "Reply all in HTML"
+    },
+    "CQReplyAllText": {
+        "message": "Reply all in plain text"
+    },
+    "CQlabelmenu": {
+        "message": "Other options"
+    },
+    "CQnewstitle": {
+        "message": "Newsgroup reply headers"
+    },
+    "CQnewslabel1": {
+        "message": "First header's part (&#37;s stands for the author):"
+    },
+    "CQnewslabel2": {
+        "message": "Second header's part (&#37;s stands for the date):"
+    },
+    "CQnewsdescr1": {
+        "message": "Choise the element at the begin of the reply header:"
+    },
+    "CQnewsradio1": {
+        "message": "Author"
+    },
+    "CQnewsradio2": {
+        "message": "Date"
+    },
+    "CQdatelongINTlabel": {
+        "message": "Date in international format"
+    },
+    "CQalternativeformat": {
+        "message": "Format for the mixed mails (content-type=alternative):"
+    },
+    "CQradio2defaultlabel": {
+        "message": "Default"
+    },
+    "CQradio2htmllabel": {
+        "message": "Html"
+    },
+    "CQradio2plainlabel": {
+        "message": "Plain text"
+    },
+    "CQdatelongLOClabel": {
+        "message": "Date in localized format"
+    },
+    "CQdatelongORIGlabel": {
+        "message": "Date in original format"
+    },
+    "noquote": {
+        "message": "(without quote)"
+    },
+    "yesquote": {
+        "message": "(with quote)"
+    },
+    "CQnoReplyTo": {
+        "message": "Reply ignoring Reply-To header"
+    },
+    "help": {
+        "message": "Help"
+    },
+    "addNewLine": {
+        "message": "Add a linebreak in text plain headers"
+    },
+    "CQlabel1c": {
+        "message": "Use long or customized format in date field:"
+    },
+    "dateCustomLocal": {
+        "message": "Customized format (local)"
+    },
+    "dateCustomSender": {
+        "message": "Customized format (sender)"
+    },
+    "capitalizeDate": {
+        "message": "Capitalise date"
+    },
+    "CQbold": {
+        "message": "Headers tags with bold font"
+    },
+    "htmlSupport": {
+        "message": "Html tags support"
+    }
+}
