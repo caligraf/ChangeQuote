@@ -205,9 +205,11 @@ async function getHeader(custom, isNNTP, cite, msgDate, receivedDateString, mess
     let cclist = messageHeader.ccList.join(",");
     let subject = messageHeader.subject;
     let realnewhdr = "";
-    if (custom)
+    let newlineOptionAvailable = false;
+    if (custom) {
         realnewhdr = await getCustomizedHeader(sender, recipient, cclist, subject, msgDate, receivedDateString, isNNTP, endline);
-    else if (isNNTP)
+        newlineOptionAvailable = true;
+    } else if (isNNTP)
         await standardHeader(email);
     else if (isHeaderEnglish)
         realnewhdr = await getClassicEnglishHeader(sender, recipient, cclist, subject, msgDate, receivedDateString, endline);
@@ -220,9 +222,11 @@ async function getHeader(custom, isNNTP, cite, msgDate, receivedDateString, mess
         realnewhdr = realnewhdr.replace(/\[\[/g, "([[)");
         realnewhdr = realnewhdr.replace(/\]\]/g, "(]])");
     }
-    let changequote_headers_add_newline = await getPrefInStorage("changequote.headers.add_newline", "");
-    if (changequote_headers_add_newline)
-        realnewhdr = realnewhdr + endline;
+    if( newlineOptionAvailable ) {
+        let changequote_headers_add_newline = await getPrefInStorage("changequote.headers.add_newline", "");
+        if (changequote_headers_add_newline)
+            realnewhdr = realnewhdr + endline;
+    }
     return realnewhdr;
 }
 
