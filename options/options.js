@@ -62,9 +62,9 @@ function toggleExt() {
 }
 
 function InitCheckBox() {
-	if (document.getElementById("CQStandard").selected)
+	if (document.getElementById("CQStandard").checked)
 		toggleStandard();
-	else if (document.getElementById("CQCustomize").selected)
+	else if (document.getElementById("CQCustomize").checked)
 		toggleCustomizedBox();
 	else
 		toggleExt();
