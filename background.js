@@ -248,6 +248,17 @@ async function needToRemoveInlineImages(tabId) {
     return inline_attach;
 }
 
+async function findTab(messageId) {
+  let tabs = await browser.tabs.query({ type :"messageDisplay" });
+  for (let t of tabs) {
+    let m = await browser.messageDisplay.getDisplayedMessage(t.id);
+    if (m?.id == messageId) {
+      return t;
+    }
+  }
+  return null;
+}
+
 async function doHandleCommand(message, sender) {
     const {
         command,
@@ -291,14 +302,8 @@ async function doHandleCommand(message, sender) {
     case "closeWindows":
         let composeDetails4 = await messenger.compose.getComposeDetails(tabId);
         let originalMsgId = composeDetails4.relatedMessageId;
-        let messagePart2 = await messenger.messages.getFull(originalMsgId);
-        let msgSubject = messagePart2.headers["subject"];
-        let expectedTitle = msgSubject + " - Mozilla Thunderbird";
-        let windows = await messenger.windows.getAll({ populate:true, windowTypes: ["messageDisplay" ]});
-        for(let i=0;i<windows.length;i++) {
-            if( windows[i].title === expectedTitle )
-                await messenger.windows.remove(windows[i].id);
-        }
+        let tab = await findTab(originalMsgId);
+        await browser.tabs.remove(tab.id);
         break;
     case "getIdentityId":
         let messageDisplayedHeader = await messenger.messages.get(options.messageId);
