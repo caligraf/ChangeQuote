@@ -303,7 +303,8 @@ async function doHandleCommand(message, sender) {
         let composeDetails4 = await messenger.compose.getComposeDetails(tabId);
         let originalMsgId = composeDetails4.relatedMessageId;
         let tab = await findTab(originalMsgId);
-        await browser.tabs.remove(tab.id);
+        if( tab !== null )
+            await browser.tabs.remove(tab.id);
         break;
     case "getIdentityId":
         let messageDisplayedHeader = await messenger.messages.get(options.messageId);
