@@ -101,7 +101,7 @@ async function updateMessage(composeDetails, messageHeader, messagePart) {
                                     msgDate: msgdate,
                                     receivedDate: receivedDate,
                                     messageHeader: messageHeader,
-                                    endline: "[[br /]]"
+                                    endline: "([[br) /(]])"
                                 }
                             });
                     else
@@ -117,7 +117,7 @@ async function updateMessage(composeDetails, messageHeader, messagePart) {
                                     msgDate: msgdate,
                                     receivedDate: receivedDate,
                                     messageHeader: messageHeader,
-                                    endline: "[[br /]]"
+                                    endline: "([[)br /(]])"
                                 }
                             });
                     } else if (cqheaders_type == 1)
@@ -132,7 +132,7 @@ async function updateMessage(composeDetails, messageHeader, messagePart) {
                                     msgDate: msgdate,
                                     receivedDate: receivedDate,
                                     messageHeader: messageHeader,
-                                    endline: "[[br /]]"
+                                    endline: "([[)br /(]])"
                                 }
                             });
                 }
