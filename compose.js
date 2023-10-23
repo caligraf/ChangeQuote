@@ -163,6 +163,12 @@ async function updateMessage(composeDetails, messageHeader, messagePart) {
                 await browser.runtime.sendMessage({
                     command: "closeWindows"
                 });
+        } else if (composeDetails.type == "forward") {
+            let close_after_reply = await getPrefInStorage("changequote.window.close_after_reply");
+            if (close_after_reply)
+                await browser.runtime.sendMessage({
+                    command: "closeWindows"
+                });
         }
     } catch (e) {
         console.error(e);
