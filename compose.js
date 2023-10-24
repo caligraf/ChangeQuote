@@ -24,7 +24,7 @@ async function updateMessage(composeDetails, messageHeader, messagePart) {
             } else {
                 let inner = document.body.innerHTML;
 
-                if (inner.length < 20) // || inner.indexOf("([[)") < 0)
+                if (inner.length < 20)
                     return;
 
                 let sameFormatAsReceived = await getPrefInStorage("changequote.replyformat.enable");

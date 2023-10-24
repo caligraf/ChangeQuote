@@ -309,8 +309,11 @@ async function doHandleCommand(message, sender) {
     case "getIdentityId":
         let messageDisplayedHeader = await messenger.messages.get(options.messageId);
         let folder = messageDisplayedHeader.folder;
-        let mailIdentity = await messenger.accounts.getDefaultIdentity(folder.accountId);
-        return mailIdentity.id;
+        let mailIdentity = await messenger.identities.getDefault(folder.accountId);
+        if( mailIdentity )
+            return mailIdentity.id;
+        else
+            return "default";
         break;
     case "updateComposeDetail":
         messenger.compose.setComposeDetails(tabId, options.details)
@@ -448,16 +451,22 @@ browser.menus.onClicked.addListener( async (info, tab) => {
         details.isPlainText = true;
     } else if (info.menuItemId == "replyHTMLQuote" || info.menuItemId == "replyALLHTMLQuote") {
         let folder = messageHeader.folder;
-        let mailIdentity = await messenger.accounts.getDefaultIdentity(folder.accountId);
-        let prefName = "changequote." + mailIdentity.id + ".auto_quote";
+        let mailIdentity = await messenger.identities.getDefault(folder.accountId);
+        let mailIdentityId = 'default';
+        if( mailIdentity )
+            mailIdentityId = mailIdentity.id;
+        let prefName = "changequote." + mailIdentityId + ".auto_quote";
         let quoted = await getPrefInStorage(prefName, true);
         await setPrefInStorage(prefName, !quoted);
         updateQuoteMenus(!quoted);
         details.isPlainText = false;
     } else if (info.menuItemId == "replyPlainQuote" || info.menuItemId == "replyALLPlainQuote") {
         let folder = messageHeader.folder;
-        let mailIdentity = await messenger.accounts.getDefaultIdentity(folder.accountId);
-        let prefName = "changequote." + mailIdentity.id + ".auto_quote";
+        let mailIdentity = await messenger.identities.getDefault(folder.accountId);
+        let mailIdentityId = 'default';
+        if( mailIdentity )
+            mailIdentityId = mailIdentity.id;
+        let prefName = "changequote." + mailIdentityId + ".auto_quote";
         let quoted = await getPrefInStorage(prefName, true);
         await setPrefInStorage(prefName, !quoted);
         updateQuoteMenus(!quoted);
@@ -472,8 +481,11 @@ browser.menus.onClicked.addListener( async (info, tab) => {
 });
 
 browser.messageDisplay.onMessageDisplayed.addListener(async (tab, message) => {
-    let mailIdentity = await messenger.accounts.getDefaultIdentity(message.folder.accountId);
-    let prefName = "changequote." + mailIdentity.id + ".auto_quote";
+    let mailIdentity = await messenger.identities.getDefault(message.folder.accountId);
+    let mailIdentityId = 'default';
+    if( mailIdentity )
+        mailIdentityId = mailIdentity.id;
+    let prefName = "changequote." + mailIdentityId + ".auto_quote";
     let quoted = await getPrefInStorage(prefName, true);
     updateQuoteMenus(quoted);
     let numberOfReceivers = message.ccList.length + message.recipients.length;
