@@ -20,7 +20,7 @@ async function updateMessage(composeDetails, messageHeader, messagePart) {
             let prefAutoQuote = "changequote." + identityId + ".auto_quote";
             let quoted = await getPrefInStorage(prefAutoQuote, true);
             if (!quoted) { // no quote
-                document.body.innerHTML = "<p></br><p>";
+                document.body.innerHTML = "<p><br /><p>";
             } else {
                 let inner = document.body.innerHTML;
 
@@ -97,11 +97,10 @@ async function updateMessage(composeDetails, messageHeader, messagePart) {
                                 options: {
                                     custom: true,
                                     isNNTP: isnntp,
-                                    cite: false,
                                     msgDate: msgdate,
                                     receivedDate: receivedDate,
                                     messageHeader: messageHeader,
-                                    endline: "([[br) /(]])"
+                                    endline: "<br />"
                                 }
                             });
                     else
@@ -113,11 +112,10 @@ async function updateMessage(composeDetails, messageHeader, messagePart) {
                                 options: {
                                     custom: false,
                                     isNNTP: isnntp,
-                                    cite: false,
                                     msgDate: msgdate,
                                     receivedDate: receivedDate,
                                     messageHeader: messageHeader,
-                                    endline: "[[br /]]"
+                                    endline: "<br />"
                                 }
                             });
                     } else if (cqheaders_type == 1)
@@ -128,19 +126,16 @@ async function updateMessage(composeDetails, messageHeader, messagePart) {
                                 options: {
                                     custom: true,
                                     isNNTP: isnntp,
-                                    cite: false,
                                     msgDate: msgdate,
                                     receivedDate: receivedDate,
                                     messageHeader: messageHeader,
-                                    endline: "([[)br /(]])"
+                                    endline: "<br />"
                                 }
                             });
                 }
                 if (!isStandardHeader) {
-                    inner = inner.replace(/\*\*\*\*\*\*\*\*\*\*\*\*HeaderChangeQuote\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*/g, realnewhdr);
-                    inner = inner.replace(/\(\[\[\)/g, "<");
-                    inner = inner.replace(/\(\]\]\)/g, ">");
-                    document.body.innerHTML = inner;
+                    let replyTB = document.body.getElementsByClassName("moz-cite-prefix");
+                    replyTB[0].innerHTML = realnewhdr;
                 }
             }
             let inlineImgRemove = await browser.runtime.sendMessage({
