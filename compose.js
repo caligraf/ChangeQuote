@@ -1,6 +1,6 @@
 async function getPrefInStorage(prefName, defaultValue) {
     let prefObj = await browser.storage.local.get(prefName);
-    if (prefObj && prefObj[prefName] != null )
+    if (prefObj && prefObj[prefName] != null)
         return prefObj[prefName];
     return defaultValue;
 }
@@ -59,11 +59,11 @@ async function updateMessage(composeDetails, messageHeader, messagePart) {
                         }
                     }
                     await browser.runtime.sendMessage({
-                                command: "updateComposeDetail",
-                                options: {
-                                    details
-                                }
-                            });
+                        command: "updateComposeDetail",
+                        options: {
+                            details
+                        }
+                    });
                 }
                 let receivedDate = "";
                 let received = messagePart.headers["received"];
