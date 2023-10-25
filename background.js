@@ -15,6 +15,12 @@ function CQcapitalize(val) {
 }
 
 function decodeCustomizedDate(date, str) {
+    const optionsWeekday = { weekday: 'long' };
+    const weekdayformat = new Intl.DateTimeFormat(messenger.i18n.getUILanguage(), optionsWeekday);
+    let weekday = weekdayformat.format(date);
+    const optionsMonth = { month: 'long' };
+    const monthFormat = new Intl.DateTimeFormat(messenger.i18n.getUILanguage(), optionsMonth);
+    let month = monthFormat.format(date);
     let d = date.getDate();
     let e = d < 10 ? " " + d : d;
     d = d < 10 ? "0" + d : d;
@@ -38,6 +44,8 @@ function decodeCustomizedDate(date, str) {
     z = z.substring(0, 5);
     H = H < 10 ? "0" + H : H;
     h = h < 10 ? "0" + h : h;
+    str = str.replace("%LM", month);
+    str = str.replace("%LD", weekday);
     str = str.replace("%d", d);
     str = str.replace("%D", D);
     str = str.replace("%m", m);
