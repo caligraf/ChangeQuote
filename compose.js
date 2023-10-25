@@ -1,8 +1,30 @@
 async function getPrefInStorage(prefName, defaultValue) {
     let prefObj = await browser.storage.local.get(prefName);
-    if (prefObj && prefObj[prefName] != null )
+    if (prefObj && prefObj[prefName] != null)
         return prefObj[prefName];
     return defaultValue;
+}
+
+function findFormatEmail(messagePart) {
+    let msgFormat = messagePart.headers["content-type"];
+    for( let i = 0 ; i < msgFormat.length ; i++) {
+        if (msgFormat[i].indexOf("plain") > -1) {
+            return 'plaintext';
+        } else if (msgFormat[i].indexOf("alternative") > -1) {
+            return "alternative"
+        } else if (msgFormat[i].indexOf("html") > -1) {
+            return "html";
+        } else if (msgFormat[i].indexOf("mixed") > -1 || msgFormat[i].indexOf("related") > -1 ) {
+            if (messagePart.parts ) {
+                for( let j=0; j < messagePart.parts.length ; j++) {
+                    let subEmaiLFormat = findFormatEmail(messagePart.parts[j]);
+                    if( subEmaiLFormat !== "auto" )
+                        return subEmaiLFormat;
+                }
+            }
+        } 
+    }
+    return "auto"; 
 }
 
 /**
@@ -20,7 +42,7 @@ async function updateMessage(composeDetails, messageHeader, messagePart) {
             let prefAutoQuote = "changequote." + identityId + ".auto_quote";
             let quoted = await getPrefInStorage(prefAutoQuote, true);
             if (!quoted) { // no quote
-                document.body.innerHTML = "<p></br><p>";
+                document.body.innerHTML = "<p><br /><p>";
             } else {
                 let inner = document.body.innerHTML;
 
@@ -30,40 +52,36 @@ async function updateMessage(composeDetails, messageHeader, messagePart) {
                 let sameFormatAsReceived = await getPrefInStorage("changequote.replyformat.enable");
                 if (sameFormatAsReceived) {
                     let details = {};
-                    let msgFormat = messagePart.headers["content-type"];
-                    for (let i = 0; i < msgFormat.length; i++) {
-                        if (msgFormat[i].indexOf("plain") > -1) {
-                            details.deliveryFormat = 'plaintext';
-                            details.isPlainText = true;
-                            break;
-                        } else if (msgFormat[i].indexOf("alternative") > -1) {
-                            let formatAlternative = await getPrefInStorage("changequote.replyformat.format");
-                            if (formatAlternative) {
-                                if (formatAlternative == 0) {
-                                    details.deliveryFormat = 'both';
-                                } else if (formatAlternative == 1) {
-                                    details.deliveryFormat = 'html';
-                                    details.isPlainText = false;
-                                } else if (formatAlternative == 2) {
-                                    details.deliveryFormat = 'plaintext';
-                                    details.isPlainText = true;
-                                }
-                            } else {
+                    let emaiLFormat = findFormatEmail(messagePart);
+                    if( emaiLFormat === "plaintext") {
+                        details.deliveryFormat = 'plaintext';
+                        details.isPlainText = true;
+                    } else if( emaiLFormat === "html") {
+                        details.deliveryFormat = 'html';
+                        details.isPlainText = false;
+                    } else if( emaiLFormat === "alternative") {
+                        let formatAlternative = await getPrefInStorage("changequote.replyformat.format");
+                        if (formatAlternative) {
+                            if (formatAlternative == 0) {
                                 details.deliveryFormat = 'auto';
+                            } else if (formatAlternative == 1) {
+                                details.deliveryFormat = 'html';
+                                details.isPlainText = false;
+                            } else if (formatAlternative == 2) {
+                                details.deliveryFormat = 'plaintext';
+                                details.isPlainText = true;
                             }
-                            break;
-                        } else if (msgFormat[i].indexOf("html") > -1) {
-                            details.deliveryFormat = 'plaintext';
-                            details.isPlainText = false;
-                            break;
+                        } else {
+                            details.deliveryFormat = 'both';
                         }
                     }
+                    
                     await browser.runtime.sendMessage({
-                                command: "updateComposeDetail",
-                                options: {
-                                    details
-                                }
-                            });
+                        command: "updateComposeDetail",
+                        options: {
+                            details
+                        }
+                    });
                 }
                 let receivedDate = "";
                 let received = messagePart.headers["received"];
@@ -97,11 +115,10 @@ async function updateMessage(composeDetails, messageHeader, messagePart) {
                                 options: {
                                     custom: true,
                                     isNNTP: isnntp,
-                                    cite: false,
                                     msgDate: msgdate,
                                     receivedDate: receivedDate,
                                     messageHeader: messageHeader,
-                                    endline: "([[br) /(]])"
+                                    endline: "<br />"
                                 }
                             });
                     else
@@ -113,11 +130,10 @@ async function updateMessage(composeDetails, messageHeader, messagePart) {
                                 options: {
                                     custom: false,
                                     isNNTP: isnntp,
-                                    cite: false,
                                     msgDate: msgdate,
                                     receivedDate: receivedDate,
                                     messageHeader: messageHeader,
-                                    endline: "[[br /]]"
+                                    endline: "<br />"
                                 }
                             });
                     } else if (cqheaders_type == 1)
@@ -128,19 +144,16 @@ async function updateMessage(composeDetails, messageHeader, messagePart) {
                                 options: {
                                     custom: true,
                                     isNNTP: isnntp,
-                                    cite: false,
                                     msgDate: msgdate,
                                     receivedDate: receivedDate,
                                     messageHeader: messageHeader,
-                                    endline: "([[)br /(]])"
+                                    endline: "<br />"
                                 }
                             });
                 }
                 if (!isStandardHeader) {
-                    inner = inner.replace(/\*\*\*\*\*\*\*\*\*\*\*\*HeaderChangeQuote\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*/g, realnewhdr);
-                    inner = inner.replace(/\(\[\[\)/g, "<");
-                    inner = inner.replace(/\(\]\]\)/g, ">");
-                    document.body.innerHTML = inner;
+                    let replyTB = document.body.getElementsByClassName("moz-cite-prefix");
+                    replyTB[0].innerHTML = realnewhdr;
                 }
             }
             let inlineImgRemove = await browser.runtime.sendMessage({

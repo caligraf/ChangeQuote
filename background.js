@@ -5,12 +5,6 @@ browser.composeScripts.register({
     ]
 });
 
-// Reset the headers to the standard
-async function standardHeader() {
-    await messenger.LegacyPrefs.clearUserPref("mailnews.reply_header_type");
-    await messenger.LegacyPrefs.clearUserPref("mailnews.reply_header_originalmessage");
-}
-
 function CQcapitalize(val) {
     let newVal = "";
     val = val.split(' ');
@@ -63,7 +57,7 @@ function decodeCustomizedDate(date, str) {
 
 async function getPrefInStorage(prefName, defaultValue) {
     let prefObj = await browser.storage.local.get(prefName);
-    if( prefObj && prefObj[prefName] != null )
+    if (prefObj && prefObj[prefName] != null)
         return prefObj[prefName];
     return defaultValue;
 }
@@ -107,8 +101,8 @@ async function CQgetBtags() {
     let tagArr = [];
     let changequote_headers_label_bold = await getPrefInStorage("changequote.headers.label_bold");
     if (changequote_headers_label_bold) {
-        tagArr.push("[[b]]");
-        tagArr.push("[[/b]]");
+        tagArr.push("<b>");
+        tagArr.push("</b>");
     } else {
         tagArr.push("");
         tagArr.push("");
@@ -196,7 +190,7 @@ async function getCustomizedHeader(sender, recipient, cclist, subject, headerDat
 }
 
 // Read the headers and load them in the prefs
-async function getHeader(custom, isNNTP, cite, msgDate, receivedDateString, messageHeader, endline) {
+async function getHeader(custom, isNNTP, msgDate, receivedDateString, messageHeader, endline) {
     let isHeaderEnglish = await getPrefInStorage("changequote.headers.english");
     let tb_locale = messenger.i18n.getUILanguage();
 
@@ -209,20 +203,12 @@ async function getHeader(custom, isNNTP, cite, msgDate, receivedDateString, mess
     if (custom) {
         realnewhdr = await getCustomizedHeader(sender, recipient, cclist, subject, msgDate, receivedDateString, isNNTP, endline);
         newlineOptionAvailable = true;
-    } else if (isNNTP)
-        await standardHeader(email);
-    else if (isHeaderEnglish)
+    } else if (isHeaderEnglish)
         realnewhdr = await getClassicEnglishHeader(sender, recipient, cclist, subject, msgDate, receivedDateString, endline);
     else
         realnewhdr = await getClassicLocalizedHeader(sender, recipient, cclist, subject, msgDate, receivedDateString, endline);
 
-    if (cite) // no HTML support for cite
-        realnewhdr = realnewhdr.replace(/\[\[.+?\]\]/g, "");
-    else {
-        realnewhdr = realnewhdr.replace(/\[\[/g, "([[)");
-        realnewhdr = realnewhdr.replace(/\]\]/g, "(]])");
-    }
-    if( newlineOptionAvailable ) {
+    if (newlineOptionAvailable) {
         let changequote_headers_add_newline = await getPrefInStorage("changequote.headers.add_newline", "");
         if (changequote_headers_add_newline)
             realnewhdr = realnewhdr + endline;
@@ -230,15 +216,9 @@ async function getHeader(custom, isNNTP, cite, msgDate, receivedDateString, mess
     return realnewhdr;
 }
 
-// Read the headers and load them in the prefs
-async function loadHeader(custom, isNNTP, cite, msgDate, receivedDateString, messageHeader) {
-    let realnewhdr = await getHeader(custom, isNNTP, cite, msgDate, receivedDateString, messageHeader, "\n");
-    await messenger.LegacyPrefs.setPref("mailnews.reply_header_originalmessage", realnewhdr);
-}
-
 async function isNntpAccount(accountId) {
     let mailAccount = await messenger.accounts.get(accountId);
-    if( mailAccount.type === "nntp")
+    if (mailAccount.type === "nntp")
         return true; // account for newsgroups
     return false;
 }
@@ -249,14 +229,16 @@ async function needToRemoveInlineImages(tabId) {
 }
 
 async function findTab(messageId) {
-  let tabs = await browser.tabs.query({ type :"messageDisplay" });
-  for (let t of tabs) {
-    let m = await browser.messageDisplay.getDisplayedMessage(t.id);
-    if (m?.id == messageId) {
-      return t;
+    let tabs = await browser.tabs.query({
+            type: "messageDisplay"
+        });
+    for (let t of tabs) {
+        let m = await browser.messageDisplay.getDisplayedMessage(t.id);
+        if (m?.id == messageId) {
+            return t;
+        }
     }
-  }
-  return null;
+    return null;
 }
 
 async function doHandleCommand(message, sender) {
@@ -265,7 +247,7 @@ async function doHandleCommand(message, sender) {
         options
     } = message;
     const {
-        tab: {
+        tab : {
             id: tabId
         }
     } = sender;
@@ -284,7 +266,7 @@ async function doHandleCommand(message, sender) {
         return message;
         break;
     case "getHeader":
-        let realnewhdr = await getHeader(options.custom, options.isNNTP, options.cite, options.msgDate, options.receivedDate, options.messageHeader, options.endline);
+        let realnewhdr = await getHeader(options.custom, options.isNNTP, options.msgDate, options.receivedDate, options.messageHeader, options.endline);
         return realnewhdr;
         break;
     case "isNntpAccount":
@@ -297,20 +279,22 @@ async function doHandleCommand(message, sender) {
         break;
     case "markMsgRead":
         let composeDetails3 = await messenger.compose.getComposeDetails(tabId);
-        messenger.messages.update(composeDetails3.relatedMessageId, {read: true});
+        messenger.messages.update(composeDetails3.relatedMessageId, {
+            read: true
+        });
         break;
     case "closeWindows":
         let composeDetails4 = await messenger.compose.getComposeDetails(tabId);
         let originalMsgId = composeDetails4.relatedMessageId;
         let tab = await findTab(originalMsgId);
-        if( tab !== null )
+        if (tab !== null)
             await browser.tabs.remove(tab.id);
         break;
     case "getIdentityId":
         let messageDisplayedHeader = await messenger.messages.get(options.messageId);
         let folder = messageDisplayedHeader.folder;
         let mailIdentity = await messenger.identities.getDefault(folder.accountId);
-        if( mailIdentity )
+        if (mailIdentity)
             return mailIdentity.id;
         else
             return "default";
@@ -395,7 +379,6 @@ browser.menus.create({
     contexts: ["message_display_action_menu"]
 });
 
-
 function updateQuoteMenus(quoted) {
     let titlePlain = messenger.i18n.getMessage("CQlabelitem2", "Reply in plain text") + " ";
     let titlePlainALL = messenger.i18n.getMessage("CQReplyAllText", "Reply All in plain text") + " ";
@@ -411,7 +394,7 @@ function updateQuoteMenus(quoted) {
         browser.menus.update("replyALLHTMLQuote", {
             title: titleHTMLALL
         })
-        
+
         titlePlain = titlePlain + noQuote;
         browser.menus.update("replyPlainQuote", {
             title: titlePlain
@@ -420,7 +403,7 @@ function updateQuoteMenus(quoted) {
         browser.menus.update("replyALLPlainQuote", {
             title: titlePlainALL
         });
-        
+
     } else {
         let yesQuote = messenger.i18n.getMessage("yesquote", "(with quote)");
         titleHTML = titleHTML + yesQuote;
@@ -442,30 +425,28 @@ function updateQuoteMenus(quoted) {
     }
 }
 
-browser.menus.onClicked.addListener( async (info, tab) => {
-    let messageHeader = await messenger.messageDisplay.getDisplayedMessage(tab.id);
+browser.menus.onClicked.addListener(async(info, tab) => {
     let details = {};
+    let messageHeader = await messenger.messageDisplay.getDisplayedMessage(tab.id);
+    let folder = messageHeader.folder;
+    let mailIdentity = await messenger.identities.getDefault(folder.accountId);
+    let mailIdentityId = 'default';
+    if (mailIdentity) {
+        mailIdentityId = mailIdentity.id;
+        details.identityId = mailIdentityId;
+    }
+
     if (info.menuItemId == "replyHTML" || info.menuItemId == "replyALLHTML") {
         details.isPlainText = false;
     } else if (info.menuItemId == "replyPlain" || info.menuItemId == "replyALLPlain") {
         details.isPlainText = true;
     } else if (info.menuItemId == "replyHTMLQuote" || info.menuItemId == "replyALLHTMLQuote") {
-        let folder = messageHeader.folder;
-        let mailIdentity = await messenger.identities.getDefault(folder.accountId);
-        let mailIdentityId = 'default';
-        if( mailIdentity )
-            mailIdentityId = mailIdentity.id;
         let prefName = "changequote." + mailIdentityId + ".auto_quote";
         let quoted = await getPrefInStorage(prefName, true);
         await setPrefInStorage(prefName, !quoted);
         updateQuoteMenus(!quoted);
         details.isPlainText = false;
     } else if (info.menuItemId == "replyPlainQuote" || info.menuItemId == "replyALLPlainQuote") {
-        let folder = messageHeader.folder;
-        let mailIdentity = await messenger.identities.getDefault(folder.accountId);
-        let mailIdentityId = 'default';
-        if( mailIdentity )
-            mailIdentityId = mailIdentity.id;
         let prefName = "changequote." + mailIdentityId + ".auto_quote";
         let quoted = await getPrefInStorage(prefName, true);
         await setPrefInStorage(prefName, !quoted);
@@ -474,38 +455,62 @@ browser.menus.onClicked.addListener( async (info, tab) => {
     } else if (info.menuItemId == "replyToIgnore") {
         details.to = messageHeader.author;
     }
-    if( info.menuItemId == "replyALLHTML" || info.menuItemId == "replyALLPlain" || info.menuItemId == "replyALLHTMLQuote" || info.menuItemId == "replyALLPlainQuote" )
+
+    if (info.menuItemId == "replyALLHTML" || info.menuItemId == "replyALLPlain" || info.menuItemId == "replyALLHTMLQuote" || info.menuItemId == "replyALLPlainQuote")
         messenger.compose.beginReply(messageHeader.id, "replyToAll", details);
     else
         messenger.compose.beginReply(messageHeader.id, "replyToSender", details);
 });
 
-browser.messageDisplay.onMessageDisplayed.addListener(async (tab, message) => {
+browser.messageDisplay.onMessageDisplayed.addListener(async(tab, message) => {
     let mailIdentity = await messenger.identities.getDefault(message.folder.accountId);
     let mailIdentityId = 'default';
-    if( mailIdentity )
+    if (mailIdentity)
         mailIdentityId = mailIdentity.id;
     let prefName = "changequote." + mailIdentityId + ".auto_quote";
     let quoted = await getPrefInStorage(prefName, true);
     updateQuoteMenus(quoted);
     let numberOfReceivers = message.ccList.length + message.recipients.length;
-    if( numberOfReceivers > 1 ) {
-        browser.menus.update("replySeparator3", { visible: true });
-        browser.menus.update("replyALLHTML", { visible: true });
-        browser.menus.update("replyALLPlain", { visible: true });
-        browser.menus.update("replySeparator4", { visible: true });
-        browser.menus.update("replyALLHTMLQuote", { visible: true });
-        browser.menus.update("replyALLPlainQuote", { visible: true });
+    if (numberOfReceivers > 1) {
+        browser.menus.update("replySeparator3", {
+            visible: true
+        });
+        browser.menus.update("replyALLHTML", {
+            visible: true
+        });
+        browser.menus.update("replyALLPlain", {
+            visible: true
+        });
+        browser.menus.update("replySeparator4", {
+            visible: true
+        });
+        browser.menus.update("replyALLHTMLQuote", {
+            visible: true
+        });
+        browser.menus.update("replyALLPlainQuote", {
+            visible: true
+        });
     } else {
-        browser.menus.update("replySeparator3", { visible: false });
-        browser.menus.update("replyALLHTML", { visible: false });
-        browser.menus.update("replyALLPlain", { visible: false });
-        browser.menus.update("replySeparator4", { visible: false });
-        browser.menus.update("replyALLHTMLQuote", { visible: false });
-        browser.menus.update("replyALLPlainQuote", { visible: false });
+        browser.menus.update("replySeparator3", {
+            visible: false
+        });
+        browser.menus.update("replyALLHTML", {
+            visible: false
+        });
+        browser.menus.update("replyALLPlain", {
+            visible: false
+        });
+        browser.menus.update("replySeparator4", {
+            visible: false
+        });
+        browser.menus.update("replyALLHTMLQuote", {
+            visible: false
+        });
+        browser.menus.update("replyALLPlainQuote", {
+            visible: false
+        });
     }
 });
-
 
 /**
  * Handles the received commands by filtering all messages where "type" property
@@ -517,17 +522,10 @@ browser.runtime.onMessage.addListener((message, sender) => {
     }
 });
 
-// Seems not called !
-browser.management.onUninstalled.addListener( async (info) => {
-    if( info.id === "changequote@caligraf" )
-        await standardHeader();
-});
-
-
-async function moveToStorage( prefName, defaultValue ) {
+async function moveToStorage(prefName, defaultValue) {
     let prefValue = await messenger.LegacyPrefs.getPref(prefName);
     let prefObj = {};
-    if( prefValue ) {
+    if (prefValue) {
         prefObj[prefName] = prefValue;
     } else {
         prefObj[prefName] = defaultValue;
@@ -537,27 +535,29 @@ async function moveToStorage( prefName, defaultValue ) {
 
 async function main() {
     // move preferences in local storage
-    let isPreferencesMigrated = await browser.storage.local.get({ CQMigrated: false});
-    if( !isPreferencesMigrated.CQMigrated ) {
-        await moveToStorage("changequote.headers.type", 1 );              
+    let isPreferencesMigrated = await browser.storage.local.get({
+            CQMigrated: false
+        });
+    if (!isPreferencesMigrated.CQMigrated) {
+        await moveToStorage("changequote.headers.type", 1);
         await moveToStorage("changequote.headers.english", false);
-        await moveToStorage("changequote.headers.withcc",false);
+        await moveToStorage("changequote.headers.withcc", false);
         await moveToStorage("changequote.headers.date_long", false);
         await moveToStorage("changequote.headers.date_long_format", 0);
         await moveToStorage("changequote.replyformat.enable", false);
         await moveToStorage("changequote.replyformat.format", 0);
         await moveToStorage("changequote.news.reply_date_first", false);
-        await moveToStorage("changequote.news.reply_header_locale","");
+        await moveToStorage("changequote.news.reply_header_locale", "");
         await moveToStorage("changequote.news.reply_header_authorwrote", "%s");
         await moveToStorage("changequote.news.reply_header_ondate", "");
-        await moveToStorage("changequote.news.reply_header_separator",", ");
+        await moveToStorage("changequote.news.reply_header_separator", ", ");
         await moveToStorage("changequote.news.reply_header_colon", ":\n");
         await moveToStorage("changequote.reply.without_inline_images", false);
         await moveToStorage("changequote.window.close_after_reply", false);
         await moveToStorage("changequote.message.markread_after_reply", false);
         await moveToStorage("changequote.headers.customized", "");
         await moveToStorage("changequote.headers.news.customized", "");
-        await moveToStorage("changequote.set.headers.news",false);
+        await moveToStorage("changequote.set.headers.news", false);
         await moveToStorage("changequote.headers.ignore_reply_to", false);
         await moveToStorage("changequote.headers.date_custom_format", "");
         await moveToStorage("changequote.headers.dateSender_custom_format", "");
@@ -566,7 +566,7 @@ async function main() {
         await moveToStorage("changequote.headers.label_bold", false);
         await moveToStorage("changequote.headers.custom_html_enabled", false);
         await moveToStorage("changequote.headers.custom_news_html_enabled", false);
-        
+
         // reset values not used anymore
         await messenger.LegacyPrefs.clearUserPref("mailnews.reply_header_authorwrote");
         await messenger.LegacyPrefs.clearUserPref("mailnews.reply_header_ondate");
@@ -574,21 +574,15 @@ async function main() {
         await messenger.LegacyPrefs.clearUserPref("mailnews.reply_header_colon");
         await messenger.LegacyPrefs.clearUserPref("mailnews.reply_header_authorwrotesingle");
         await messenger.LegacyPrefs.clearUserPref("mail.identity.default.auto_quote");
+        await messenger.LegacyPrefs.clearUserPref("mailnews.reply_header_type");
+        await messenger.LegacyPrefs.clearUserPref("mailnews.reply_header_originalmessage");
         let mailIdentities = await messenger.identities.list();
-        for( let i = 0; i <mailIdentities.length;i++) {
+        for (let i = 0; i < mailIdentities.length; i++) {
             let prefAutoQuoteId = "mail.identity." + mailIdentities[i].id + ".auto_quote";
             await messenger.LegacyPrefs.clearUserPref(prefAutoQuoteId);
         }
-        
-        await setPrefInStorage( "CQMigrated", true);
-    }
-    
-    let cqheaders_type = await getPrefInStorage("changequote.headers.type");
-    if (cqheaders_type == 0 || cqheaders_type == 2) {
-        await messenger.LegacyPrefs.setPref("mailnews.reply_header_type", 0);
-        await messenger.LegacyPrefs.setPref("mailnews.reply_header_originalmessage", "************HeaderChangeQuote*****************");
-    } else {
-        standardHeader();
+
+        await setPrefInStorage("CQMigrated", true);
     }
 }
 
