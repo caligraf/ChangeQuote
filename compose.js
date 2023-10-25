@@ -5,6 +5,28 @@ async function getPrefInStorage(prefName, defaultValue) {
     return defaultValue;
 }
 
+function findFormatEmail(messagePart) {
+    let msgFormat = messagePart.headers["content-type"];
+    for( let i = 0 ; i < msgFormat.length ; i++) {
+        if (msgFormat[i].indexOf("plain") > -1) {
+            return 'plaintext';
+        } else if (msgFormat[i].indexOf("alternative") > -1) {
+            return "alternative"
+        } else if (msgFormat[i].indexOf("html") > -1) {
+            return "html";
+        } else if (msgFormat[i].indexOf("mixed") > -1 || msgFormat[i].indexOf("related") > -1 ) {
+            if (messagePart.parts ) {
+                for( let j=0; j < messagePart.parts.length ; j++) {
+                    let subEmaiLFormat = findFormatEmail(messagePart.parts[j]);
+                    if( subEmaiLFormat !== "auto" )
+                        return subEmaiLFormat;
+                }
+            }
+        } 
+    }
+    return "auto"; 
+}
+
 /**
  * Update the message reply
  */
@@ -30,34 +52,30 @@ async function updateMessage(composeDetails, messageHeader, messagePart) {
                 let sameFormatAsReceived = await getPrefInStorage("changequote.replyformat.enable");
                 if (sameFormatAsReceived) {
                     let details = {};
-                    let msgFormat = messagePart.headers["content-type"];
-                    for (let i = 0; i < msgFormat.length; i++) {
-                        if (msgFormat[i].indexOf("plain") > -1) {
-                            details.deliveryFormat = 'plaintext';
-                            details.isPlainText = true;
-                            break;
-                        } else if (msgFormat[i].indexOf("alternative") > -1) {
-                            let formatAlternative = await getPrefInStorage("changequote.replyformat.format");
-                            if (formatAlternative) {
-                                if (formatAlternative == 0) {
-                                    details.deliveryFormat = 'both';
-                                } else if (formatAlternative == 1) {
-                                    details.deliveryFormat = 'html';
-                                    details.isPlainText = false;
-                                } else if (formatAlternative == 2) {
-                                    details.deliveryFormat = 'plaintext';
-                                    details.isPlainText = true;
-                                }
-                            } else {
+                    let emaiLFormat = findFormatEmail(messagePart);
+                    if( emaiLFormat === "plaintext") {
+                        details.deliveryFormat = 'plaintext';
+                        details.isPlainText = true;
+                    } else if( emaiLFormat === "html") {
+                        details.deliveryFormat = 'html';
+                        details.isPlainText = false;
+                    } else if( emaiLFormat === "alternative") {
+                        let formatAlternative = await getPrefInStorage("changequote.replyformat.format");
+                        if (formatAlternative) {
+                            if (formatAlternative == 0) {
                                 details.deliveryFormat = 'auto';
+                            } else if (formatAlternative == 1) {
+                                details.deliveryFormat = 'html';
+                                details.isPlainText = false;
+                            } else if (formatAlternative == 2) {
+                                details.deliveryFormat = 'plaintext';
+                                details.isPlainText = true;
                             }
-                            break;
-                        } else if (msgFormat[i].indexOf("html") > -1) {
-                            details.deliveryFormat = 'plaintext';
-                            details.isPlainText = false;
-                            break;
+                        } else {
+                            details.deliveryFormat = 'both';
                         }
                     }
+                    
                     await browser.runtime.sendMessage({
                         command: "updateComposeDetail",
                         options: {
