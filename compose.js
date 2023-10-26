@@ -156,7 +156,7 @@ async function updateMessage(composeDetails, messageHeader, messagePart) {
                     replyTB[0].innerHTML = realnewhdr;
                 }
                 let removeFirstLine = await getPrefInStorage("changequote.message.remove_first_line");
-                if( removeFirstLine ) {
+                if( removeFirstLine && composeDetails.isPlainText) {
                     document.body.getElementsByTagName("br")[0].remove();
                 }
             }
