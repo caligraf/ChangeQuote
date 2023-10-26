@@ -145,5 +145,8 @@
     },
     "dateCustomSender": {
         "message": "自定义格式 (发送者)"
+    },
+    "removeFirstLine" : {
+        "message": "删除第一行"
     }
 }

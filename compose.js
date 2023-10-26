@@ -155,6 +155,10 @@ async function updateMessage(composeDetails, messageHeader, messagePart) {
                     let replyTB = document.body.getElementsByClassName("moz-cite-prefix");
                     replyTB[0].innerHTML = realnewhdr;
                 }
+                let removeFirstLine = await getPrefInStorage("changequote.message.remove_first_line");
+                if( removeFirstLine ) {
+                    document.body.getElementsByTagName("br")[0].remove();
+                }
             }
             let inlineImgRemove = await browser.runtime.sendMessage({
                     command: "needToRemoveInlineImages"

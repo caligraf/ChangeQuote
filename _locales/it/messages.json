@@ -145,5 +145,8 @@
     },
     "dateCustomSender": {
         "message": "Formato personalizzato (mittente)"
+    },
+    "removeFirstLine" : {
+        "message": "Elimina la prima riga"
     }
 }

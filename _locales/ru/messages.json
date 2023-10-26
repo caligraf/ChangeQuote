@@ -145,5 +145,8 @@
     },
     "dateCustomSender": {
         "message": "Собственный формат (отправитель)"
+    },
+    "removeFirstLine" : {
+        "message": "Удалить первую строку"
     }
 }

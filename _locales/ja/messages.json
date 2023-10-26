@@ -145,5 +145,8 @@
     },
     "dateCustomSender": {
         "message": "形式のカスタマイズ (差出人ロケール時間)"
+    },
+    "removeFirstLine" : {
+        "message": "最初の行を削除"
     }
 }

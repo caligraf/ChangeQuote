@@ -145,5 +145,8 @@
     },
     "dateCustomSender": {
         "message": "Formato customizado (remetente)"
+    },
+    "removeFirstLine" : {
+        "message": "Exclua a primeira linha"
     }
 }

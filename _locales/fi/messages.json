@@ -145,5 +145,8 @@
     },
     "dateCustomSender": {
         "message": "Mukautettu muoto (lähettäjä)"
+    },
+    "removeFirstLine" : {
+        "message": "Poista ensimmäinen rivi"
     }
 }

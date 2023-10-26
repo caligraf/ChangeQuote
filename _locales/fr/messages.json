@@ -145,5 +145,8 @@
     },
     "htmlSupport": {
         "message": "Prise en charge des balises HTML"
+    },
+    "removeFirstLine" : {
+        "message": "Supprime la première ligne"
     }
 }

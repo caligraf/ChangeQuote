@@ -145,5 +145,8 @@
     },
     "dateCustomSender": {
         "message": "Aangepaste opmaak (afzender)"
+    },
+    "removeFirstLine" : {
+        "message": "Verwijder de eerste regel"
     }
 }

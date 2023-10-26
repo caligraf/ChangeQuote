@@ -145,5 +145,8 @@
     },
     "dateCustomSender": {
         "message": "Прилагођени облик (пошиљалац)"
+    },
+    "removeFirstLine" : {
+        "message": "Избришите први ред"
     }
 }

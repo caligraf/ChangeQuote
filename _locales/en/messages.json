@@ -145,5 +145,8 @@
     },
     "htmlSupport": {
         "message": "Html tags support"
+    },
+    "removeFirstLine" : {
+        "message": "Remove first line"
     }
 }

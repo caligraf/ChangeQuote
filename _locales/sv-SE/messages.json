@@ -145,5 +145,8 @@
     },
     "dateCustomSender": {
         "message": "Anpassat format (sender)"
+    },
+    "removeFirstLine" : {
+        "message": "Ta bort första raden"
     }
 }

@@ -145,5 +145,8 @@
     },
     "dateCustomSender": {
         "message": "Prispôsobený formát (sender)"
+    },
+    "removeFirstLine" : {
+        "message": "Odstráňte prvý riadok"
     }
 }

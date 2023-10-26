@@ -145,5 +145,8 @@
     },
     "dateCustomSender": {
         "message": "Angepasstes Format (Absender)"
+    },
+    "removeFirstLine" : {
+        "message": "Löschen Sie die erste Zeile"
     }
 }
