@@ -148,5 +148,8 @@
     },
     "removeFirstLine" : {
         "message": "最初の行を削除"
+    },
+    "includeForward" :{
+        "message": "転送されたメールに返信ヘッダーを適用する"
     }
 }

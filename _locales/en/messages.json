@@ -150,6 +150,6 @@
         "message": "Remove first line"
     },
     "includeForward" :{
-        "message": "apply header to forwarded emails"
+        "message": "Apply the reply header to forwarded emails"
     }
 }
