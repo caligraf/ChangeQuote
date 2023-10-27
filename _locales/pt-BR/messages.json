@@ -148,5 +148,8 @@
     },
     "removeFirstLine" : {
         "message": "Exclua a primeira linha"
+    },
+    "includeForward" :{
+        "message": "Aplicar o cabeçalho de resposta aos e-mails encaminhados"
     }
 }

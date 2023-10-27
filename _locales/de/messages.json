@@ -148,5 +148,8 @@
     },
     "removeFirstLine" : {
         "message": "Löschen Sie die erste Zeile"
+    },
+    "includeForward" :{
+        "message": "Wenden Sie den Antwortheader auf weitergeleitete E-Mails an"
     }
 }

@@ -148,5 +148,8 @@
     },
     "removeFirstLine" : {
         "message": "Poista ensimmäinen rivi"
+    },
+    "includeForward" :{
+        "message": "Käytä vastausotsikkoa edelleenlähetettyihin sähköposteihin"
     }
 }

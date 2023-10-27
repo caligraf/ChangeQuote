@@ -148,5 +148,8 @@
     },
     "removeFirstLine" : {
         "message": "Remove first line"
+    },
+    "includeForward" :{
+        "message": "Apply the reply header to forwarded emails"
     }
 }

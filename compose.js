@@ -32,7 +32,7 @@ function findFormatEmail(messagePart) {
  */
 async function updateMessage(composeDetails, messageHeader, messagePart) {
     try {
-        if (composeDetails.type == "reply") {
+        if (composeDetails.type == "reply" || composeDetails.type == "forward") {
             let identityId = await browser.runtime.sendMessage({
                     command: "getIdentityId",
                     options: {
@@ -152,8 +152,24 @@ async function updateMessage(composeDetails, messageHeader, messagePart) {
                             });
                 }
                 if (!isStandardHeader) {
-                    let replyTB = document.body.getElementsByClassName("moz-cite-prefix");
-                    replyTB[0].innerHTML = realnewhdr;
+                    if( composeDetails.type == "reply" ) {
+                        let replyTB = document.body.getElementsByClassName("moz-cite-prefix");
+                        replyTB[0].innerHTML = realnewhdr;
+                    } else {
+                        let includeForward = await getPrefInStorage("changequote.message.include_forward");
+                        if( includeForward ) {
+                            let divForward = document.body.getElementsByClassName("moz-forward-container")[0];
+                            let iter = document.createNodeIterator(divForward, NodeFilter.SHOW_TEXT);
+                            iter.nextNode().remove();
+                            divForward.getElementsByTagName("br")[3].remove();
+                            divForward.getElementsByTagName("br")[2].remove();
+                            divForward.getElementsByTagName("table")[0].remove();
+                            divForward.getElementsByTagName("br")[1].remove();
+                            const divContainer = document.createElement("div");
+                            divContainer.innerHTML = realnewhdr;
+                            divForward.getElementsByTagName("br")[0].replaceWith(divContainer);
+                        }
+                    }
                 }
                 let removeFirstLine = await getPrefInStorage("changequote.message.remove_first_line");
                 if( removeFirstLine && composeDetails.isPlainText) {
@@ -177,12 +193,6 @@ async function updateMessage(composeDetails, messageHeader, messagePart) {
                 await browser.runtime.sendMessage({
                     command: "markMsgRead"
                 });
-            let close_after_reply = await getPrefInStorage("changequote.window.close_after_reply");
-            if (close_after_reply)
-                await browser.runtime.sendMessage({
-                    command: "closeWindows"
-                });
-        } else if (composeDetails.type == "forward") {
             let close_after_reply = await getPrefInStorage("changequote.window.close_after_reply");
             if (close_after_reply)
                 await browser.runtime.sendMessage({

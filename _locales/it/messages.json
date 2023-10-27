@@ -148,5 +148,8 @@
     },
     "removeFirstLine" : {
         "message": "Elimina la prima riga"
+    },
+    "includeForward" :{
+        "message": "Applica l'intestazione della risposta alle email inoltrate"
     }
 }
