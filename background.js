@@ -14,7 +14,7 @@ function CQcapitalize(val) {
     return newVal;
 }
 
-function decodeCustomizedDate(date, str) {
+function decodeCustomizedDate(date, str, capitalizeDate) {
     const optionsWeekday = { weekday: 'long' };
     const weekdayformat = new Intl.DateTimeFormat(messenger.i18n.getUILanguage(), optionsWeekday);
     let weekday = weekdayformat.format(date);
@@ -44,6 +44,12 @@ function decodeCustomizedDate(date, str) {
     z = z.substring(0, 5);
     H = H < 10 ? "0" + H : H;
     h = h < 10 ? "0" + h : h;
+    if( capitalizeDate) {
+        weekday = CQcapitalize(weekday);
+        month = CQcapitalize(month);
+        D = CQcapitalize(D);
+        M = CQcapitalize(M);
+    }
     str = str.replace("%LM", month);
     str = str.replace("%LD", weekday);
     str = str.replace("%d", d);
@@ -79,7 +85,9 @@ async function setPrefInStorage(prefName, prefValue) {
 async function CQgetDate(headerDate, receivedDateString) {
     let CQuse_date_long = await getPrefInStorage("changequote.headers.date_long");
     if (CQuse_date_long) {
-        var dateLongFormat = await getPrefInStorage("changequote.headers.date_long_format");
+        let postCapitalization = true; 
+        let changequote_headers_capitalize_date = await getPrefInStorage("changequote.headers.capitalize_date");
+        let dateLongFormat = await getPrefInStorage("changequote.headers.date_long_format");
         let datestring = "";
         if (dateLongFormat == 2)
             datestring = receivedDateString;
@@ -87,15 +95,16 @@ async function CQgetDate(headerDate, receivedDateString) {
             datestring = headerDate.toString();
         else if (dateLongFormat == 3) { //local : receiver date
             let str = await getPrefInStorage("changequote.headers.date_custom_format");
-            datestring = decodeCustomizedDate(headerDate, str);
+            postCapitalization = false;
+            datestring = decodeCustomizedDate(headerDate, str, changequote_headers_capitalize_date);
         } else if (dateLongFormat == 4) { //sender date
+            postCapitalization = false;
             let str = await getPrefInStorage("changequote.headers.dateSender_custom_format");
             let receivedDate = new Date(receivedDateString)
-                datestring = decodeCustomizedDate(receivedDate, str);
+                datestring = decodeCustomizedDate(receivedDate, str, changequote_headers_capitalize_date);
         } else
             datestring = headerDate.toLocaleString();
-        let changequote_headers_capitalize_date = await getPrefInStorage("changequote.headers.capitalize_date");
-        if (changequote_headers_capitalize_date)
+        if (changequote_headers_capitalize_date && postCapitalization)
             datestring = CQcapitalize(datestring);
         datestring = datestring.replace(/ +$/, "");
         return datestring;
