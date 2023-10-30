@@ -1,9 +1,3 @@
-// Reset the headers to the standard
-async function standardHeader() {
-    await browser.LegacyPrefs.clearUserPref("mailnews.reply_header_type");
-    await browser.LegacyPrefs.clearUserPref("mailnews.reply_header_originalmessage");
-}
-
 function toggleCustomizedBox() {
     document.getElementById("CQdateLong").removeAttribute("disabled");
     toggleLongDate();
@@ -175,7 +169,6 @@ async function savePref(prefElement) {
                         else
                             toggleCustomizedBox();
                     } else {
-                        standardHeader();
                         toggleStandard();
                     }
                 }
