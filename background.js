@@ -175,10 +175,7 @@ async function getCustomizedHeader(sender, recipient, cclist, subject, headerDat
     if (recipient == "")
         recipient = "§§§§";
 
-    ch = ch.replace("%%1", sender);
-    ch = ch.replace("%%2", recipient);
-    ch = ch.replace("%%3", cclist);
-    ch = ch.replace("%%4", subject);
+
     let msgDate = await CQgetDate(headerDate, receivedDateString);
     ch = ch.replace("%%5", msgDate);
     let sender_nomail = sender.replace(/<.+>/, "");
@@ -194,6 +191,19 @@ async function getCustomizedHeader(sender, recipient, cclist, subject, headerDat
     cclist_nomail = cclist_nomail.replace(/ +$/, "");
     ch = ch.replace("%%9", cclist_nomail);
 
+    let senderEncoded = sender.replaceAll("<", "&lt;");
+    senderEncoded = senderEncoded.replaceAll(">", "&gt;");
+    ch = ch.replace("%%1", senderEncoded);
+    let recipientEncoded = recipient.replaceAll("<", "&lt;");
+    recipientEncoded = recipientEncoded.replaceAll(">", "&gt;");
+    ch = ch.replace("%%2", recipientEncoded);
+    let cclistEncoded = cclist.replaceAll("<", "&lt;");
+    cclistEncoded = cclistEncoded.replaceAll(">", "&gt;");
+    ch = ch.replace("%%3", cclistEncoded);
+    let subjectEncoded = subject.replaceAll("<", "&lt;");
+    subjectEncoded = subjectEncoded.replaceAll(">", "&gt;");
+    ch = ch.replace("%%4", subject);
+    
     if (cclist == "§§§§" || subject == "§§§§" || recipient == "§§§§" || sender == "§§§§") {
         ch = ch.replace(/\{\{[^\{\}]*§§§§[^\{\}]*\}\}/g, "§§§§");
         ch = ch.replace(/(\n§§§§\n)*§§§§$/g, "");
@@ -212,8 +222,8 @@ async function getHeader(custom, isNNTP, msgDate, receivedDateString, messageHea
     let tb_locale = messenger.i18n.getUILanguage();
 
     let sender = messageHeader.author;
-    let recipient = messageHeader.recipients.join(",");
-    let cclist = messageHeader.ccList.join(",");
+    let recipient = messageHeader.recipients.join(", ");
+    let cclist = messageHeader.ccList.join(", ");
     let subject = messageHeader.subject;
     let realnewhdr = "";
     let newlineOptionAvailable = false;
