@@ -9,7 +9,9 @@ function CQcapitalize(val) {
     let newVal = "";
     val = val.split(' ');
     for (let c = 0; c < val.length; c++) {
-        newVal += val[c].substring(0, 1).toUpperCase() + val[c].substring(1, val[c].length) + ' ';
+        newVal += val[c].substring(0, 1).toUpperCase() + val[c].substring(1, val[c].length);
+        if( val.length > 1 )
+            newVal += ' ';
     }
     return newVal;
 }
