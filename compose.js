@@ -84,14 +84,11 @@ async function updateMessage(composeDetails, messageHeader, messagePart) {
                     });
                 }
                 let receivedDate = "";
-                let received = messagePart.headers["received"];
+                let received = messagePart.headers["date"];
                 if (received) {
                     let size = received.length;
                     if (size >= 1) {
-                        let receivedDateTab = received[size - 1].split(";");
-                        if (receivedDateTab.length > 1) {
-                            receivedDate = receivedDateTab[1];
-                        }
+                        receivedDate = received[0];
                     }
                 }
 

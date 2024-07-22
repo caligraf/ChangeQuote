@@ -16,44 +16,77 @@ function CQcapitalize(val) {
     return newVal;
 }
 
-function decodeCustomizedDate(date, str, capitalizeDate) {
-    const optionsWeekday = { weekday: 'long' };
-    const weekdayformat = new Intl.DateTimeFormat(messenger.i18n.getUILanguage(), optionsWeekday);
-    let weekday = weekdayformat.format(date);
-    const optionsMonth = { month: 'long' };
-    const monthFormat = new Intl.DateTimeFormat(messenger.i18n.getUILanguage(), optionsMonth);
-    let month = monthFormat.format(date);
-    let d = date.getDate();
-    let e = d < 10 ? " " + d : d;
-    d = d < 10 ? "0" + d : d;
-    let m = date.getMonth() + 1;
-    m = m < 10 ? "0" + m : m;
-    let y = date.getYear() - 100;
-    y = y < 10 ? "0" + y : y;
-    let D = date.toString().split(" ")[0];
-    let M = date.toString().split(" ")[1];
-    let Y = date.getFullYear();
-    let i = date.getMinutes();
-    i = i < 10 ? "0" + i : i;
-    let s = date.getSeconds();
-    s = s < 10 ? "0" + s : s;
-    let H = date.getHours();
-    let h = H > 12 ? H - 12 : H == 0 ? 12 : H;
-    let a = H > 11 && H < 24 ? "pm" : "am";
-    let A = H > 11 && H < 24 ? "PM" : "AM";
-    let z = date.toString().split(" ")[5];
+function getTimeZone(str) {
+    let z = str.replace(/^ +/, "");
+    z = z.split(" ")[5];
     z = z.replace(/[a-zA-Z]+/, "");
     z = z.substring(0, 5);
-    H = H < 10 ? "0" + H : H;
-    h = h < 10 ? "0" + h : h;
-    if( capitalizeDate) {
-        weekday = CQcapitalize(weekday);
-        month = CQcapitalize(month);
+    return z;
+}
+
+function decodeCustomizedDate(date, str, timeZone, capitalizeDate) {
+    const optionsWeekday = { weekday: 'long', timeZone: timeZone };
+    const weekdayformat = new Intl.DateTimeFormat(messenger.i18n.getUILanguage(), optionsWeekday);
+    let LD = weekdayformat.format(date);
+
+    const optionsMonthName = { month: 'long', timeZone: timeZone };
+    const monthNameFormat = new Intl.DateTimeFormat(messenger.i18n.getUILanguage(), optionsMonthName);
+    let LM = monthNameFormat.format(date);
+
+    const optionsDayEnShort = { weekday: 'short', timeZone: timeZone };
+    const dayEnShortFormat = new Intl.DateTimeFormat('en-US', optionsDayEnShort);
+    let D = dayEnShortFormat.format(date);
+
+    const optionsMonthEnShort = { month: 'short', timeZone: timeZone };
+    const monthEnShortFormat = new Intl.DateTimeFormat('en-US', optionsMonthEnShort);
+    let M = monthEnShortFormat.format(date);
+
+    const optionsDay = { day: 'numeric', timeZone: timeZone };
+    const dayFormat = new Intl.DateTimeFormat(messenger.i18n.getUILanguage(), optionsDay);
+    let d = dayFormat.format(date);
+    let e = d < 10 ? " " + d : d;
+    d = d < 10 ? "0" + d : d;
+
+    const optionsMonth = { month: '2-digit', timeZone: timeZone };
+    const monthFormat = new Intl.DateTimeFormat(messenger.i18n.getUILanguage(), optionsMonth);
+    let m = monthFormat.format(date);
+
+    const optionsYear = { year: '2-digit', timeZone: timeZone };
+    const yearFormat = new Intl.DateTimeFormat(messenger.i18n.getUILanguage(), optionsYear);
+    let y = yearFormat.format(date);
+
+    const optionsYearFull = { year: 'numeric', timeZone: timeZone };
+    const yearFullFormat = new Intl.DateTimeFormat(messenger.i18n.getUILanguage(), optionsYearFull);
+    let Y = yearFullFormat.format(date);
+
+    const optionsMinutes = { minute: '2-digit', timeZone: timeZone };
+    const minutesFormat = new Intl.DateTimeFormat(messenger.i18n.getUILanguage(), optionsMinutes);
+    let i = minutesFormat.format(date);
+
+    const optionsSeconds = { second: '2-digit', timeZone: timeZone };
+    const secondsFormat = new Intl.DateTimeFormat(messenger.i18n.getUILanguage(), optionsSeconds);
+    let s = secondsFormat.format(date);
+
+    const optionsHours12 = { hour: '2-digit', hour12: true, timeZone: timeZone };
+    const hours12Format = new Intl.DateTimeFormat(messenger.i18n.getUILanguage(), optionsHours12);
+    let h = hours12Format.format(date).split(" ")[0];
+
+    const optionsHours = { hour: '2-digit', hour12: false, timeZone: timeZone };
+    const hoursFormat = new Intl.DateTimeFormat(messenger.i18n.getUILanguage(), optionsHours);
+    let H = hoursFormat.format(date);
+
+    let a = Number(H) > 11 && Number(H) < 24 ? "pm" : "am";
+    let A = Number(H) > 11 && Number(H) < 24 ? "PM" : "AM";
+    let z = timeZone;
+    if (capitalizeDate) {
+        LD = CQcapitalize(LD);
+        LM = CQcapitalize(LM);
         D = CQcapitalize(D);
         M = CQcapitalize(M);
     }
-    str = str.replace("%LM", month);
-    str = str.replace("%LD", weekday);
+
+    str = str.replace("%LM", LM);
+    str = str.replace("%LD", LD);
     str = str.replace("%d", d);
     str = str.replace("%D", D);
     str = str.replace("%m", m);
@@ -97,13 +130,17 @@ async function CQgetDate(headerDate, receivedDateString) {
             datestring = headerDate.toString();
         else if (dateLongFormat == 3) { //local : receiver date
             let str = await getPrefInStorage("changequote.headers.date_custom_format");
+            let timeZone = getTimeZone(headerDate.toString());
             postCapitalization = false;
-            datestring = decodeCustomizedDate(headerDate, str, changequote_headers_capitalize_date);
+            datestring = decodeCustomizedDate(headerDate, str, timeZone,
+                                              changequote_headers_capitalize_date);
         } else if (dateLongFormat == 4) { //sender date
             postCapitalization = false;
             let str = await getPrefInStorage("changequote.headers.dateSender_custom_format");
             let receivedDate = new Date(receivedDateString)
-                datestring = decodeCustomizedDate(receivedDate, str, changequote_headers_capitalize_date);
+            let timeZone = getTimeZone(receivedDateString);
+            datestring = decodeCustomizedDate(receivedDate, str, timeZone,
+                                              changequote_headers_capitalize_date);
         } else
             datestring = headerDate.toLocaleString();
         if (changequote_headers_capitalize_date && postCapitalization)
