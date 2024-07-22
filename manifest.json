@@ -3,14 +3,14 @@
     "browser_specific_settings": {
         "gecko": {
             "id": "changequote@caligraf",
-            "strict_min_version": "115.0",
-            "strict_max_version": "115.*"
+            "strict_min_version": "128.0",
+            "strict_max_version": "129.*"
         }
     },
     "name": "changeQuote",
     "description": "Change the reply header and the reply format",
     "author": "Caligraf",
-    "version": "1.7.11",
+    "version": "1.8.0",
     "default_locale": "en",
     "homepage_url": "https://github.com/caligraf/ChangeQuote/wiki",
     "icons": {
