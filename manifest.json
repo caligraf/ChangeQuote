@@ -10,7 +10,7 @@
     "name": "changeQuote",
     "description": "Change the reply header and the reply format",
     "author": "Caligraf",
-    "version": "1.8.0",
+    "version": "1.8.1",
     "default_locale": "en",
     "homepage_url": "https://github.com/caligraf/ChangeQuote/wiki",
     "icons": {
@@ -36,6 +36,7 @@
     },
     "permissions": [
         "messagesRead",
+        "messagesUpdate",
         "compose",
         "storage",
         "menus",
