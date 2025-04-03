@@ -588,68 +588,43 @@ browser.runtime.onMessage.addListener((message, sender) => {
     }
 });
 
-async function moveToStorage(prefName, defaultValue) {
-    let prefValue = await messenger.LegacyPrefs.getPref(prefName);
-    let prefObj = {};
-    if (prefValue) {
-        prefObj[prefName] = prefValue;
-    } else {
-        prefObj[prefName] = defaultValue;
+async function setDefaults(prefName, defaultValue) {
+    let prefValue = await browser.storage.local
+        .get({ [prefName] : null })
+        .then(rv => rv[prefName]);
+    if (prefValue === null) {
+        await browser.storage.local.set({ [prefName] : defaultValue });
     }
-    await browser.storage.local.set(prefObj);
 }
 
 async function main() {
-    // move preferences in local storage
-    let isPreferencesMigrated = await browser.storage.local.get({
-            CQMigrated: false
-        });
-    if (!isPreferencesMigrated.CQMigrated) {
-        await moveToStorage("changequote.headers.type", 1);
-        await moveToStorage("changequote.headers.english", false);
-        await moveToStorage("changequote.headers.withcc", false);
-        await moveToStorage("changequote.headers.date_long", false);
-        await moveToStorage("changequote.headers.date_long_format", 0);
-        await moveToStorage("changequote.replyformat.enable", false);
-        await moveToStorage("changequote.replyformat.format", 0);
-        await moveToStorage("changequote.news.reply_date_first", false);
-        await moveToStorage("changequote.news.reply_header_locale", "");
-        await moveToStorage("changequote.news.reply_header_authorwrote", "%s");
-        await moveToStorage("changequote.news.reply_header_ondate", "");
-        await moveToStorage("changequote.news.reply_header_separator", ", ");
-        await moveToStorage("changequote.news.reply_header_colon", ":\n");
-        await moveToStorage("changequote.reply.without_inline_images", false);
-        await moveToStorage("changequote.window.close_after_reply", false);
-        await moveToStorage("changequote.message.markread_after_reply", false);
-        await moveToStorage("changequote.headers.customized", "");
-        await moveToStorage("changequote.headers.news.customized", "");
-        await moveToStorage("changequote.set.headers.news", false);
-        await moveToStorage("changequote.headers.ignore_reply_to", false);
-        await moveToStorage("changequote.headers.date_custom_format", "");
-        await moveToStorage("changequote.headers.dateSender_custom_format", "");
-        await moveToStorage("changequote.headers.add_newline", false);
-        await moveToStorage("changequote.headers.capitalize_date", true);
-        await moveToStorage("changequote.headers.label_bold", false);
-        await moveToStorage("changequote.headers.custom_html_enabled", false);
-        await moveToStorage("changequote.headers.custom_news_html_enabled", false);
-
-        // reset values not used anymore
-        await messenger.LegacyPrefs.clearUserPref("mailnews.reply_header_authorwrote");
-        await messenger.LegacyPrefs.clearUserPref("mailnews.reply_header_ondate");
-        await messenger.LegacyPrefs.clearUserPref("mailnews.reply_header_separator");
-        await messenger.LegacyPrefs.clearUserPref("mailnews.reply_header_colon");
-        await messenger.LegacyPrefs.clearUserPref("mailnews.reply_header_authorwrotesingle");
-        await messenger.LegacyPrefs.clearUserPref("mail.identity.default.auto_quote");
-        await messenger.LegacyPrefs.clearUserPref("mailnews.reply_header_type");
-        await messenger.LegacyPrefs.clearUserPref("mailnews.reply_header_originalmessage");
-        let mailIdentities = await messenger.identities.list();
-        for (let i = 0; i < mailIdentities.length; i++) {
-            let prefAutoQuoteId = "mail.identity." + mailIdentities[i].id + ".auto_quote";
-            await messenger.LegacyPrefs.clearUserPref(prefAutoQuoteId);
-        }
-
-        await setPrefInStorage("CQMigrated", true);
-    }
+    await setDefaults("changequote.headers.type", 1);
+    await setDefaults("changequote.headers.english", false);
+    await setDefaults("changequote.headers.withcc", false);
+    await setDefaults("changequote.headers.date_long", false);
+    await setDefaults("changequote.headers.date_long_format", 0);
+    await setDefaults("changequote.replyformat.enable", false);
+    await setDefaults("changequote.replyformat.format", 0);
+    await setDefaults("changequote.news.reply_date_first", false);
+    await setDefaults("changequote.news.reply_header_locale", "");
+    await setDefaults("changequote.news.reply_header_authorwrote", "%s");
+    await setDefaults("changequote.news.reply_header_ondate", "");
+    await setDefaults("changequote.news.reply_header_separator", ", ");
+    await setDefaults("changequote.news.reply_header_colon", ":\n");
+    await setDefaults("changequote.reply.without_inline_images", false);
+    await setDefaults("changequote.window.close_after_reply", false);
+    await setDefaults("changequote.message.markread_after_reply", false);
+    await setDefaults("changequote.headers.customized", "");
+    await setDefaults("changequote.headers.news.customized", "");
+    await setDefaults("changequote.set.headers.news", false);
+    await setDefaults("changequote.headers.ignore_reply_to", false);
+    await setDefaults("changequote.headers.date_custom_format", "");
+    await setDefaults("changequote.headers.dateSender_custom_format", "");
+    await setDefaults("changequote.headers.add_newline", false);
+    await setDefaults("changequote.headers.capitalize_date", true);
+    await setDefaults("changequote.headers.label_bold", false);
+    await setDefaults("changequote.headers.custom_html_enabled", false);
+    await setDefaults("changequote.headers.custom_news_html_enabled", false);
 }
 
 main();
