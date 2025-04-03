@@ -3,8 +3,7 @@
     "browser_specific_settings": {
         "gecko": {
             "id": "changequote@caligraf",
-            "strict_min_version": "128.0",
-            "strict_max_version": "129.*"
+            "strict_min_version": "136.0"
         }
     },
     "name": "changeQuote",
@@ -43,15 +42,5 @@
         "accountsRead",
         "tabs",
         "management"
-    ],
-    "experiment_apis": {
-        "LegacyPrefs": {
-            "schema": "api/LegacyPrefs/schema.json",
-            "parent": {
-                "scopes": ["addon_parent"],
-                "paths": [["LegacyPrefs"]],
-                "script": "api/LegacyPrefs/implementation.js"
-            }
-        }
-    }
+    ]
 }
