@@ -9,7 +9,7 @@
     "name": "changeQuote",
     "description": "Change the reply header and the reply format",
     "author": "Caligraf",
-    "version": "1.8.1",
+    "version": "1.8.2",
     "default_locale": "en",
     "homepage_url": "https://github.com/caligraf/ChangeQuote/wiki",
     "icons": {
